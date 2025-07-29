@@ -1,0 +1,143 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.hero {
+  padding: var(--space-5xl) 0;
+  background: linear-gradient(135deg, var(--color-bg-white) 0%, var(--color-bg-light) 100%);
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.heroText {
+  text-align: center;
+}
+
+.heroText h1 {
+  margin-bottom: var(--space-lg);
+}
+
+.heroText p {
+  margin-bottom: var(--space-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroCtas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.heroImage {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Mid Banner */
+.midBanner {
+  padding: var(--space-4xl) 0;
+  background: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+.bannerContent {
+  text-align: center;
+}
+
+.bannerContent h2 {
+  color: var(--color-bg-white);
+  margin: 0;
+}
+
+/* Services Section */
+.services {
+  padding: var(--space-5xl) 0;
+}
+
+.servicesHeader {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.servicesHeader h2 {
+  margin-bottom: var(--space-lg);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.serviceCard {
+  width: 100%;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .heroContent {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+  }
+
+  .heroText {
+    text-align: left;
+  }
+
+  .heroText p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .heroCtas {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .heroImage {
+    max-width: 100%;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .hero {
+    padding: var(--space-5xl) 0 var(--space-4xl);
+  }
+
+  .heroContent {
+    gap: var(--space-5xl);
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .heroImage {
+    max-width: 450px;
+  }
+}

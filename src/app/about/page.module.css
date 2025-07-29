@@ -1,0 +1,123 @@
+.page {
+  padding: var(--space-5xl) 0;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: var(--space-5xl);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+}
+
+.bioSection {
+  margin-bottom: var(--space-5xl);
+}
+
+.bioContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.bioText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.bioHeading {
+  font-size: var(--text-h3);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.bioImage {
+  display: flex;
+  justify-content: center;
+}
+
+.portrait {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: var(--shadow-lg);
+}
+
+.missionSection {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.missionContent {
+  background: linear-gradient(135deg, rgba(226, 126, 172, 0.05) 0%, rgba(226, 126, 172, 0.02) 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: 20px;
+  padding: var(--space-3xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(226, 126, 172, 0.15);
+}
+
+.missionContent::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(226, 126, 172, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.missionHeading {
+  font-size: var(--text-h2);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.missionContent p {
+  line-height: var(--leading-relaxed);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: var(--text-lg);
+}
+
+.missionContent em strong {
+  color: var(--color-primary);
+  font-style: italic;
+  font-size: var(--text-xl);
+  display: inline-block;
+  margin-top: var(--space-md);
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .bioContent {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .portrait {
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bioContent {
+    gap: var(--space-4xl);
+  }
+
+  .portrait {
+    max-width: 300px;
+  }
+
+  .missionContent {
+    padding: var(--space-4xl);
+  }
+}
