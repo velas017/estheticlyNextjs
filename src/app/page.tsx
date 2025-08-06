@@ -102,6 +102,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* More Services CTA Section */}
+      <section className={styles.moreServices}>
+        <div className="container">
+          <div className={styles.moreServicesCard}>
+            <div className={styles.moreServicesContent}>
+              <h3 className="heading-3">Discover More Treatments</h3>
+              <p className="body-large">
+                These are just a few of our most popular services. We offer a full range of specialized treatments including microdermabrasion, brow lamination, and customized solutions for your unique skin concerns.
+              </p>
+              <Button href="/book-now" variant="primary" size="large">
+                View All Services & Book
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   )
 }
