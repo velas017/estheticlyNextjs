@@ -15,6 +15,7 @@ export default function Navbar() {
     { href: '/about', label: 'About' },
     { href: '/prep', label: 'Prep' },
     { href: '/aftercare', label: 'Aftercare' },
+    { href: '/gift-cards', label: 'Gift Cards' },
     { href: '/learn-more', label: 'Learn More' },
     { href: '/contact', label: 'Contact' },
   ]
