@@ -1,8 +1,8 @@
 :root {
   /* Brand Colors */
-  --color-primary: #E27EAC;
-  --color-primary-hover: #D14A95;
-  --color-primary-shadow: rgba(226, 126, 172, 0.3);
+  --color-primary: #937a62;
+  --color-primary-hover: #7d6750;
+  --color-primary-shadow: rgba(147, 122, 98, 0.3);
 
   /* Text Colors */
   --color-text-primary: #222222;
@@ -31,8 +31,8 @@
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
 
   /* Colored Shadows */
-  --shadow-primary: 0 4px 12px rgba(226, 126, 172, 0.3);
-  --shadow-primary-hover: 0 6px 16px rgba(226, 126, 172, 0.4);
+  --shadow-primary: 0 4px 12px rgba(147, 122, 98, 0.3);
+  --shadow-primary-hover: 0 6px 16px rgba(147, 122, 98, 0.4);
 
   /* Font Stack */
   --font-primary: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
