@@ -49,7 +49,7 @@ EstheticLY skincare and esthetics website featuring separate pages for each navi
 - **Performance optimized** with lazy loading and font optimization
 
 ### Design System:
-- **Color Palette**: Soft pink primary (#E27EAC), professional grays, clean whites
+- **Color Palette**: Earthy brown primary (#937a62), professional grays, clean whites
 - **Typography**: Geist Sans (primary), clean hierarchy with defined font scales
 - **Components**: Weather widget style cards, Airbnb-inspired navigation, shadow system
 - **Layout**: Container system with responsive padding (16px mobile, 40px tablet, 80px desktop)
