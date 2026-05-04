@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Card from '@/components/ui/Card'
+import AcuityScheduler from '@/components/ui/AcuityScheduler'
 import styles from './page.module.css'
 
 export default function BookNowPage() {
@@ -80,28 +81,21 @@ export default function BookNowPage() {
               Use the booking system below to find available appointment times and schedule your facial treatment.
             </p>
             
-            <div className={styles.schedulingContainer}>
-              <iframe
-                src="https://app.acuityscheduling.com/schedule.php?owner=30825696&ref=embedded_csp"
-                title="Schedule Appointment"
-                width="100%"
-                height="800"
-                frameBorder="0"
-                className={styles.schedulingFrame}
-              ></iframe>
-              {!policiesAccepted && (
-                <div className={styles.bookingOverlay}>
-                  <div className={styles.overlayMessage}>
-                    <div className={styles.overlayIcon}>🔒</div>
-                    <h4 className={styles.overlayTitle}>Policy Acceptance Required</h4>
-                    <p className={styles.overlayText}>
-                      Please read and accept our booking policies above to access the scheduling system.
-                    </p>
-                    <div className={styles.overlayArrow}>↑</div>
-                  </div>
-                </div>
-              )}
-            </div>
+            {policiesAccepted ? (
+              <AcuityScheduler owner="30825696" accepted={policiesAccepted} />
+            ) : (
+              <div className={styles.preBookingNotice} role="status">
+                <div className={styles.preBookingIcon} aria-hidden="true">🔒</div>
+                <h4 className={styles.preBookingTitle}>
+                  Accept policies above to load the scheduler
+                </h4>
+                <p className={styles.preBookingText}>
+                  Once you check the box above, the booking system will appear
+                  here.
+                </p>
+                <div className={styles.preBookingArrow} aria-hidden="true">↑</div>
+              </div>
+            )}
             
             <div className={styles.bookingNote}>
               <p className="body-base">

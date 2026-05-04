@@ -1,0 +1,80 @@
+.container {
+  position: relative;
+  width: 100%;
+  background: var(--color-bg-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  min-height: 600px;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: var(--color-bg-white);
+}
+
+.scriptFailed .frame {
+  min-height: 1200px;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  background: var(--color-bg-white);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.skeletonShimmer {
+  width: min(420px, 80%);
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(147, 122, 98, 0.08) 0%,
+    rgba(147, 122, 98, 0.22) 50%,
+    rgba(147, 122, 98, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeletonLabel {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
+}
+
+.fallbackNotice {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(147, 122, 98, 0.05);
+  border-top: 1px solid var(--color-border);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .fullBleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .container {
+    min-height: 500px;
+  }
+}
