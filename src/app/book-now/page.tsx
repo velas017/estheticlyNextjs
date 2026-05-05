@@ -32,24 +32,34 @@ export default function BookNowPage() {
               <div className={styles.policiesContent}>
                 
                 <div className={styles.policyItem}>
-                  <h4 className={styles.policyTitle}>Late Policy</h4>
-                  <p className="body-base">
-                    Please notify me in advance if you anticipate being late. A 15-minute grace period is provided. 
-                    After 15 minutes, you may choose to reschedule; however, your deposit will be forfeited and a 
-                    new $25 deposit will be required to secure a future appointment. Alternatively, you may opt to 
-                    proceed with the remaining time allocated for your scheduled service.
-                  </p>
-                </div>
-
-                <div className={styles.policyItem}>
                   <h4 className={styles.policyTitle}>Payment Information</h4>
                   <p className="body-base">
-                    A valid card on file and a $25 non-refundable deposit are required at the time of booking. 
-                    The deposit will be applied toward your remaining balance, which is due at the conclusion of 
+                    A valid card on file and a $25 non-refundable deposit are required at the time of booking.
+                    The deposit will be applied toward your remaining balance, which is due at the conclusion of
                     your service.
                   </p>
                   <p className="body-base">
                     Remaining balance are available to be paid Cash, Zelle, Venmo, Apple Pay, or Square ($3 service charge)
+                  </p>
+                </div>
+
+                <div className={styles.policyItem}>
+                  <h4 className={styles.policyTitle}>Cancellation Policy</h4>
+                  <p className="body-base">
+                    Appointments may be cancelled up to 24 hours in advance; however, please note that deposits are
+                    non-refundable. Cancellations made with less than 24 hours notice will result in a forfeited deposit,
+                    and a new $25 deposit will be required to book any future services.
+                  </p>
+                </div>
+
+                <div className={styles.policyItem}>
+                  <h4 className={styles.policyTitle}>Late Policy</h4>
+                  <p className="body-base">
+                    Please notify me in advance if you anticipate being late. A 15-minute grace period is provided.
+                    After 15 minutes, you may choose to reschedule; however, your deposit will be forfeited and a
+                    new $25 deposit will be required to secure a future appointment. Alternatively, you may opt to
+                    proceed with the remaining time allocated for your scheduled service but the full service fee will
+                    still apply. Other services besides facials may be charged a +$10 late fee.
                   </p>
                 </div>
 
