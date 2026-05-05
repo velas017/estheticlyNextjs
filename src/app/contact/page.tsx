@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import ContactGrid from '@/components/marketing/ContactGrid'
+import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
+import ContactMobile from './ContactMobile'
 
 export const metadata: Metadata = {
   title: 'Contact | EstheticLY Skincare',
@@ -8,5 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return <ContactGrid />
+  return <ResponsiveSwitch desktop={<ContactGrid />} mobile={<ContactMobile />} />
 }

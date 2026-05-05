@@ -1,0 +1,47 @@
+.bodyText {
+  font-family: var(--font-system);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label-secondary);
+  padding: 0 20px;
+  margin: 12px 0 16px;
+}
+
+.sectionHeader {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--label-secondary);
+  padding: 24px 32px 6px;
+  font-family: var(--font-system);
+}
+
+.askCard {
+  margin: 0 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  text-align: center;
+}
+
+.askText {
+  font-family: var(--font-system);
+  font-size: 16px;
+  margin-bottom: 14px;
+  color: var(--label-secondary);
+  line-height: 1.45;
+}
+
+.askBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tint);
+  color: white;
+  border-radius: var(--radius-button);
+  padding: 13px 22px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}

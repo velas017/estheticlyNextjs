@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
+import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
+import AftercareMobile from './AftercareMobile'
 import {
   first72Hours,
   cadence,
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     'Post-treatment aftercare advice for your facial at EstheticLY. Learn how to maintain and protect your skin after your treatment.',
 }
 
-export default function AftercarePage() {
+const AftercareDesktop = () => {
   const cards = [
     {
       num: '3d',
@@ -34,7 +36,6 @@ export default function AftercarePage() {
       ],
     },
   ]
-
   return (
     <section className={styles.section} id="aftercare">
       <div className={styles.panel}>
@@ -46,5 +47,11 @@ export default function AftercarePage() {
         <CareGrid cards={cards} />
       </div>
     </section>
+  )
+}
+
+export default function AftercarePage() {
+  return (
+    <ResponsiveSwitch desktop={<AftercareDesktop />} mobile={<AftercareMobile />} />
   )
 }

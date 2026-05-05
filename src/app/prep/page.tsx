@@ -2,24 +2,25 @@ import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
+import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
+import PrepMobile from './PrepMobile'
 import { prepGroups } from '@/content/prep'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Prep | EstheticLY Skincare',
   description:
-    "Essential preparation tips for your facial appointment at EstheticLY. Learn what to expect and how to prepare for your treatment.",
+    'Essential preparation tips for your facial appointment at EstheticLY. Learn what to expect and how to prepare for your treatment.',
 }
 
 const numerals = ['01', '02', '03', '04', '05']
 
-export default function PrepPage() {
+const PrepDesktop = () => {
   const cards = prepGroups.map((group, i) => ({
     num: numerals[i] ?? `${i + 1}`,
     title: group.title,
     items: group.items,
   }))
-
   return (
     <section className={styles.section} id="prep">
       <SectionHeader
@@ -30,4 +31,8 @@ export default function PrepPage() {
       <CareGrid cards={cards} />
     </section>
   )
+}
+
+export default function PrepPage() {
+  return <ResponsiveSwitch desktop={<PrepDesktop />} mobile={<PrepMobile />} />
 }

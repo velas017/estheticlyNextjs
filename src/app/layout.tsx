@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import TopNav from "@/components/marketing/TopNav";
-import Footer from "@/components/marketing/Footer";
+import ResponsiveChrome from "@/components/ios/ResponsiveChrome";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import "./globals.css";
 
@@ -49,9 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <TopNav />
-        <main>{children}</main>
-        <Footer />
+        <ResponsiveChrome>{children}</ResponsiveChrome>
         <GoogleReviewBadge />
       </body>
     </html>

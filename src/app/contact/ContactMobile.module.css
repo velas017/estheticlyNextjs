@@ -1,0 +1,66 @@
+.bodyText {
+  font-family: var(--font-system);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label-secondary);
+  padding: 0 20px;
+  margin: 12px 0 0;
+}
+
+.sectionHeader {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--label-secondary);
+  padding: 24px 32px 6px;
+  font-family: var(--font-system);
+}
+
+.locationCard {
+  margin: 0 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.mapPlaceholder {
+  height: 140px;
+  background: linear-gradient(135deg, #d4cdbf 0%, #b8a89a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tint);
+}
+
+.locationBody {
+  padding: 16px;
+}
+
+.locationName {
+  font-family: var(--font-system);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--label);
+}
+
+.locationAddress {
+  font-size: 14px;
+  color: var(--label-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.locationPill {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 4px 10px;
+  background: var(--tint-soft);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tint);
+}

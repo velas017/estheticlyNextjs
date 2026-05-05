@@ -1,0 +1,70 @@
+.card {
+  margin: 0 16px;
+  border-radius: var(--radius-large);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: #2a2622;
+  isolation: isolate;
+}
+
+.card.square {
+  aspect-ratio: 4 / 4;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.35) 35%,
+    rgba(0, 0, 0, 0) 60%
+  );
+}
+
+.body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px;
+  color: white;
+}
+
+.eyebrow {
+  font-family: var(--font-system);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+
+.title {
+  font-family: var(--font-system);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 6px 0 8px;
+  line-height: 1.1;
+  text-wrap: balance;
+  color: #ffffff;
+}
+
+.text {
+  font-size: 14px;
+  opacity: 0.86;
+  margin: 0 0 14px;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
