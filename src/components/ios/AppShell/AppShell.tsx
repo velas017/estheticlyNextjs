@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import StatusBar from '@/components/ios/StatusBar'
 import NavBar from '@/components/ios/NavBar'
 import TabBar from '@/components/ios/TabBar'
 import styles from './AppShell.module.css'
@@ -43,7 +42,6 @@ export default function AppShell({ children }: AppShellProps) {
 
   return (
     <div className={styles.shell}>
-      <StatusBar />
       <NavBar title={title} scrolled={scrolled} showBack={showBack} />
       <div
         ref={scrollRef}

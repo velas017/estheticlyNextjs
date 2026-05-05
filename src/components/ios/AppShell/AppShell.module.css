@@ -12,7 +12,7 @@
   inset: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-top: calc(var(--status-bar) + var(--nav-bar) + env(safe-area-inset-top, 0));
+  padding-top: calc(var(--nav-bar) + env(safe-area-inset-top, 0));
   padding-bottom: calc(var(--tab-bar) + 8px + env(safe-area-inset-bottom, 0));
   background: var(--bg);
 }

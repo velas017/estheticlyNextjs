@@ -1,7 +1,7 @@
 .bar {
   position: fixed;
-  top: var(--status-bar);
-  top: calc(env(safe-area-inset-top, 0) + var(--status-bar));
+  top: 0;
+  top: env(safe-area-inset-top, 0);
   left: 0;
   right: 0;
   height: var(--nav-bar);
