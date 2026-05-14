@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import DisplaySerif from '@/components/ui/DisplaySerif'
-import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
-import GiftCardsMobile from './GiftCardsMobile'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -47,7 +45,5 @@ const GiftCardsDesktop = () => (
 )
 
 export default function GiftCardsPage() {
-  return (
-    <ResponsiveSwitch desktop={<GiftCardsDesktop />} mobile={<GiftCardsMobile />} />
-  )
+  return <GiftCardsDesktop />
 }
