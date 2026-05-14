@@ -20,6 +20,14 @@ export default function GalleryRow() {
         heading={<>Calm, clean, <DisplaySerif>considered.</DisplaySerif></>}
         lead="Every visit is unhurried. Take a look around the space and the work."
       />
+      <div className={styles.mobileStrip}>
+        {cells.map(({ src, alt }) => (
+          <div key={src} className={styles.mobileSlide}>
+            <Image src={src} alt={alt} fill sizes="85vw" className={styles.img} />
+          </div>
+        ))}
+      </div>
+
       <div className={styles.grid}>
         <div className={styles.featured}>
           <Image src={cells[0].src} alt={cells[0].alt} fill sizes="(max-width: 1024px) 100vw, 50vw" className={styles.img} />

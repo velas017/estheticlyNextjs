@@ -106,10 +106,10 @@ export default function HomeMobile() {
       </ListInsetGrouped>
 
       <div className={styles.sectionHeader}>Recent work</div>
-      <div className={styles.gallery}>
+      <div className={styles.galleryScroll}>
         {galleryCells.map((src) => (
-          <div key={src} className={styles.cell}>
-            <Image src={src} alt="" fill sizes="33vw" className={styles.cellImg} />
+          <div key={src} className={styles.gallerySlide}>
+            <Image src={src} alt="" fill sizes="85vw" className={styles.gallerySlideImg} />
           </div>
         ))}
       </div>

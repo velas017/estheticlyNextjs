@@ -8,10 +8,45 @@
   .section { padding: 80px 40px; }
 }
 
+.mobileStrip {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .mobileStrip {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 0 24px;
+    scroll-padding-left: 24px;
+    scrollbar-width: none;
+  }
+  .mobileStrip::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mobileSlide {
+  flex: 0 0 calc(85vw - 24px);
+  scroll-snap-align: start;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-soft);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+}
+
+@media (max-width: 767.98px) {
+  .grid { display: none; }
 }
 
 @media (min-width: 768px) {

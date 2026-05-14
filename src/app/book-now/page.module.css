@@ -183,13 +183,11 @@
   color: var(--label);
 }
 
-/* Scheduler area */
+/* Scheduler area — full bleed, no nested scroll */
 .scheduler {
   margin-top: 32px;
-  background: #ffffff;
-  border: 1px solid var(--border-warm);
-  border-radius: 14px;
-  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 .preBooking {

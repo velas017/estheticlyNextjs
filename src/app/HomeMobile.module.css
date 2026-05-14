@@ -50,23 +50,33 @@
   border: 0.5px solid rgba(255, 255, 255, 0.3);
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  margin: 0 16px;
-  border-radius: var(--radius-card);
-  overflow: hidden;
+.galleryScroll {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px;
+  scroll-padding-left: 16px;
+  gap: 10px;
+  scrollbar-width: none;
 }
 
-.cell {
+.galleryScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.gallerySlide {
+  flex: 0 0 calc(85vw - 16px);
+  scroll-snap-align: start;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-large);
+  overflow: hidden;
   position: relative;
-  aspect-ratio: 1;
   background: var(--fill-tert);
-  overflow: hidden;
 }
 
-.cellImg {
+.gallerySlideImg {
   object-fit: cover;
 }
 

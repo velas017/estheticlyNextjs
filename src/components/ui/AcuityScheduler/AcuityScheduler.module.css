@@ -2,20 +2,14 @@
   position: relative;
   width: 100%;
   background: var(--color-bg-white);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  min-height: 600px;
 }
 
 .frame {
   display: block;
   width: 100%;
+  min-height: 800px;
   border: 0;
   background: var(--color-bg-white);
-}
-
-.scriptFailed .frame {
-  min-height: 1200px;
 }
 
 .skeleton {
@@ -51,30 +45,7 @@
   letter-spacing: 0.02em;
 }
 
-.fallbackNotice {
-  text-align: center;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  padding: var(--space-md) var(--space-lg);
-  background: rgba(147, 122, 98, 0.05);
-  border-top: 1px solid var(--color-border);
-}
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
-}
-
-@media (max-width: 768px) {
-  .fullBleed {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    border-left: 0;
-    border-right: 0;
-  }
-
-  .container {
-    min-height: 500px;
-  }
 }

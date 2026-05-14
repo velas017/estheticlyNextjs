@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Script from 'next/script'
 import styles from './AcuityScheduler.module.css'
 
@@ -16,18 +16,29 @@ export default function AcuityScheduler({
   className,
 }: AcuitySchedulerProps) {
   const [iframeLoaded, setIframeLoaded] = useState(false)
-  const [scriptError, setScriptError] = useState(false)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (!iframeRef.current) return
+      if (e.origin !== 'https://app.acuityscheduling.com') return
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data
+        const h = data?.height ?? data?.frameHeight
+        if (typeof h === 'number' && h > 0) {
+          iframeRef.current.style.height = `${h}px`
+        }
+      } catch {
+        // ignore malformed messages
+      }
+    }
+    window.addEventListener('message', onMessage)
+    return () => window.removeEventListener('message', onMessage)
+  }, [])
 
   if (!accepted) return null
 
-  const containerClass = [
-    styles.container,
-    styles.fullBleed,
-    scriptError ? styles.scriptFailed : '',
-    className ?? '',
-  ]
-    .filter(Boolean)
-    .join(' ')
+  const containerClass = [styles.container, className ?? ''].filter(Boolean).join(' ')
 
   return (
     <div className={containerClass}>
@@ -39,10 +50,11 @@ export default function AcuityScheduler({
       )}
 
       <iframe
+        ref={iframeRef}
         src={`https://app.acuityscheduling.com/schedule.php?owner=${owner}&ref=embedded_csp`}
         title="Schedule Appointment"
         width="100%"
-        height="800"
+        scrolling="no"
         frameBorder="0"
         referrerPolicy="strict-origin-when-cross-origin"
         allow="payment *; clipboard-write; publickey-credentials-get *"
@@ -53,15 +65,7 @@ export default function AcuityScheduler({
       <Script
         src="https://embed.acuityscheduling.com/js/embed.js"
         strategy="afterInteractive"
-        onError={() => setScriptError(true)}
       />
-
-      {scriptError && (
-        <p className={styles.fallbackNotice}>
-          The auto-resize helper failed to load. You can still book — scroll
-          inside the booking area to see all options.
-        </p>
-      )}
     </div>
   )
 }

@@ -27,5 +27,7 @@ const getServerSnapshot = () => false
  * before the swap.
  */
 export function useIsMobile(): boolean {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  // TEMPORARILY DISABLED — restore line below to re-enable mobile shell
+  return false
+  // return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
