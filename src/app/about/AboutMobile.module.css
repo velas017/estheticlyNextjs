@@ -1,0 +1,26 @@
+.heroWrap {
+  margin-top: 12px;
+}
+
+.bodyText {
+  font-family: var(--font-system);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label);
+  padding: 0 20px;
+  margin: 12px 0 0;
+}
+
+.sectionHeader {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--label-secondary);
+  padding: 24px 32px 6px;
+  font-family: var(--font-system);
+}
+
+.purpose {
+  border-left: 3px solid var(--tint);
+}

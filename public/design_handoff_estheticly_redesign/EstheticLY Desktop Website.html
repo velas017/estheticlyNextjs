@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>EstheticLY · Skincare & Facials in Charlotte, NC</title>
+<style>
+  :root {
+    --tint: #937a62;
+    --tint-dark: #7d6750;
+    --tint-soft: rgba(147, 122, 98, 0.08);
+    --label: #1c1c1e;
+    --label-2: #555;
+    --label-3: #888;
+    --bg: #fdfcfa;
+    --bg-soft: #f6f2ec;
+    --bg-warm: #efe8de;
+    --border: #e5e1da;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(80, 60, 40, 0.07);
+    --shadow-lg: 0 24px 60px rgba(80, 60, 40, 0.1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--label);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,h4 { margin: 0; letter-spacing: -0.01em; line-height: 1.15; }
+  h1 { font-size: 64px; font-weight: 700; letter-spacing: -0.02em; }
+  h2 { font-size: 42px; font-weight: 600; }
+  h3 { font-size: 22px; font-weight: 600; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .display-serif {
+    font-family: "New York", "Times New Roman", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Top nav */
+  .topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(253, 252, 250, 0.92);
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topnav-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+  }
+  .brand {
+    font-family: "New York", Georgia, serif;
+    font-size: 22px; letter-spacing: -0.01em;
+    display: flex; flex-direction: column; line-height: 1;
+  }
+  .brand .top { font-weight: 600; }
+  .brand .bottom { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--label-3); margin-top: 4px; font-family: -apple-system, sans-serif; }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a {
+    padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    color: var(--label); transition: background 0.2s;
+  }
+  .nav-links a:hover { background: var(--bg-soft); }
+  .nav-links a.cta {
+    background: var(--tint); color: white;
+    margin-left: 8px;
+  }
+  .nav-links a.cta:hover { background: var(--tint-dark); }
+
+  /* Hero */
+  .hero {
+    max-width: 1280px; margin: 0 auto;
+    padding: 60px 40px 80px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--tint); margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 24px; height: 1px; background: var(--tint);
+  }
+  .hero h1 { margin-bottom: 24px; }
+  .hero h1 .display-serif { color: var(--tint); }
+  .hero p.lead {
+    font-size: 18px; color: var(--label-2); margin-bottom: 32px; max-width: 460px;
+  }
+  .btn-row { display: flex; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; border-radius: 999px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    border: 1px solid transparent; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--tint); color: white; }
+  .btn-primary:hover { background: var(--tint-dark); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--label); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--bg-soft); }
+  .hero-meta {
+    margin-top: 40px; display: flex; gap: 32px;
+    padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .hero-meta div {
+    font-size: 13px; color: var(--label-3);
+  }
+  .hero-meta strong { display: block; color: var(--label); font-size: 16px; margin-bottom: 2px; font-weight: 600; }
+
+  .hero-image {
+    position: relative;
+    aspect-ratio: 4/5; border-radius: 8px; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-image .float-card {
+    position: absolute; left: -28px; bottom: 32px;
+    background: white; padding: 16px 20px; border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 12px;
+    max-width: 220px;
+  }
+  .hero-image .float-card .star { color: var(--tint); }
+  .hero-image .float-card .label { font-size: 12px; color: var(--label-3); }
+  .hero-image .float-card .val { font-size: 14px; font-weight: 600; }
+
+  /* Section */
+  section { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--tint); margin-bottom: 16px;
+  }
+  .section-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: end; margin-bottom: 48px;
+  }
+  .section-head h2 { max-width: 580px; }
+  .section-head p { color: var(--label-2); font-size: 17px; max-width: 480px; }
+
+  /* Services grid */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px; transition: all 0.3s;
+  }
+  .service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: transparent; }
+  .service-card .duration {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--tint); font-weight: 600; margin-bottom: 12px;
+  }
+  .service-card h3 { margin-bottom: 8px; }
+  .service-card p { color: var(--label-2); font-size: 14px; line-height: 1.5; margin-bottom: 16px; }
+  .service-card .price {
+    font-size: 22px; font-weight: 600; color: var(--label);
+    padding-top: 16px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .service-card .price-arrow { color: var(--tint); font-size: 18px; }
+
+  /* About strip */
+  .about-strip {
+    background: var(--bg-warm);
+    border-radius: 24px;
+    padding: 64px;
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: center;
+  }
+  .about-strip .photo { border-radius: 16px; overflow: hidden; aspect-ratio: 4/5; }
+  .about-strip h2 { margin-bottom: 20px; }
+  .about-strip h2 .display-serif { color: var(--tint); display: block; }
+  .about-strip p { font-size: 16px; color: var(--label-2); margin-bottom: 16px; }
+  .about-strip .signature {
+    margin-top: 28px; font-family: "New York", Georgia, serif;
+    font-style: italic; font-size: 22px; color: var(--tint);
+  }
+
+  /* Gallery row */
+  .gallery-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; height: 480px; }
+  .gallery-row > div { border-radius: 12px; overflow: hidden; background: var(--bg-soft); }
+  .gallery-row img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 16px; }
+
+  /* Mid-banner */
+  .mid-banner {
+    background: var(--tint); color: white;
+    padding: 100px 40px; text-align: center;
+  }
+  .mid-banner-inner { max-width: 800px; margin: 0 auto; }
+  .mid-banner h2 { font-size: 56px; }
+  .mid-banner h2 .display-serif { display: block; }
+  .mid-banner p { margin-top: 20px; opacity: 0.85; font-size: 17px; }
+
+  /* Prep + aftercare two-column */
+  .care-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .care-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 40px;
+  }
+  .care-card .num {
+    font-family: "New York", Georgia, serif; font-style: italic;
+    font-size: 56px; color: var(--tint); line-height: 1; margin-bottom: 12px;
+  }
+  .care-card h3 { margin-bottom: 20px; }
+  .care-card ul { margin: 0; padding-left: 18px; color: var(--label-2); font-size: 15px; line-height: 1.65; }
+  .care-card ul li { margin-bottom: 8px; }
+  .care-card ul li::marker { color: var(--tint); }
+
+  /* FAQ accordion */
+  .faq-list { max-width: 880px; margin: 0 auto; }
+  details.faq {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+  }
+  details.faq summary {
+    list-style: none; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 19px; font-weight: 500;
+    padding: 4px 0;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after {
+    content: "+"; font-size: 26px; color: var(--tint); font-weight: 300;
+    transition: transform 0.2s;
+  }
+  details.faq[open] summary::after { content: "−"; }
+  details.faq .answer {
+    margin-top: 14px; color: var(--label-2); font-size: 15px;
+    max-width: 700px; line-height: 1.6;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .contact-grid h2 { margin-bottom: 16px; }
+  .contact-grid h2 .display-serif { color: var(--tint); }
+  .contact-grid p.lead { color: var(--label-2); font-size: 16px; margin-bottom: 32px; }
+  .info-list {
+    display: grid; gap: 16px;
+  }
+  .info-row {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 20px; background: var(--bg-soft); border-radius: 12px;
+  }
+  .info-row .icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: white; color: var(--tint);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; box-shadow: var(--shadow-sm);
+  }
+  .info-row .label { font-size: 12px; color: var(--label-3); text-transform: uppercase; letter-spacing: 0.1em; }
+  .info-row .value { font-size: 15px; color: var(--label); margin-top: 2px; font-weight: 500; }
+
+  .hours-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px; padding: 32px;
+  }
+  .hours-card h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .hours-card h3 .dot { width: 8px; height: 8px; border-radius: 50%; background: #4caf50; }
+  .hours-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 15px; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { color: var(--label-2); }
+  .hours-row .time { font-weight: 500; }
+  .hours-card .closed { color: var(--label-3); font-style: italic; }
+  .hours-note { font-size: 13px; color: var(--label-3); margin-top: 16px; }
+
+  /* Footer */
+  footer {
+    background: #1c1814; color: #e8e2d8;
+    margin-top: 80px;
+  }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 64px 40px 40px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+  }
+  .footer-brand .brand { color: white; }
+  .footer-brand .brand .bottom { color: rgba(255,255,255,0.5); }
+  .footer-brand p { margin-top: 16px; font-size: 14px; opacity: 0.7; max-width: 280px; line-height: 1.6; }
+  .footer-col h4 { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 18px; font-weight: 500; }
+  .footer-col a {
+    display: block; padding: 5px 0; font-size: 14px; color: rgba(255,255,255,0.85);
+  }
+  .footer-col a:hover { color: var(--tint); }
+  .footer-bottom {
+    max-width: 1280px; margin: 0 auto;
+    padding: 24px 40px; border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; font-size: 13px; opacity: 0.55;
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="#">
+      <span class="top">EstheticLY</span>
+      <span class="bottom">Skincare · Charlotte, NC</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#prep">Prep</a>
+      <a href="#aftercare">Aftercare</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="#book" class="cta">Book Now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Licensed Esthetician</div>
+    <h1>Start your <span class="display-serif">skincare</span> journey.</h1>
+    <p class="lead">
+      Personalized facials, science-based skincare, and unhurried care.
+      Whether you're looking to relax or address specific concerns, your skin health matters.
+    </p>
+    <div class="btn-row">
+      <a href="#book" class="btn btn-primary">Book your facial →</a>
+      <a href="#services" class="btn btn-ghost">View services</a>
+    </div>
+    <div class="hero-meta">
+      <div><strong>10+</strong>Certifications</div>
+      <div><strong>2023</strong>Solo journey began</div>
+      <div><strong>5.0★</strong>Client rating</div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="assets/hero.jpeg" alt="Esthetician performing a facial"/>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Services</div>
+      <h2>Treatments tailored to <span class="display-serif">your skin.</span></h2>
+    </div>
+    <p>All facials begin with a thorough skin analysis so the treatment is shaped around your goals — not a checklist.</p>
+  </div>
+  <div class="services">
+    <div class="service-card">
+      <div class="duration">60 min</div>
+      <h3>Signature Facial</h3>
+      <p>Customized double cleanse, exfoliation, mask, neck and shoulder massage, serums, moisturizer.</p>
+      <div class="price">$95 <span class="price-arrow">→</span></div>
+    </div>
+    <div class="service-card">
+      <div class="duration">75 min</div>
+      <h3>Dermaplaning Facial</h3>
+      <p>Manual exfoliation removes peach fuzz and dead skin for a luminous, makeup-ready finish.</p>
+      <div class="price">$120 <span class="price-arrow">→</span></div>
+    </div>
+    <div class="service-card">
+      <div class="duration">75 min</div>
+      <h3>Microdermabrasion</h3>
+      <p>Resurfacing facial that improves texture, tone, and product absorption.</p>
+      <div class="price">$130 <span class="price-arrow">→</span></div>
+    </div>
+    <div class="service-card">
+      <div class="duration">45 min</div>
+      <h3>Teen Facial</h3>
+      <p>Gentle, education-focused facial for ages 13+, with a guardian's consent.</p>
+      <div class="price">$70 <span class="price-arrow">→</span></div>
+    </div>
+    <div class="service-card">
+      <div class="duration">60 min</div>
+      <h3>Chemical Peel</h3>
+      <p>Customized peel addressing tone, texture, and underlying concerns.</p>
+      <div class="price">$140 <span class="price-arrow">→</span></div>
+    </div>
+    <div class="service-card">
+      <div class="duration">30 min</div>
+      <h3>Express Facial</h3>
+      <p>A streamlined cleanse + treat + protect for between full appointments.</p>
+      <div class="price">$60 <span class="price-arrow">→</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-strip">
+    <div class="photo"><img src="assets/amy-portrait.jpg" alt="Amy Ly"/></div>
+    <div>
+      <div class="section-eyebrow">About</div>
+      <h2>Meet <span class="display-serif">Amy Ly.</span></h2>
+      <p>
+        A 22-year-old Cambodian-American born and raised in Charlotte, NC. As a licensed
+        esthetician, I began my solo journey in 2023 with a focus on personalized facials
+        tailored to each client's unique skin type, concerns, and goals.
+      </p>
+      <p>
+        With over 10 certifications — including chemical peels, dermaplaning, and sanitation —
+        I prioritize science-based, corrective skincare in a safe, relaxing environment.
+        I welcome all skin types and concerns, with guidance and without judgment.
+      </p>
+      <div class="signature">— Healthy skin is perfect skin.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Behind the scenes</div>
+      <h2>Calm, clean, <span class="display-serif">considered.</span></h2>
+    </div>
+    <p>Every visit is unhurried. Take a look around the space and the work.</p>
+  </div>
+  <div class="gallery-row">
+    <div><img src="assets/facial.jpg" alt=""/></div>
+    <div class="gallery-stack">
+      <div><img src="assets/handsOn.jpg" alt=""/></div>
+      <div><img src="assets/brows.jpg" alt=""/></div>
+    </div>
+    <div class="gallery-stack">
+      <div><img src="assets/img1.jpg" alt=""/></div>
+      <div><img src="assets/img2.jpeg" alt=""/></div>
+    </div>
+  </div>
+</section>
+
+<div class="mid-banner">
+  <div class="mid-banner-inner">
+    <h2>Elevate your <span class="display-serif">skincare routine.</span></h2>
+    <p>Healthy skin is built between visits. Let's create a routine that works for you.</p>
+  </div>
+</div>
+
+<section id="prep">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Before your visit</div>
+      <h2>How to <span class="display-serif">prepare.</span></h2>
+    </div>
+    <p>I strongly encourage these tips before your appointment. Reach out anytime with questions.</p>
+  </div>
+  <div class="care-grid">
+    <div class="care-card">
+      <div class="num">01</div>
+      <h3>Preparing for the facial</h3>
+      <ul>
+        <li>Discard retinol or acids for a week — no exfoliating 3 days prior.</li>
+        <li>Avoid waxing or tanning for 24 hours.</li>
+        <li>Try to avoid heavy makeup; I'll remove it if needed.</li>
+        <li>Remove any necklaces.</li>
+        <li>Get cozy! Robes are provided to your comfort level.</li>
+      </ul>
+    </div>
+    <div class="care-card">
+      <div class="num">02</div>
+      <h3>Can I still get a facial while using…?</h3>
+      <ul>
+        <li>Contraindications: tretinoin and accutane (stop use for 6 months).</li>
+        <li>No injections, botox, or laser for a month prior.</li>
+        <li>Reach out about prescribed dermatologist medication.</li>
+        <li>I work with inflamed acne, but cannot diagnose your skin.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="aftercare" style="background: var(--bg-soft); border-radius: 24px; max-width: 1200px;">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">After your visit</div>
+      <h2>Make results <span class="display-serif">last.</span></h2>
+    </div>
+    <p>Follow these to ensure the best results post-treatment. I'll also walk through specifics during your visit.</p>
+  </div>
+  <div class="care-grid">
+    <div class="care-card">
+      <div class="num">3d</div>
+      <h3>First 72 hours</h3>
+      <ul>
+        <li>No exfoliation for 3 days.</li>
+        <li>Wear SPF every single day.</li>
+        <li>Stay hydrated — water and sleep.</li>
+        <li>Avoid touching your face.</li>
+        <li>No sweating, heat, or sauna.</li>
+      </ul>
+    </div>
+    <div class="care-card">
+      <div class="num">4–8</div>
+      <h3>Cadence & maintenance</h3>
+      <ul>
+        <li>Recommended every 4–8 weeks as the skin cycle renews.</li>
+        <li>Consistency promotes cell turnover and collagen production.</li>
+        <li>Avoid makeup for at least 24 hours post-treatment.</li>
+        <li>Have a specific concern? We'll get there together, faster.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">FAQ</div>
+      <h2>Frequently <span class="display-serif">asked.</span></h2>
+    </div>
+    <p>Below you'll find resources related to facial care practices and answers to common questions.</p>
+  </div>
+  <div class="faq-list">
+    <details class="faq" open>
+      <summary>What are the benefits of a facial?</summary>
+      <div class="answer">Your skin is the largest organ on your body — invest in it. Facials improve skin health, even tone and texture, increase product absorption, and much more.</div>
+    </details>
+    <details class="faq">
+      <summary>What product line will be used?</summary>
+      <div class="answer">My back bar is a variety of brands: skinscript, glymed, dermalogica, circadia and more. Most are pharmaceutical lines or developed by estheticians, so I can cater to different clients and concerns.</div>
+    </details>
+    <details class="faq">
+      <summary>What is the age requirement for a facial?</summary>
+      <div class="answer">The minimum age allowed is 13. Teen facials are available with a guardian's consent. Facials are recommended for any age and gender.</div>
+    </details>
+    <details class="faq">
+      <summary>I have sensitive skin. Can I get a facial?</summary>
+      <div class="answer">Yes — facials are catered to all skin types. We'll use calmer, gentler products for sensitive skin.</div>
+    </details>
+    <details class="faq">
+      <summary>Which facial should I book?</summary>
+      <div class="answer">If this is your first facial, any customized facial is ideal. During the skin analysis, I'll determine your current condition, sensitivities, and underlying issues to ensure the best treatment for you.</div>
+    </details>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-eyebrow">Get in touch</div>
+      <h2>Let's stay in <span class="display-serif">touch.</span></h2>
+      <p class="lead">Send a message or give me a call. I'm happy to help and be a part of your skincare journey.</p>
+      <div class="info-list">
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="m4 8 8 6 8-6"/></svg>
+          </div>
+          <div>
+            <div class="label">Email</div>
+            <div class="value">amyly.esthetics@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5a2 2 0 0 1 2-2h2l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v2a2 2 0 0 1-2 2A14 14 0 0 1 5 5z"/></svg>
+          </div>
+          <div>
+            <div class="label">Phone · call or text</div>
+            <div class="value">980.999.3115</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </div>
+          <div>
+            <div class="label">Sassy Salon</div>
+            <div class="value">7211 E Independence Blvd, Charlotte NC 28227</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <div class="label">Instagram</div>
+            <div class="value">@estheticlyskincare</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hours-card">
+      <h3><span class="dot"></span>Hours</h3>
+      <div class="hours-row"><span class="day">Monday</span><span class="time closed">Closed</span></div>
+      <div class="hours-row"><span class="day">Tuesday</span><span class="time">10:30am – 7:00pm</span></div>
+      <div class="hours-row"><span class="day">Wednesday</span><span class="time">10:30am – 7:00pm</span></div>
+      <div class="hours-row"><span class="day">Thursday</span><span class="time closed">Closed</span></div>
+      <div class="hours-row"><span class="day">Friday</span><span class="time">10:00am – 5:00pm</span></div>
+      <div class="hours-row"><span class="day">Saturday</span><span class="time">10:00am – 5:00pm</span></div>
+      <div class="hours-row"><span class="day">Sunday</span><span class="time closed">Closed</span></div>
+      <div class="hours-note">Hours may vary. After-hour appointments available upon request. Appointment-based — no walk-ins.</div>
+      <a href="#book" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 24px;">Book your visit</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand">
+        <span class="top">EstheticLY</span>
+        <span class="bottom">Skincare · Charlotte, NC</span>
+      </span>
+      <p>Personalized, science-based skincare. Helping you build healthy, confident skin — one appointment at a time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#">Signature Facial</a>
+      <a href="#">Dermaplaning</a>
+      <a href="#">Microdermabrasion</a>
+      <a href="#">Chemical Peel</a>
+      <a href="#">Teen Facial</a>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <a href="#about">About</a>
+      <a href="#prep">Prep</a>
+      <a href="#aftercare">Aftercare</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="mailto:amyly.esthetics@gmail.com">Email</a>
+      <a href="tel:9809993115">Call · Text</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 EstheticLY · estheticlyskincare.com</span>
+    <span>Made with care in Charlotte, NC</span>
+  </div>
+</footer>
+
+</body>
+</html>

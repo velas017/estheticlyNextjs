@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>EstheticLY · Mobile + Desktop Preview</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+    background: linear-gradient(160deg, #ddd5cb 0%, #ece4d7 50%, #d8cfc4 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .header {
+    text-align: center; padding: 40px 24px 16px;
+  }
+  .header .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #937a62; margin-bottom: 14px;
+  }
+  .header h1 {
+    margin: 0; font-size: 40px; letter-spacing: -0.02em; color: #1c1814;
+    font-weight: 700;
+  }
+  .header h1 em {
+    font-family: "New York", Georgia, serif;
+    font-style: italic; color: #937a62; font-weight: 400;
+  }
+  .header p {
+    margin: 14px auto 0; max-width: 560px; color: #5a4f44; font-size: 15px;
+  }
+
+  /* Stage */
+  .stage {
+    display: flex; align-items: flex-start; justify-content: center;
+    gap: 56px;
+    padding: 30px 40px 80px;
+    flex-wrap: wrap;
+  }
+
+  .frame-block {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+  }
+  .frame-label {
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #6e5a47; font-weight: 600;
+    background: rgba(255,255,255,0.6);
+    padding: 8px 18px; border-radius: 999px;
+    border: 1px solid rgba(147,122,98,0.25);
+  }
+  .frame-meta {
+    font-size: 12px; color: #8b7762; margin-top: -8px;
+  }
+
+  /* iPhone frame */
+  .phone {
+    width: 380px; height: 800px;
+    background: #1a1815;
+    border-radius: 54px;
+    padding: 12px;
+    box-shadow: 0 40px 100px rgba(60, 40, 20, 0.28),
+                0 8px 24px rgba(60, 40, 20, 0.12),
+                inset 0 0 0 2px rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .phone::before {
+    content: ""; position: absolute; inset: 4px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.04));
+    pointer-events: none;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    border-radius: 44px;
+    overflow: hidden;
+    background: #f2f2f7;
+    position: relative;
+  }
+  .phone-screen iframe {
+    width: 100%; height: 100%;
+    border: 0; display: block;
+  }
+  .phone-notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #000;
+    border-radius: 20px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Browser frame */
+  .browser {
+    width: 1100px;
+    max-width: calc(100vw - 80px);
+    height: 760px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(60, 40, 20, 0.22),
+                0 8px 24px rgba(60, 40, 20, 0.1);
+    background: white;
+    display: flex; flex-direction: column;
+  }
+  .browser-bar {
+    height: 44px;
+    background: #ede6dc;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 14px;
+    border-bottom: 1px solid #d8cfc1;
+    flex-shrink: 0;
+  }
+  .traffic { display: flex; gap: 8px; }
+  .traffic span {
+    width: 12px; height: 12px; border-radius: 50%; display: block;
+  }
+  .traffic span:nth-child(1) { background: #ff5f57; }
+  .traffic span:nth-child(2) { background: #febc2e; }
+  .traffic span:nth-child(3) { background: #28c840; }
+  .browser-nav-btns {
+    display: flex; gap: 6px; color: #8b7762;
+  }
+  .browser-nav-btns span {
+    padding: 4px 6px; cursor: default;
+  }
+  .url-bar {
+    flex: 1; height: 28px;
+    background: #fcfaf6; border-radius: 8px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 14px;
+    font-size: 13px; color: #5a4f44;
+    border: 1px solid #d8cfc1;
+  }
+  .url-bar .lock {
+    width: 12px; height: 12px; border-radius: 50%; background: #b8a890;
+    display: inline-block; flex-shrink: 0;
+    position: relative;
+  }
+  .url-bar .lock::after {
+    content: ""; position: absolute; inset: 3px;
+    background: #fcfaf6; border-radius: 50%;
+  }
+  .url-bar .domain { color: #1c1814; font-weight: 500; }
+  .browser-actions { color: #8b7762; font-size: 14px; display: flex; gap: 10px; }
+  .browser-content {
+    flex: 1;
+    overflow: hidden;
+    background: white;
+    position: relative;
+  }
+  .browser-content iframe {
+    width: 100%; height: 100%; border: 0; display: block;
+  }
+
+  /* Stack vertically on smaller screens */
+  @media (max-width: 1500px) {
+    .stage { gap: 48px; }
+    .browser { width: 980px; }
+  }
+  @media (max-width: 1300px) {
+    .stage { flex-direction: column; align-items: center; }
+    .browser { width: min(1100px, calc(100vw - 60px)); }
+  }
+  @media (max-width: 480px) {
+    .header h1 { font-size: 28px; }
+    .phone { transform: scale(0.85); transform-origin: top center; margin-bottom: -100px; }
+    .browser { height: 560px; }
+  }
+
+  .footer {
+    text-align: center; padding: 16px 24px 36px;
+    color: #6e5a47; font-size: 13px;
+  }
+  .footer a { color: #937a62; text-decoration: none; font-weight: 500; }
+  .footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">EstheticLY · Preview</div>
+  <h1>Mobile <em>and</em> desktop, side by side.</h1>
+  <p>Same brand, two surfaces. The native iOS app on the left, the marketing website on the right.</p>
+</div>
+
+<div class="stage">
+  <div class="frame-block">
+    <div class="frame-label">iOS App</div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <iframe src="EstheticLY iOS App.html" title="EstheticLY iOS App"></iframe>
+      </div>
+    </div>
+    <div class="frame-meta">iPhone · 380 × 800</div>
+  </div>
+
+  <div class="frame-block">
+    <div class="frame-label">Desktop Website</div>
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="traffic"><span></span><span></span><span></span></div>
+        <div class="browser-nav-btns"><span>‹</span><span>›</span><span>↻</span></div>
+        <div class="url-bar">
+          <span class="lock"></span>
+          <span class="domain">estheticlyskincare.com</span>
+          <span style="opacity: 0.5; margin-left: auto;">⌖</span>
+        </div>
+        <div class="browser-actions"><span>↓</span><span>+</span></div>
+      </div>
+      <div class="browser-content">
+        <iframe src="EstheticLY Desktop Website.html" title="EstheticLY Desktop Website"></iframe>
+      </div>
+    </div>
+    <div class="frame-meta">Chrome · 1280 wide</div>
+  </div>
+</div>
+
+<div class="footer">
+  Open each frame directly:
+  <a href="EstheticLY iOS App.html" target="_blank">iOS App ↗</a> ·
+  <a href="EstheticLY Desktop Website.html" target="_blank">Desktop Website ↗</a>
+</div>
+
+</body>
+</html>

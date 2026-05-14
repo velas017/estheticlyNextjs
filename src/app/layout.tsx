@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ResponsiveChrome from "@/components/ios/ResponsiveChrome";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import "./globals.css";
 
@@ -16,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EstheticLY | Facials and skincare",
-  description: "Estheticly Skincare offers expert skincare treatments, premium products, and personalized beauty solutions to enhance your natural glow. Discover radiant skin with our tailored services and tips for all skin types.",
-  keywords: "esthetician, facial, skincare, Charlotte NC, dermaplaning, microdermabrasion, beauty treatments",
+  title: "EstheticLY | Skincare & Facials in Charlotte, NC",
+  description: "Personalized facials, science-based skincare, and unhurried care in Charlotte, NC. Licensed esthetician offering customized treatments for every skin type.",
+  keywords: "esthetician, facial, skincare, Charlotte NC, dermaplaning, microdermabrasion, chemical peel, beauty treatments",
   authors: [{ name: "Amy Ly", url: "https://estheticlyskincare.com" }],
   creator: "EstheticLY Skincare",
   publisher: "EstheticLY Skincare",
@@ -27,13 +26,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://estheticlyskincare.com",
     siteName: "EstheticLY Skincare",
-    title: "EstheticLY | Facials and skincare",
-    description: "Expert skincare treatments and personalized beauty solutions in Charlotte, NC",
+    title: "EstheticLY | Skincare & Facials in Charlotte, NC",
+    description: "Personalized, science-based skincare in Charlotte, NC.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EstheticLY | Facials and skincare",
-    description: "Expert skincare treatments and personalized beauty solutions in Charlotte, NC",
+    title: "EstheticLY | Skincare & Facials in Charlotte, NC",
+    description: "Personalized, science-based skincare in Charlotte, NC.",
   },
   robots: {
     index: true,
@@ -49,11 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
-          {children}
-        </main>
-        <Footer />
+        <ResponsiveChrome>{children}</ResponsiveChrome>
         <GoogleReviewBadge />
       </body>
     </html>

@@ -1,0 +1,116 @@
+.bodyText {
+  font-family: var(--font-system);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label-secondary);
+  padding: 0 20px;
+  margin: 12px 0 0;
+}
+
+.acceptRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 16px 16px 0;
+  padding: 14px 16px;
+  background: var(--tint-fade);
+  border: 0.5px solid var(--tint-soft);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  font-family: var(--font-system);
+}
+
+.checkbox {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--separator-strong);
+  border-radius: 6px;
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  margin-top: 1px;
+}
+
+.checkbox:checked {
+  background: var(--tint);
+  border-color: var(--tint);
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.acceptText {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--label);
+}
+
+.scheduler {
+  margin-top: 16px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.preBooking {
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--bg-elevated);
+}
+
+.preIcon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.preTitle {
+  font-family: var(--font-system);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--label);
+  margin-bottom: 6px;
+}
+
+.preText {
+  font-size: 14px;
+  color: var(--label-secondary);
+  line-height: 1.45;
+}
+
+/* Sheet content */
+.policyItem {
+  padding: 12px 20px 20px;
+}
+
+.policyItem h4 {
+  font-family: var(--font-system);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--label);
+}
+
+.policyItem p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--label-secondary);
+  line-height: 1.5;
+}
+
+.policyItem p:last-child {
+  margin-bottom: 0;
+}
+
+.policyItem + .policyItem {
+  border-top: 0.5px solid var(--separator);
+  margin-top: 4px;
+}

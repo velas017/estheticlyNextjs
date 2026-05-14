@@ -1,0 +1,173 @@
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+@media (min-width: 768px) {
+  .section { padding: 80px 40px; }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tint);
+  margin-bottom: 16px;
+}
+
+.heading {
+  font-family: var(--font-system);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  color: var(--label);
+}
+
+@media (min-width: 768px) {
+  .heading { font-size: 42px; }
+}
+
+.lead {
+  color: var(--label-secondary);
+  font-size: 16px;
+  margin: 0 0 32px;
+  line-height: 1.5;
+}
+
+.infoList {
+  display: grid;
+  gap: 16px;
+}
+
+.infoRow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+a.infoRow:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-warm-sm);
+}
+
+.infoIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-warm-sm);
+}
+
+.infoLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--label-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.infoValue {
+  display: block;
+  font-size: 15px;
+  color: var(--label);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.hoursCard {
+  background: #ffffff;
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  .hoursCard { padding: 32px; }
+}
+
+.hoursHeading {
+  font-family: var(--font-system);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--label);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+}
+
+.hoursRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-warm);
+  font-size: 15px;
+}
+
+.hoursRow:last-of-type { border-bottom: none; }
+
+.day { color: var(--label-secondary); }
+.time { font-weight: 500; color: var(--label); }
+.closed { color: var(--label-tertiary); font-style: italic; font-weight: 400; }
+
+.hoursNote {
+  font-size: 13px;
+  color: var(--label-tertiary);
+  margin: 16px 0 0;
+  line-height: 1.5;
+}
+
+.bookBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.bookBtn:hover { background: var(--tint-dark); }
