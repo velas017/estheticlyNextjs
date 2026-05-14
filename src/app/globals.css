@@ -198,16 +198,6 @@ body {
   overflow-x: hidden;
 }
 
-/* TEMPORARILY DISABLED — restore when mobile shell is re-enabled
-@media (max-width: 1023.98px) {
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
-}
-*/
-
 /* Typography defaults */
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-bold);

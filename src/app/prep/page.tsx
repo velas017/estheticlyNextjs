@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
-import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
-import PrepMobile from './PrepMobile'
 import { prepGroups } from '@/content/prep'
 import styles from './page.module.css'
 
@@ -34,5 +32,5 @@ const PrepDesktop = () => {
 }
 
 export default function PrepPage() {
-  return <ResponsiveSwitch desktop={<PrepDesktop />} mobile={<PrepMobile />} />
+  return <PrepDesktop />
 }

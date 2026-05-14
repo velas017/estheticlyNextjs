@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import FAQAccordion from '@/components/marketing/FAQAccordion'
 import DisplaySerif from '@/components/ui/DisplaySerif'
-import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
-import FAQMobile from './FAQMobile'
 import { contact } from '@/content/contact'
 import styles from './page.module.css'
 
@@ -35,5 +33,5 @@ const FAQDesktop = () => (
 )
 
 export default function LearnMorePage() {
-  return <ResponsiveSwitch desktop={<FAQDesktop />} mobile={<FAQMobile />} />
+  return <FAQDesktop />
 }

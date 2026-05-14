@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
-import ResponsiveSwitch from '@/components/ios/ResponsiveSwitch'
-import AftercareMobile from './AftercareMobile'
 import {
   first72Hours,
   cadence,
@@ -51,7 +49,5 @@ const AftercareDesktop = () => {
 }
 
 export default function AftercarePage() {
-  return (
-    <ResponsiveSwitch desktop={<AftercareDesktop />} mobile={<AftercareMobile />} />
-  )
+  return <AftercareDesktop />
 }
