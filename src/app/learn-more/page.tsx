@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 const FAQDesktop = () => (
   <section className={styles.section} id="faq">
     <SectionHeader
+      as="h1"
       eyebrow="FAQ"
       heading={<>Frequently <DisplaySerif>asked.</DisplaySerif></>}
       lead="Below you'll find resources related to facial care practices and answers to common questions."

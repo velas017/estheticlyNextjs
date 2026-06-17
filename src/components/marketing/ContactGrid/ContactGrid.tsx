@@ -37,15 +37,20 @@ const formatHours = (open: string | null, close: string | null) => {
   return `${open} – ${close}`
 }
 
-export default function ContactGrid() {
+export interface ContactGridProps {
+  /** Heading level. Use 'h1' when this is the page's primary heading; defaults to 'h2'. */
+  as?: 'h1' | 'h2'
+}
+
+export default function ContactGrid({ as: Heading = 'h2' }: ContactGridProps) {
   return (
     <section className={styles.section}>
       <div className={styles.grid}>
         <div>
           <div className={styles.eyebrow}>Get in touch</div>
-          <h2 className={styles.heading}>
+          <Heading className={styles.heading}>
             Let&apos;s stay in <DisplaySerif>touch.</DisplaySerif>
-          </h2>
+          </Heading>
           <p className={styles.lead}>
             Send a message or give me a call. I&apos;m happy to help and be a part of your skincare journey.
           </p>

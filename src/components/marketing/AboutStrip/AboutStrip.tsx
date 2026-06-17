@@ -7,9 +7,11 @@ import styles from './AboutStrip.module.css'
 export interface AboutStripProps {
   /** When true, renders both bio paragraphs. Default shows only the first two. */
   full?: boolean
+  /** Heading level. Use 'h1' when this is the page's primary heading; defaults to 'h2'. */
+  as?: 'h1' | 'h2'
 }
 
-export default function AboutStrip({ full = false }: AboutStripProps) {
+export default function AboutStrip({ full = false, as: Heading = 'h2' }: AboutStripProps) {
   const paras = full ? bioParagraphs : bioParagraphs.slice(0, 2)
   return (
     <section className={styles.section} id="about">
@@ -25,9 +27,9 @@ export default function AboutStrip({ full = false }: AboutStripProps) {
         </div>
         <div className={styles.body}>
           <div className={styles.eyebrow}>About</div>
-          <h2 className={styles.heading}>
+          <Heading className={styles.heading}>
             Meet <DisplaySerif>Amy Ly.</DisplaySerif>
-          </h2>
+          </Heading>
           {paras.map((p, i) => (
             <p key={i} className={styles.para}>{p}</p>
           ))}
