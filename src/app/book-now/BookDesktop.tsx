@@ -36,7 +36,7 @@ export default function BookDesktop() {
               balance, which is due at the conclusion of your service.
             </p>
             <p>
-              Remaining balance are available to be paid Cash, Zelle, Venmo, Apple
+              The remaining balance can be paid with Cash, Zelle, Venmo, Apple
               Pay, or Square ($3 service charge).
             </p>
           </div>
