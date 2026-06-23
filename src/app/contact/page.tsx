@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return <ContactGrid />
+  return <ContactGrid as="h1" />
 }

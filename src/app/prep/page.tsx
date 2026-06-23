@@ -22,6 +22,7 @@ const PrepDesktop = () => {
   return (
     <section className={styles.section} id="prep">
       <SectionHeader
+        as="h1"
         eyebrow="Before your visit"
         heading={<>How to <DisplaySerif>prepare.</DisplaySerif></>}
         lead="I strongly encourage these tips before your appointment. Reach out anytime with questions."

@@ -38,6 +38,7 @@ const AftercareDesktop = () => {
     <section className={styles.section} id="aftercare">
       <div className={styles.panel}>
         <SectionHeader
+          as="h1"
           eyebrow="After your visit"
           heading={<>Make results <DisplaySerif>last.</DisplaySerif></>}
           lead={aftercareIntro}

@@ -10,6 +10,8 @@ export interface SectionHeaderProps {
   /** When true, renders the lead under the heading instead of beside it. */
   stacked?: boolean
   id?: string
+  /** Heading level. Use 'h1' when this is the page's primary heading; defaults to 'h2'. */
+  as?: 'h1' | 'h2'
 }
 
 export default function SectionHeader({
@@ -19,6 +21,7 @@ export default function SectionHeader({
   className = '',
   stacked = false,
   id,
+  as: Heading = 'h2',
 }: SectionHeaderProps) {
   return (
     <div
@@ -27,7 +30,7 @@ export default function SectionHeader({
     >
       <div>
         {eyebrow && <div className={styles.eyebrow}>{eyebrow}</div>}
-        <h2 className={styles.heading}>{heading}</h2>
+        <Heading className={styles.heading}>{heading}</Heading>
       </div>
       {lead && <p className={styles.lead}>{lead}</p>}
     </div>

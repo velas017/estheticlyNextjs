@@ -1,86 +1,43 @@
 :root {
   color-scheme: light;
 
-  /* Brand Colors */
-  --color-primary: #937a62;
-  --color-primary-hover: #7d6750;
-  --color-primary-shadow: rgba(147, 122, 98, 0.3);
-
-  /* Text Colors */
-  --color-text-primary: #222222;
-  --color-text-secondary: #666666;
-  --color-text-light: #999999;
-
-  /* Background Colors */
-  --color-bg-white: #ffffff;
-  --color-bg-light: #f7f7f7;
-  --color-bg-gray: #f5f5f5;
-
-  /* Border & Divider Colors */
-  --color-border: #e5e5e5;
-  --color-divider: #dddddd;
-
-  /* Utility Colors */
-  --color-success: #4caf50;
-  --color-error: #f44336;
-  --color-warning: #ff9800;
-  --color-info: #2196f3;
-
-  /* Elevation Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
-
-  /* Colored Shadows */
-  --shadow-primary: 0 4px 12px rgba(147, 122, 98, 0.3);
-  --shadow-primary-hover: 0 6px 16px rgba(147, 122, 98, 0.4);
-
   /* ============================================================
-   * REDESIGN TOKENS (Phase 1 — additive; not yet consumed)
-   * Source: public/design_handoff_estheticly_redesign/
+   * DESIGN TOKENS — one unified system
+   * Brand = warm earthy brown; neutrals = iOS-style label grays.
+   * Consolidated from the previous dual token systems; unused
+   * iOS-shell tokens and duplicate legacy aliases were removed.
    * ============================================================ */
 
-  /* Brand tint (= --color-primary; named for the redesign system) */
+  /* Brand (earthy brown) */
   --tint: #937a62;
   --tint-dark: #7d6750;
   --tint-soft: rgba(147, 122, 98, 0.12);
   --tint-fade: rgba(147, 122, 98, 0.06);
 
-  /* iOS system grays (light mode) */
-  --bg: #f2f2f7;
-  --bg-grouped: #f2f2f7;
-  --bg-elevated: #ffffff;
-  --separator: rgba(60, 60, 67, 0.12);
-  --separator-strong: rgba(60, 60, 67, 0.29);
+  /* Text & labels */
   --label: #1c1c1e;
   --label-secondary: rgba(60, 60, 67, 0.6);
   --label-tertiary: rgba(60, 60, 67, 0.3);
-  --fill-quat: rgba(116, 116, 128, 0.08);
-  --fill-tert: rgba(118, 118, 128, 0.12);
-  --fill-sec: rgba(120, 120, 128, 0.16);
-  --chrome-blur: rgba(255, 255, 255, 0.72);
-  --tabbar-bg: rgba(249, 249, 249, 0.82);
+  --color-text-secondary: #666666;
+  --color-text-light: #999999;
 
-  /* Desktop warm palette */
+  /* Surfaces & backgrounds */
+  --bg-page: #fdfcfa;
   --bg-warm: #efe8de;
   --bg-soft: #f6f2ec;
-  --bg-page: #fdfcfa;
-  --border-warm: #e5e1da;
+  --color-bg-white: #ffffff;
 
-  /* Warm-tinted shadows for the redesign (additive — current
-   * --shadow-* tokens remain untouched until Phase 2 components
-   * adopt these). */
+  /* Borders & dividers */
+  --border-warm: #e5e1da;
+  --color-border: #e5e5e5;
+
+  /* Elevation shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-warm-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-warm-md: 0 8px 24px rgba(80, 60, 40, 0.07);
   --shadow-warm-lg: 0 24px 60px rgba(80, 60, 40, 0.1);
-
-  /* iOS layout dimensions */
-  --status-bar: 54px;
-  --nav-bar: 44px;
-  --tab-bar: 83px;
-  --safe-top: 54px;
-  --safe-bottom: 34px;
 
   /* Radii */
   --radius-card: 12px;
@@ -88,14 +45,14 @@
   --radius-button: 12px;
   --radius-pill: 999px;
 
-  /* Font Stack */
+  /* Font stacks */
   --font-primary: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Geist Mono', 'Courier New', monospace;
   --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
     system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "New York", "Times New Roman", Georgia, serif;
 
-  /* Type Scale */
+  /* Type scale */
   --text-h1: 48px;
   --text-h2: 36px;
   --text-h3: 24px;
@@ -106,18 +63,18 @@
   --text-sm: 14px;
   --text-xs: 12px;
 
-  /* Font Weights */
+  /* Font weights */
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Line Heights */
+  /* Line heights */
   --leading-tight: 1.2;
   --leading-normal: 1.5;
   --leading-relaxed: 1.75;
 
-  /* Spacing Scale */
+  /* Spacing scale */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -128,19 +85,20 @@
   --space-4xl: 80px;
   --space-5xl: 96px;
 
-  /* Container Widths */
+  /* Container widths */
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
   --container-2xl: 1760px;
 
-  /* Container Padding */
+  /* Container padding */
   --container-padding-mobile: 16px;
   --container-padding-tablet: 40px;
   --container-padding-desktop: 80px;
 
-  /* Breakpoints */
+  /* Breakpoint reference values (note: CSS custom properties cannot be
+   * used inside @media queries — these document the breakpoints only). */
   --screen-sm: 480px;
   --screen-md: 768px;
   --screen-lg: 1024px;
@@ -181,7 +139,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
-  color: var(--color-text-primary);
+  color: var(--label);
 }
 
 h1 {
@@ -221,7 +179,7 @@ a {
 
 /* Focus styles for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--tint);
   outline-offset: 2px;
 }
 
@@ -230,7 +188,7 @@ a {
   font-size: var(--text-h1);
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
-  color: var(--color-text-primary);
+  color: var(--label);
   letter-spacing: -0.02em;
 }
 
@@ -238,7 +196,7 @@ a {
   font-size: var(--text-h2);
   font-weight: var(--weight-semibold);
   line-height: 1.3;
-  color: var(--color-text-primary);
+  color: var(--label);
 }
 
 .body-large {
@@ -318,11 +276,11 @@ a {
 }
 
 @keyframes slideIn {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0);
   }

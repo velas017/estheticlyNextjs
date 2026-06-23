@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  return <AboutStrip full />
+  return <AboutStrip full as="h1" />
 }

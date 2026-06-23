@@ -9,19 +9,19 @@ export const faqs: FAQ[] = [
     id: 'benefits',
     question: 'What are the benefits of a facial?',
     answer:
-      'Your skin is the largest organ on your body — invest in it. Facials improve skin health, even tone and texture, increase absorption of skincare products, and much more.',
+      "Your skin is the largest organ on your body — invest in it. Facials improve skin health, even tone and texture, increase absorption of skincare products, and much more. For best results, I recommend a professional treatment every 4–6 weeks to align with your skin's natural renewal cycle.",
   },
   {
-    id: 'product-line',
-    question: 'What product line will be used?',
+    id: 'which',
+    question: 'Which facial should I book?',
     answer:
-      'My back bar is a variety of brands: skinscript, glymed, dermalogica, circadia and more. Most are pharmaceutical lines or developed by estheticians, so I can cater to different clients and concerns.',
+      "All facials are catered and customized to your skin needs. During our consultation, we'll analyze your skin and discuss a treatment plan that fits your lifestyle and goals. Just choose the duration and leave the rest to me — no guesswork, just results.",
   },
   {
-    id: 'age',
-    question: 'What is the age requirement for a facial?',
+    id: 'first-facial',
+    question: 'What to expect during your first facial?',
     answer:
-      "The minimum age allowed is 13. Teen facials are available with a guardian's consent. Facials are recommended for any age and gender.",
+      "Your first appointment is all about understanding your skin's needs and introducing it to active treatments safely. Achieving your skin goals is a marathon, not a sprint (consistency is essential for long-term results). Following your treatment, I will provide a customized home-care regimen to help you build resilience and get the most out of every visit.",
   },
   {
     id: 'sensitive-skin',
@@ -30,9 +30,15 @@ export const faqs: FAQ[] = [
       "Yes — facials are catered to all skin types. We'll use calmer, gentler products for sensitive skin.",
   },
   {
-    id: 'which',
-    question: 'Which facial should I book?',
+    id: 'purging',
+    question: 'Will I break out after my treatment?',
     answer:
-      "If this is your first facial, any customized facial is ideal. During the skin analysis, I'll determine your current condition, sensitivities, and underlying issues to ensure the best treatment for you.",
+      "It's common for the skin to go through a \"purging\" phase as we draw out impurities, but this typically clears up quickly. We'll discuss how to manage this during your post-treatment consultation.",
+  },
+  {
+    id: 'combine-services',
+    question: 'Can I get a lash lift, brow lamination, and/or a facial at the same time?',
+    answer:
+      "Yes! You can absolutely receive these services on the same day. We will go over all the necessary aftercare instructions once your treatments are complete.",
   },
 ]

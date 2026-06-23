@@ -5,7 +5,9 @@ import styles from './GoogleReviewBadge.module.css'
 
 const REVIEW_URL = 'https://g.page/r/CbYyx3JrpzcEEAE/review'
 
-const STORAGE_KEY = 'estheticly:gReviewBadgeDismissed'
+// Session-scoped: a dismissed badge returns on the visitor's next session,
+// so repeat visitors are gently re-invited to leave a review.
+const SESSION_DISMISS_KEY = 'estheticly:reviewBadgeDismissed:session'
 
 function GoogleGIcon({ className }: { className?: string }) {
   return (
@@ -40,7 +42,7 @@ export default function GoogleReviewBadge() {
   const [hidden, setHidden] = useState(true)
 
   useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEY) !== '1') {
+    if (sessionStorage.getItem(SESSION_DISMISS_KEY) !== '1') {
       setHidden(false)
     }
   }, [])
@@ -48,12 +50,12 @@ export default function GoogleReviewBadge() {
   if (hidden) return null
 
   const handleDismiss = () => {
-    sessionStorage.setItem(STORAGE_KEY, '1')
+    sessionStorage.setItem(SESSION_DISMISS_KEY, '1')
     setHidden(true)
   }
 
   return (
-    <div className={styles.wrapper} role="complementary">
+    <div className={styles.wrapper}>
       <a
         href={REVIEW_URL}
         target="_blank"

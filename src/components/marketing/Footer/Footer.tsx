@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colTitle}>Services</h4>
+          <h2 className={styles.colTitle}>Services</h2>
           <Link href="/book-now" className={styles.colLink}>Signature Facial</Link>
           <Link href="/book-now" className={styles.colLink}>Dermaplaning</Link>
           <Link href="/book-now" className={styles.colLink}>Microdermabrasion</Link>
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colTitle}>Visit</h4>
+          <h2 className={styles.colTitle}>Visit</h2>
           <Link href="/about" className={styles.colLink}>About</Link>
           <Link href="/prep" className={styles.colLink}>Prep</Link>
           <Link href="/aftercare" className={styles.colLink}>Aftercare</Link>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colTitle}>Connect</h4>
+          <h2 className={styles.colTitle}>Connect</h2>
           <a
             href={contact.socials.instagram.url}
             target="_blank"
