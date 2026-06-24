@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: "Personalized, science-based skincare in Charlotte, NC.",
     images: [
       {
-        url: "/Images/DSC08642.jpeg",
+        url: "/Images/IMG_6201.jpeg",
         alt: "EstheticLY Skincare — facials in Charlotte, NC",
       },
     ],
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "EstheticLY | Skincare & Facials in Charlotte, NC",
     description: "Personalized, science-based skincare in Charlotte, NC.",
-    images: ["/Images/DSC08642.jpeg"],
+    images: ["/Images/IMG_6201.jpeg"],
   },
   robots: {
     index: true,
@@ -61,7 +61,7 @@ const localBusinessJsonLd = {
   name: "EstheticLY Skincare",
   description:
     "Personalized facials and science-based skincare by a licensed esthetician in Charlotte, NC.",
-  image: `${SITE_URL}/Images/DSC08642.jpeg`,
+  image: `${SITE_URL}/Images/IMG_6201.jpeg`,
   url: SITE_URL,
   telephone: contact.phoneTel,
   email: contact.email,

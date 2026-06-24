@@ -37,7 +37,7 @@ export default function Hero() {
       </div>
       <div className={styles.imageWrap}>
         <Image
-          src="/Images/DSC08642.jpeg"
+          src="/Images/IMG_6201.jpeg"
           alt="Esthetician performing a facial"
           width={640}
           height={800}

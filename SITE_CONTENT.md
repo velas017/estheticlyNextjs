@@ -28,7 +28,7 @@ This file contains all the content from the EstheticLY website for rebuilding in
 - **CTA Buttons**: 
   - Book Now (primary)
   - Learn more (secondary)
-- **Hero Image**: DSC08642.jpeg (Esthetician performing Facial on Client)
+- **Hero Image**: IMG_6201.jpeg (Esthetician performing Facial on Client)
 
 ## Before Care / Prep Section
 
@@ -186,7 +186,7 @@ I am happy to help you and be apart of your skincare journey.
 
 ## Images Used
 
-1. **DSC08642.jpeg** - Hero section image (Esthetician performing Facial on Client)
+1. **IMG_6201.jpeg** - Hero section image (Esthetician performing Facial on Client)
 2. **amyPortait2.jpg** - About section profile image
 3. **DSC08632.jpeg** - Not currently used in visible sections
 4. **IMG_1500.jpg** - Not currently used in visible sections

@@ -481,7 +481,7 @@ Used by `ResponsiveChrome` for the desktop chrome. Wraps `Navbar`. Fixed-positio
 
 | File | Used in |
 |------|---------|
-| `DSC08642.jpeg` | Hero section (primary portrait) |
+| `IMG_6201.jpeg` | Hero section (primary portrait) |
 | `amyPortait2.jpg` | AboutStrip (bio card portrait) |
 | `facial.jpg` | GalleryRow cell 1 |
 | `handsOn2.jpg` | GalleryRow cell 2 |
