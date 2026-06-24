@@ -11,7 +11,7 @@ export const services: Service[] = [
     id: 'signature',
     name: 'Signature Facial',
     duration: '60 min',
-    price: 100,
+    price: 130,
     description:
       'Customized double cleanse, exfoliation, mask, neck and shoulder massage, serums, moisturizer.',
   },
@@ -27,7 +27,7 @@ export const services: Service[] = [
     id: '90-min-custom',
     name: '90 Minute Custom Facial',
     duration: '95 min',
-    price: 150,
+    price: 180,
     description:
       'Want a longer facial to address concerns and more relaxation time? Perfect to wind down and create a moment for you.',
   },
