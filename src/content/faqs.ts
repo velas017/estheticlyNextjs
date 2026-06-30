@@ -1,7 +1,14 @@
+import { contact } from '@/content/contact'
+
 export interface FAQ {
   id: string
   question: string
   answer: string
+  link?: {
+    label: string
+    href: string
+    external?: boolean
+  }
 }
 
 export const faqs: FAQ[] = [
@@ -40,5 +47,16 @@ export const faqs: FAQ[] = [
     question: 'Can I get a lash lift, brow lamination, and/or a facial at the same time?',
     answer:
       "Yes! You can absolutely receive these services on the same day. We will go over all the necessary aftercare instructions once your treatments are complete.",
+  },
+  {
+    id: 'where-to-buy',
+    question: 'Where can I buy the products used in my facial?',
+    answer:
+      'All the products I use are professional-grade GlyMed Plus, available through my online store. They ship directly to your door, so you can keep your routine consistent between visits — and you know every product is authentic and properly handled.',
+    link: {
+      label: 'Shop my skincare',
+      href: contact.shopUrl,
+      external: true,
+    },
   },
 ]

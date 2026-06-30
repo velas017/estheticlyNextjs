@@ -3,9 +3,16 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { contact } from '@/content/contact'
 import styles from './TopNav.module.css'
 
-const navItems = [
+interface NavItem {
+  href: string
+  label: string
+  external?: boolean
+}
+
+const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/prep', label: 'Prep' },
@@ -13,6 +20,7 @@ const navItems = [
   { href: '/learn-more', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
   { href: '/gift-cards', label: 'Gift Cards' },
+  { href: contact.shopUrl, label: 'Shop', external: true },
 ]
 
 export default function TopNav() {
@@ -28,15 +36,29 @@ export default function TopNav() {
         </Link>
 
         <nav className={styles.links} aria-label="Primary">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.link} ${pathname === item.href ? styles.linkActive : ''}`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+                aria-label={`${item.label} products (opens in new tab)`}
+              >
+                {item.label}
+                <span className={styles.extArrow} aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${styles.link} ${pathname === item.href ? styles.linkActive : ''}`}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
           <Link href="/book-now" className={styles.cta}>
             Book Now
           </Link>
@@ -64,16 +86,31 @@ export default function TopNav() {
 
       <div className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
         <nav className={styles.drawerNav} aria-label="Mobile">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.drawerLink} ${pathname === item.href ? styles.drawerLinkActive : ''}`}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.drawerLink}
+                aria-label={`${item.label} products (opens in new tab)`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+                <span className={styles.extArrow} aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${styles.drawerLink} ${pathname === item.href ? styles.drawerLinkActive : ''}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
           <Link href="/book-now" className={styles.drawerCta} onClick={() => setOpen(false)}>
             Book Now
           </Link>

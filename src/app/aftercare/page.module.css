@@ -27,3 +27,61 @@
     padding: 72px 64px;
   }
 }
+
+.shopCta {
+  margin-top: 32px;
+  background: #ffffff;
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .shopCta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px;
+  }
+}
+
+.shopCtaHeading {
+  font-family: var(--font-system);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: var(--label);
+}
+
+.shopCtaText {
+  font-size: 15px;
+  color: var(--label-secondary);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 520px;
+}
+
+.shopCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.shopCtaBtn:hover {
+  background: var(--tint-dark);
+  transform: translateY(-1px);
+}

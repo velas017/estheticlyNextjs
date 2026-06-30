@@ -16,7 +16,22 @@ export default function FAQAccordion({ defaultOpenFirst = true }: FAQAccordionPr
             {faq.question}
             <span className={styles.indicator} aria-hidden="true" />
           </summary>
-          <div className={styles.answer}>{faq.answer}</div>
+          <div className={styles.answer}>
+            {faq.answer}
+            {faq.link && (
+              <div className={styles.answerLinkWrap}>
+                <a
+                  href={faq.link.href}
+                  className={styles.answerLink}
+                  {...(faq.link.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  {faq.link.label} <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            )}
+          </div>
         </details>
       ))}
     </div>

@@ -26,6 +26,15 @@ export default function Footer() {
           <Link href="/book-now" className={styles.colLink}>Microdermabrasion</Link>
           <Link href="/book-now" className={styles.colLink}>Chemical Peel</Link>
           <Link href="/book-now" className={styles.colLink}>Teen Facial</Link>
+          <a
+            href={contact.shopUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.colLink}
+            aria-label="Shop products (opens in new tab)"
+          >
+            Shop Products <span aria-hidden="true">↗</span>
+          </a>
         </div>
 
         <div className={styles.col}>

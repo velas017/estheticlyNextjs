@@ -77,3 +77,22 @@
   max-width: 720px;
   line-height: 1.6;
 }
+
+.answerLinkWrap {
+  margin-top: 14px;
+}
+
+.answerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tint);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.answerLink:hover {
+  color: var(--tint-dark);
+  text-decoration: underline;
+}
