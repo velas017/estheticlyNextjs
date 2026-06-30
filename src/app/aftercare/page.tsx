@@ -8,6 +8,7 @@ import {
   makeupNotice,
   aftercareIntro,
 } from '@/content/aftercare'
+import { contact } from '@/content/contact'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -44,6 +45,23 @@ const AftercareDesktop = () => {
           lead={aftercareIntro}
         />
         <CareGrid cards={cards} />
+        <div className={styles.shopCta}>
+          <div className={styles.shopCtaCopy}>
+            <h2 className={styles.shopCtaHeading}>Keep your results going at home</h2>
+            <p className={styles.shopCtaText}>
+              Maintain your progress with the professional products I recommend for
+              your skin — shipped directly to your door.
+            </p>
+          </div>
+          <a
+            href={contact.shopUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.shopCtaBtn}
+          >
+            Shop my skincare <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@ export const contact = {
   addressLine1: '7211 E Independence Blvd',
   addressLine2: 'Charlotte, NC 28227',
   appointmentNote: 'Appointment-based — no walk-ins.',
+  shopUrl: 'https://glymedplus.com/launch/0507169',
   socials: {
     instagram: {
       handle: '@estheticlyskincare',

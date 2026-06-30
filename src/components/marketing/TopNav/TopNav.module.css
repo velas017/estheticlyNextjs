@@ -74,6 +74,12 @@
   background: var(--bg-soft);
 }
 
+.extArrow {
+  font-size: 0.8em;
+  margin-left: 3px;
+  color: var(--label-tertiary);
+}
+
 .cta {
   display: inline-flex;
   align-items: center;

@@ -1,6 +1,7 @@
 import Hero from '@/components/marketing/Hero'
 import ServicesGrid from '@/components/marketing/ServicesGrid'
 import AboutStrip from '@/components/marketing/AboutStrip'
+import ShopBanner from '@/components/marketing/ShopBanner'
 import GalleryRow from '@/components/marketing/GalleryRow'
 import FAQAccordion from '@/components/marketing/FAQAccordion'
 import SectionHeader from '@/components/marketing/SectionHeader'
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <ServicesGrid />
       <AboutStrip />
+      <ShopBanner />
       <GalleryRow />
       <section className={styles.faqSection} id="faq">
         <SectionHeader
