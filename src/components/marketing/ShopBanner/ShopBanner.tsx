@@ -21,7 +21,7 @@ export default function ShopBanner() {
           rel="noopener noreferrer"
           className={styles.btn}
         >
-          Shop my skincare <span aria-hidden="true">↗</span>
+          Shop skincare <span aria-hidden="true">↗</span>
         </a>
         <p className={styles.trust}>
           Authentic professional products · Ships directly to your door
