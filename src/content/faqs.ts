@@ -54,7 +54,7 @@ export const faqs: FAQ[] = [
     answer:
       'All the products I use are professional-grade GlyMed Plus, available through my online store. They ship directly to your door, so you can keep your routine consistent between visits — and you know every product is authentic and properly handled.',
     link: {
-      label: 'Shop my skincare',
+      label: 'Shop skincare',
       href: contact.shopUrl,
       external: true,
     },

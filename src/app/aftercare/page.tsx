@@ -59,7 +59,7 @@ const AftercareDesktop = () => {
             rel="noopener noreferrer"
             className={styles.shopCtaBtn}
           >
-            Shop my skincare <span aria-hidden="true">↗</span>
+            Shop skincare <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>
