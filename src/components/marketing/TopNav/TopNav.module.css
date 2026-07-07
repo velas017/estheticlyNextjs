@@ -85,7 +85,7 @@
   align-items: center;
   padding: 10px 20px;
   border-radius: var(--radius-pill);
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
   margin-left: 8px;
   font-size: 14px;
@@ -94,7 +94,7 @@
 }
 
 .cta:hover {
-  background: var(--tint-dark);
+  background: var(--tint-deep);
 }
 
 /* Mobile actions */
@@ -109,14 +109,14 @@
   align-items: center;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
 }
 
 .ctaCompact:hover {
-  background: var(--tint-dark);
+  background: var(--tint-deep);
 }
 
 .hamburger {
@@ -166,18 +166,21 @@
   transform: rotate(-45deg);
 }
 
-/* Drawer */
+/* Drawer — visibility keeps closed-drawer links out of keyboard tab
+ * order; it flips only after the collapse transition ends. */
 .drawer {
   display: block;
   max-height: 0;
   overflow: hidden;
+  visibility: hidden;
   background: rgba(253, 252, 250, 0.98);
   border-top: 1px solid var(--border-warm);
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease, visibility 0.3s;
 }
 
 .drawerOpen {
-  max-height: 480px;
+  max-height: 640px;
+  visibility: visible;
 }
 
 .drawerNav {
@@ -200,7 +203,9 @@
 }
 
 .drawerLinkActive {
-  color: var(--tint);
+  color: var(--tint-dark);
+  font-weight: 600;
+  background: var(--bg-soft);
 }
 
 .drawerCta {
@@ -209,7 +214,7 @@
   justify-content: center;
   padding: 12px 22px;
   border-radius: var(--radius-pill);
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
   font-weight: 600;
 }

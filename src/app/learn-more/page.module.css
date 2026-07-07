@@ -41,7 +41,7 @@
   align-items: center;
   padding: 12px 22px;
   border-radius: var(--radius-pill);
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
@@ -49,4 +49,4 @@
   transition: background 0.2s;
 }
 
-.askBtn:hover { background: var(--tint-dark); }
+.askBtn:hover { background: var(--tint-deep); }

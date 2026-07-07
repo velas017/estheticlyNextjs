@@ -24,7 +24,11 @@ export default function FAQAccordion({ defaultOpenFirst = true }: FAQAccordionPr
                   href={faq.link.href}
                   className={styles.answerLink}
                   {...(faq.link.external
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    ? {
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        'aria-label': `${faq.link.label} (opens in new tab)`,
+                      }
                     : {})}
                 >
                   {faq.link.label} <span aria-hidden="true">↗</span>

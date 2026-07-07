@@ -17,7 +17,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint);
+  color: var(--tint-dark);
   margin-bottom: 16px;
 }
 
@@ -241,9 +241,9 @@
 .note strong { color: var(--label); }
 
 .noteLink {
-  color: var(--tint);
+  color: var(--tint-dark);
   text-decoration: underline;
   font-weight: 500;
 }
 
-.noteLink:hover { color: var(--tint-dark); }
+.noteLink:hover { color: var(--tint-deep); }

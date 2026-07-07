@@ -36,6 +36,7 @@ const GiftCardsDesktop = () => (
           target="_blank"
           rel="noopener noreferrer"
           className={styles.btn}
+          aria-label="Buy a gift card (opens in new tab)"
         >
           Buy now →
         </a>

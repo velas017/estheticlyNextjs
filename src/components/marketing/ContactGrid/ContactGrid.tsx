@@ -84,6 +84,7 @@ export default function ContactGrid({ as: Heading = 'h2' }: ContactGridProps) {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.infoRow}
+              aria-label={`Instagram ${contact.socials.instagram.handle} (opens in new tab)`}
             >
               <span className={styles.infoIcon}><IGIcon /></span>
               <span>
@@ -95,10 +96,10 @@ export default function ContactGrid({ as: Heading = 'h2' }: ContactGridProps) {
         </div>
 
         <div className={styles.hoursCard}>
-          <h3 className={styles.hoursHeading}>
+          <h2 className={styles.hoursHeading}>
             <span className={styles.dot} aria-hidden="true" />
             Hours
-          </h3>
+          </h2>
           {hours.map((row) => (
             <div key={row.day} className={styles.hoursRow}>
               <span className={styles.day}>{row.day}</span>

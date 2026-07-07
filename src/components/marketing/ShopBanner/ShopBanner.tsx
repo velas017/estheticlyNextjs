@@ -20,6 +20,7 @@ export default function ShopBanner() {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.btn}
+          aria-label="Shop skincare (opens in new tab)"
         >
           Shop skincare <span aria-hidden="true">↗</span>
         </a>

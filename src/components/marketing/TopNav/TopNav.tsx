@@ -74,6 +74,7 @@ export default function TopNav() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
+            aria-controls="mobile-drawer"
           >
             <span className={`${styles.hamburgerBox} ${open ? styles.hamburgerOpen : ''}`}>
               <span />
@@ -84,7 +85,7 @@ export default function TopNav() {
         </div>
       </div>
 
-      <div className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
+      <div id="mobile-drawer" className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
         <nav className={styles.drawerNav} aria-label="Mobile">
           {navItems.map((item) =>
             item.external ? (

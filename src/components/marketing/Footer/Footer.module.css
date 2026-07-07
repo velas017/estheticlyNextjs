@@ -82,7 +82,8 @@
 }
 
 .colLink:hover {
-  color: var(--tint);
+  /* Lighter tint for the dark footer — #937a62 is only 4.4:1 here */
+  color: #c9b39c;
 }
 
 .bottom {

@@ -22,7 +22,7 @@ const FAQDesktop = () => (
     <FAQAccordion />
 
     <div className={styles.askCard}>
-      <h3 className={styles.askTitle}>Have a specific question?</h3>
+      <h2 className={styles.askTitle}>Have a specific question?</h2>
       <p className={styles.askBody}>
         Can&apos;t find what you&apos;re looking for? Feel free to reach out directly.
       </p>

@@ -52,7 +52,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint);
+  color: var(--tint-dark);
   margin-bottom: 16px;
 }
 
@@ -82,5 +82,5 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 22px;
-  color: var(--tint);
+  color: var(--tint-dark);
 }

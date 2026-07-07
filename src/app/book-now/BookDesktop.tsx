@@ -29,7 +29,7 @@ export default function BookDesktop() {
         </summary>
         <div className={styles.policiesBody}>
           <div className={styles.policyItem}>
-            <h4 className={styles.policyTitle}>Payment Information</h4>
+            <h2 className={styles.policyTitle}>Payment Information</h2>
             <p>
               A valid card on file and a $25 non-refundable deposit are required at
               the time of booking. The deposit will be applied toward your remaining
@@ -41,7 +41,7 @@ export default function BookDesktop() {
             </p>
           </div>
           <div className={styles.policyItem}>
-            <h4 className={styles.policyTitle}>Cancellation Policy</h4>
+            <h2 className={styles.policyTitle}>Cancellation Policy</h2>
             <p>
               Appointments may be cancelled up to 24 hours in advance; however,
               please note that deposits are non-refundable. Cancellations made with
@@ -50,7 +50,7 @@ export default function BookDesktop() {
             </p>
           </div>
           <div className={styles.policyItem}>
-            <h4 className={styles.policyTitle}>Late Policy</h4>
+            <h2 className={styles.policyTitle}>Late Policy</h2>
             <p>
               Please notify me in advance if you anticipate being late. A 15-minute
               grace period is provided. After 15 minutes, you may choose to
@@ -83,9 +83,9 @@ export default function BookDesktop() {
         ) : (
           <div className={styles.preBooking} role="status">
             <div className={styles.preBookingIcon} aria-hidden="true">🔒</div>
-            <h4 className={styles.preBookingTitle}>
+            <h2 className={styles.preBookingTitle}>
               Accept policies above to load the scheduler
-            </h4>
+            </h2>
             <p className={styles.preBookingText}>
               Once you check the box above, the booking system will appear here.
             </p>
