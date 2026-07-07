@@ -104,8 +104,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
+        <a href="#main-content" className="skipLink">
+          Skip to main content
+        </a>
         <TopNav />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <GoogleReviewBadge />
       </body>

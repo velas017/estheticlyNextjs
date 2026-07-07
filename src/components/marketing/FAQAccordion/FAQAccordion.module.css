@@ -86,13 +86,13 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--tint);
+  color: var(--tint-dark);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .answerLink:hover {
-  color: var(--tint-dark);
+  color: var(--tint-deep);
   text-decoration: underline;
 }

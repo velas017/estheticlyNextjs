@@ -27,7 +27,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint);
+  color: var(--tint-dark);
   margin-bottom: 20px;
   display: inline-flex;
   align-items: center;
@@ -102,14 +102,14 @@
 }
 
 .btnPrimary {
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
-  border-color: var(--tint);
+  border-color: var(--tint-dark);
 }
 
 .btnPrimary:hover {
-  background: var(--tint-dark);
-  border-color: var(--tint-dark);
+  background: var(--tint-deep);
+  border-color: var(--tint-deep);
   transform: translateY(-1px);
 }
 

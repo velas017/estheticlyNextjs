@@ -53,6 +53,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.colLink}
+            aria-label="Instagram (opens in new tab)"
           >
             Instagram
           </a>
@@ -61,6 +62,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.colLink}
+            aria-label="Facebook (opens in new tab)"
           >
             Facebook
           </a>

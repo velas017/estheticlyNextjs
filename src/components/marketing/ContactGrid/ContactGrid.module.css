@@ -27,7 +27,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint);
+  color: var(--tint-dark);
   margin-bottom: 16px;
 }
 
@@ -162,7 +162,7 @@ a.infoRow:hover {
   margin-top: 20px;
   padding: 14px 26px;
   border-radius: var(--radius-pill);
-  background: var(--tint);
+  background: var(--tint-dark);
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
@@ -170,4 +170,4 @@ a.infoRow:hover {
   transition: background 0.2s;
 }
 
-.bookBtn:hover { background: var(--tint-dark); }
+.bookBtn:hover { background: var(--tint-deep); }

@@ -56,7 +56,7 @@
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--tint);
+  color: var(--tint-dark);
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -90,7 +90,7 @@
 }
 
 .arrow {
-  color: var(--tint);
+  color: var(--tint-dark);
   font-size: 18px;
   font-weight: 400;
 }

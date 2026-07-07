@@ -8,16 +8,22 @@
    * iOS-shell tokens and duplicate legacy aliases were removed.
    * ============================================================ */
 
-  /* Brand (earthy brown) */
+  /* Brand (earthy brown)
+   * --tint (4.04:1 on white) is reserved for large text (≥24px) and
+   * decorative accents. Small text and button fills use --tint-dark
+   * (5.35:1) with --tint-deep as the hover state — WCAG 2.2 AA. */
   --tint: #937a62;
   --tint-dark: #7d6750;
+  --tint-deep: #6a5743;
   --tint-soft: rgba(147, 122, 98, 0.12);
   --tint-fade: rgba(147, 122, 98, 0.06);
 
-  /* Text & labels */
+  /* Text & labels
+   * Secondary/tertiary alphas raised from 0.6/0.3 to 0.75 so body and
+   * caption text meet the 4.5:1 AA contrast minimum on all surfaces. */
   --label: #1c1c1e;
-  --label-secondary: rgba(60, 60, 67, 0.6);
-  --label-tertiary: rgba(60, 60, 67, 0.3);
+  --label-secondary: rgba(60, 60, 67, 0.75);
+  --label-tertiary: rgba(60, 60, 67, 0.75);
   --color-text-secondary: #666666;
   --color-text-light: #999999;
 
@@ -181,6 +187,36 @@ a {
 *:focus-visible {
   outline: 2px solid var(--tint);
   outline-offset: 2px;
+}
+
+/* Skip-to-content link (WCAG 2.4.1 bypass blocks) — visually hidden
+ * until keyboard-focused, then shown above the sticky nav. */
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--label);
+  color: #ffffff;
+  border-radius: 0 0 var(--radius-button) 0;
+  font-weight: 600;
+}
+
+.skipLink:focus {
+  left: 0;
+  top: 0;
+}
+
+/* Respect reduced-motion preference (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Utility Classes */

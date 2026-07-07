@@ -18,7 +18,7 @@ export default function CareGrid({ cards }: CareGridProps) {
       {cards.map((card) => (
         <article key={card.title} className={styles.card}>
           <div className={styles.num}>{card.num}</div>
-          <h3 className={styles.title}>{card.title}</h3>
+          <h2 className={styles.title}>{card.title}</h2>
           <ul className={styles.list}>
             {card.items.map((item, i) => (
               <li key={i}>{item}</li>

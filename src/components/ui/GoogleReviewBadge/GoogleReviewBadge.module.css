@@ -26,7 +26,7 @@
 .badge:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  color: var(--tint);
+  color: var(--tint-dark);
 }
 
 .icon {
@@ -61,9 +61,9 @@
 }
 
 .dismiss:hover {
-  background: var(--tint);
+  background: var(--tint-dark);
   color: var(--color-bg-white);
-  border-color: var(--tint);
+  border-color: var(--tint-dark);
 }
 
 @keyframes fadeSlideUp {
