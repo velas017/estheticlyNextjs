@@ -33,7 +33,7 @@
   flex: 0 0 calc(85vw - 24px);
   scroll-snap-align: start;
   aspect-ratio: 4 / 5;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
   background: var(--bg-soft);
@@ -59,7 +59,7 @@
 .featured,
 .cell {
   position: relative;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--bg-soft);
   aspect-ratio: 4 / 5;
@@ -80,4 +80,13 @@
 
 .img {
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Gentle zoom on hover — pointer devices only */
+@media (hover: hover) {
+  .featured:hover .img,
+  .cell:hover .img {
+    transform: scale(1.04);
+  }
 }

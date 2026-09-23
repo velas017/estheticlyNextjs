@@ -82,7 +82,12 @@ export default function BookDesktop() {
           <AcuityScheduler owner="30825696" accepted={policiesAccepted} />
         ) : (
           <div className={styles.preBooking} role="status">
-            <div className={styles.preBookingIcon} aria-hidden="true">🔒</div>
+            <div className={styles.preBookingIcon} aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
+                <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+              </svg>
+            </div>
             <h2 className={styles.preBookingTitle}>
               Accept policies above to load the scheduler
             </h2>

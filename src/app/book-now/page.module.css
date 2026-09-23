@@ -61,9 +61,25 @@
   font-size: 16px;
   font-weight: 600;
   color: var(--label);
+  transition: background 0.2s;
+}
+
+.policiesSummary:hover {
+  background: var(--bg-soft);
 }
 
 .policiesSummary::-webkit-details-marker { display: none; }
+
+/* Smooth open/close where supported (needs interpolate-size on :root) */
+.policies::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
+}
+
+.policies[open]::details-content {
+  block-size: auto;
+}
 
 .indicator {
   position: relative;
@@ -144,6 +160,17 @@
   border-radius: 12px;
   cursor: pointer;
   user-select: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.acceptRow:hover {
+  border-color: var(--tint);
+}
+
+/* Confirm the choice visually once the box is ticked */
+.acceptRow:has(.checkbox:checked) {
+  background: var(--tint-soft);
+  border-color: var(--tint);
 }
 
 .checkbox {
@@ -161,8 +188,8 @@
 }
 
 .checkbox:checked {
-  background: var(--tint);
-  border-color: var(--tint);
+  background: var(--tint-dark);
+  border-color: var(--tint-dark);
 }
 
 .checkbox:checked::after {
@@ -197,8 +224,17 @@
 }
 
 .preBookingIcon {
-  font-size: 40px;
-  margin-bottom: 12px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid var(--border-warm);
+  color: var(--tint-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-warm-md);
 }
 
 .preBookingTitle {

@@ -1,5 +1,7 @@
 :root {
   color-scheme: light;
+  /* Lets <details> animate open/closed to height: auto (progressive enhancement) */
+  interpolate-size: allow-keywords;
 
   /* ============================================================
    * DESIGN TOKENS — one unified system
@@ -15,6 +17,7 @@
   --tint: #937a62;
   --tint-dark: #7d6750;
   --tint-deep: #6a5743;
+  --tint-ink: #5a4a39;   /* darkest brand brown — dark CTA surfaces */
   --tint-soft: rgba(147, 122, 98, 0.12);
   --tint-fade: rgba(147, 122, 98, 0.06);
 
@@ -144,6 +147,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   color: var(--label);
+  /* Avoid stranding a single word on a heading's last line */
+  text-wrap: pretty;
 }
 
 h1 {
@@ -170,6 +175,7 @@ h5 {
 }
 
 p {
+  text-wrap: pretty;
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-text-secondary);

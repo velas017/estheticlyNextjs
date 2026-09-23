@@ -60,31 +60,33 @@
 .infoRow {
   display: flex;
   gap: 16px;
-  align-items: flex-start;
-  padding: 18px 20px;
+  align-items: center;
+  padding: 16px 20px;
   background: var(--bg-soft);
-  border-radius: 12px;
+  border: 1px solid transparent;
+  border-radius: 14px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
 }
 
 a.infoRow:hover {
   transform: translateY(-1px);
-  box-shadow: var(--shadow-warm-sm);
+  background: #ffffff;
+  border-color: var(--border-warm);
+  box-shadow: var(--shadow-warm-md);
 }
 
 .infoIcon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: #ffffff;
-  color: var(--tint);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--tint-soft);
+  color: var(--tint-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: var(--shadow-warm-sm);
 }
 
 .infoLabel {
@@ -106,8 +108,9 @@ a.infoRow:hover {
 .hoursCard {
   background: #ffffff;
   border: 1px solid var(--border-warm);
-  border-radius: 16px;
+  border-radius: var(--radius-large);
   padding: 24px;
+  box-shadow: var(--shadow-warm-md);
 }
 
 @media (min-width: 768px) {
@@ -131,14 +134,16 @@ a.infoRow:hover {
   height: 8px;
   border-radius: 50%;
   background: #4caf50;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.16);
 }
 
 .hoursRow {
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
-  border-bottom: 1px dashed var(--border-warm);
+  border-bottom: 1px solid var(--border-warm);
   font-size: 15px;
+  font-variant-numeric: tabular-nums;
 }
 
 .hoursRow:last-of-type { border-bottom: none; }
@@ -167,7 +172,12 @@ a.infoRow:hover {
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s;
+  box-shadow: 0 6px 16px rgba(106, 87, 67, 0.22);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
-.bookBtn:hover { background: var(--tint-deep); }
+.bookBtn:hover {
+  background: var(--tint-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(106, 87, 67, 0.28);
+}
