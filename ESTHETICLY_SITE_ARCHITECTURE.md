@@ -72,6 +72,7 @@ src/
 │   │   ├── CareGrid/           # Numbered card grid (Prep / Aftercare)
 │   │   ├── SectionHeader/      # Eyebrow + heading + lead
 │   │   ├── Footer/             # Site footer
+│   │   ├── MobileBookBar/      # Sticky bottom Book Now bar on phones (client)
 │   │   └── MidBanner/          # Tinted accent banner (currently unused)
 │   │
 │   └── ui/                     # Reusable primitives
@@ -182,6 +183,7 @@ Exports `first72Hours` (items with `id`, `tone`, `label`), `cadence`, `makeupNot
     <TopNav />
     <main id="main-content">{children}</main>
     <Footer />
+    <MobileBookBar />
     <GoogleReviewBadge />
   </body>
 </html>
@@ -203,7 +205,7 @@ Every page except `/` exports its own `metadata` and renders exactly one `<h1>`.
 
 **File:** `src/app/page.tsx`
 
-1. `<Hero />` — h1, lead, CTAs, `aboutStats`, portrait
+1. `<Hero />` — h1, lead, CTAs ("Book your facial" → `/book-now`, "View services" → `#services`), `aboutStats`, portrait
 2. `<ServicesGrid />` — 3 service cards → `/book-now`
 3. `<AboutStrip />` — first 2 bio paragraphs + signature quote
 4. `<ShopBanner />` — GlyMed Plus storefront CTA
@@ -244,8 +246,8 @@ Two-column layout: gift card image (`estheticlyEgiftcard.png`) + copy block with
 1. Eyebrow + h1 + lead
 2. `<details>` accordion — Payment Information, Cancellation Policy, Late Policy
 3. Checkbox — visitor must accept policies
-4. Unchecked: pre-booking placeholder (`role="status"`, lock icon, arrow)
-5. Checked: `<AcuityScheduler owner="30825696" accepted />` in a full-bleed `.scheduler` wrapper
+4. Unchecked: pre-booking placeholder (`role="status"`, inline SVG lock in a white circle, arrow)
+5. Checked: `<AcuityScheduler owner="30825696" accepted />` in a full-bleed `.scheduler` wrapper; the accept row highlights, and the scheduler scrolls into view (always on phones; on wider screens only when its top is below 75% of the viewport). Focus stays on the checkbox; reduced motion uses an instant jump.
 6. Note linking to `/contact`
 
 ---
@@ -285,11 +287,11 @@ Props: `eyebrow?`, `heading: ReactNode`, `lead?`, `stacked?` (lead below heading
 
 ### `Hero`
 
-No props. h1, lead, two CTAs (both → `/book-now`), stats from `aboutStats`, `IMG_6201.jpeg` with `priority`.
+No props. h1, lead, two CTAs ("Book your facial" → `/book-now`, "View services" → `#services`; stacked full-width below 480px), stats from `aboutStats` in a hairline-divided row, `IMG_6201.jpeg` with `priority`.
 
 ### `ServicesGrid`
 
-No props. Reads `services`. Each card is a `<Link href="/book-now">` showing duration, name (h3), description, price.
+No props. Reads `services`. Each card is a `<Link href="/book-now">` showing duration, name (h3), description, price, and an arrow in a round chip that fills on hover. The section has `id="services"` and a `scroll-margin-top` so the hero link lands clear of the sticky nav.
 
 ### `AboutStrip`
 
@@ -302,7 +304,7 @@ Portrait: `/Images/amyPortait2.jpg`.
 
 ### `ShopBanner`
 
-No props. Tinted banner with heading, lead, "Shop skincare" button → `contact.shopUrl` (new tab), and trust line.
+No props. Dark brand band (`--tint-deep` → `--tint-ink` gradient) with white heading, sand-colored `DisplaySerif` accent, lead, cream "Shop skincare" button → `contact.shopUrl` (new tab), and trust line. Deliberately dark so it doesn't blend into the tinted AboutStrip above it; all text meets AA on the band.
 
 ### `GalleryRow`
 
@@ -313,7 +315,7 @@ Images (hardcoded): `facial.jpg`, `handsOn2.jpg`, `brows2.jpg`, `IMG_1500.jpg`, 
 
 ### `FAQAccordion`
 
-Native `<details>`/`<summary>` — no JavaScript. First item open by default (`defaultOpenFirst`, default `true`). Renders an optional per-FAQ link.
+Native `<details>`/`<summary>` — no JavaScript. First item open by default (`defaultOpenFirst`, default `true`). Renders an optional per-FAQ link. The +/− indicator is a round chip that fills with `--tint-dark` when open; open/close animates via `::details-content` where supported (needs `interpolate-size` on `:root`).
 
 ### `CareGrid`
 
@@ -348,9 +350,18 @@ Full-bleed wrapper in `book-now/page.module.css`:
 }
 ```
 
+### `MobileBookBar` (client)
+
+Full-width Book Now bar fixed to the bottom of the screen below 768px (tablet and desktop rely on the nav CTA). Mounted once in the root layout.
+
+- Shows after scrolling past ~60% of the first screen; hides while the `<footer>` is in view (IntersectionObserver); returns `null` on `/book-now`.
+- Hidden state slides off-screen with `visibility: hidden` and `tabIndex={-1}`, so it's out of the tab order and accessibility tree.
+- Pads for `env(safe-area-inset-bottom)`.
+- While visible, sets `data-bookbar="visible"` on `<html>`; other fixed UI can respond to it.
+
 ### `GoogleReviewBadge` (client)
 
-Floating "Review us on Google" pill linking to the business's Google review URL. Dismissible; dismissal is stored in `sessionStorage`, so the badge returns on the next session. Renders nothing until mounted, which avoids a hydration mismatch.
+Floating "Review us on Google" pill linking to the business's Google review URL. Dismissible; dismissal is stored in `sessionStorage`, so the badge returns on the next session. Renders nothing until mounted, which avoids a hydration mismatch. On phones it lifts above `MobileBookBar` when `html[data-bookbar="visible"]` is set.
 
 ---
 
@@ -423,7 +434,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 
 | Tokens | Purpose |
 |--------|---------|
-| `--tint`, `--tint-dark`, `--tint-deep`, `--tint-soft`, `--tint-fade` | Brand brown. `--tint` (4.04:1) is large text / decoration only; small text and fills use `--tint-dark` (5.35:1), hover `--tint-deep` |
+| `--tint`, `--tint-dark`, `--tint-deep`, `--tint-ink`, `--tint-soft`, `--tint-fade` | Brand brown. `--tint` (4.04:1) is large text / decoration only; small text and fills use `--tint-dark` (5.35:1), hover `--tint-deep`; `--tint-ink` (#5a4a39) is the darkest brown for dark CTA surfaces |
 | `--label`, `--label-secondary`, `--label-tertiary`, `--color-text-secondary`, `--color-text-light` | Text colors |
 | `--bg-page`, `--bg-warm`, `--bg-soft`, `--color-bg-white` | Surfaces |
 | `--border-warm`, `--color-border` | Borders |
@@ -436,7 +447,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 | `--container-*`, `--screen-*` | Container widths/padding; breakpoint reference values (documentation only — custom properties can't be used in media queries) |
 | `--transition-fast/base/slow` | Transitions |
 
-**Global rules:** `color-scheme: light` (no dark mode), `*:focus-visible` outline, `.skipLink`, and a `prefers-reduced-motion: reduce` block that disables animations and smooth scrolling.
+**Global rules:** `overflow-x: clip` on `html`/`body` (with `hidden` fallback — `hidden` alone makes `<body>` a scroll container and breaks the sticky TopNav), `text-wrap: pretty` on headings and paragraphs, `interpolate-size: allow-keywords` for animated `<details>`, `color-scheme: light` (no dark mode), `*:focus-visible` outline, `.skipLink`, and a `prefers-reduced-motion: reduce` block that disables animations and smooth scrolling.
 
 **Section layout pattern:**
 ```css
@@ -466,7 +477,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 
 **Server vs Client Components**
 - Server Components by default.
-- Client Components (`'use client'`): `TopNav`, `BookDesktop`, `AcuityScheduler`, `GoogleReviewBadge`.
+- Client Components (`'use client'`): `TopNav`, `BookDesktop`, `AcuityScheduler`, `GoogleReviewBadge`, `MobileBookBar`.
 
 **Component file convention**
 ```

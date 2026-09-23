@@ -6,7 +6,8 @@ Visitors can browse facial services and pricing, read how to prepare for and car
 
 ## Features
 
-- **Online booking**: `/book-now` asks visitors to review and accept booking policies (deposit, cancellation, late policy), then loads an embedded Acuity Scheduling calendar.
+- **Online booking**: `/book-now` asks visitors to review and accept booking policies (deposit, cancellation, late policy), then loads an embedded Acuity Scheduling calendar and scrolls it into view.
+- **Mobile-first booking prompts**: a sticky header and a Book Now bar pinned to the bottom of the screen on phones keep booking one tap away.
 - **Services and pricing**: facial menu with durations and prices, managed in one content file.
 - **Prep and aftercare guides**: before-visit and after-visit guidance as card layouts.
 - **FAQ**: accessible accordion built on native `<details>`.
@@ -61,7 +62,7 @@ npm run lint     # ESLint
 src/
 ├── app/              # Routes (one folder per page), root layout, robots, sitemap
 ├── components/
-│   ├── marketing/    # Page sections: TopNav, Hero, ServicesGrid, Footer, ...
+│   ├── marketing/    # Page sections: TopNav, Hero, ServicesGrid, MobileBookBar, Footer, ...
 │   └── ui/           # Primitives: AcuityScheduler, DisplaySerif, GoogleReviewBadge
 └── content/          # Site copy and business data (services, hours, FAQs, ...)
 public/Images/        # Photography

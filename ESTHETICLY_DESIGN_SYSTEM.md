@@ -25,6 +25,8 @@ Paste this entire `:root` block into your project's global CSS file.
   /* ─── Brand ─────────────────────────────────────────────── */
   --tint:             #937a62;
   --tint-dark:        #7d6750;
+  --tint-deep:        #6a5743;
+  --tint-ink:         #5a4a39;
   --tint-soft:        rgba(147, 122, 98, 0.12);
   --tint-fade:        rgba(147, 122, 98, 0.06);
 
@@ -190,7 +192,9 @@ Add this block immediately after `:root`. Only the redesign tokens flip — lega
 | Token | Value | Use |
 |-------|-------|-----|
 | `--tint` | `#937a62` | Primary CTAs, active states, accents |
-| `--tint-dark` | `#7d6750` | Hover state for tinted elements |
+| `--tint-dark` | `#7d6750` | Small text and button fills (5.35:1 on white) |
+| `--tint-deep` | `#6a5743` | Hover state for `--tint-dark` fills |
+| `--tint-ink` | `#5a4a39` | Darkest brown — dark CTA surfaces (ShopBanner band, with white/sand text) |
 | `--tint-soft` | `rgba(147,122,98,0.12)` | Subtle tinted backgrounds |
 | `--tint-fade` | `rgba(147,122,98,0.06)` | Very subtle tint (callouts, hover fills) |
 
@@ -508,7 +512,7 @@ Responsive grid of service cards. Each card has: duration label (12px, uppercase
 ### `FAQAccordion`
 **Path:** `src/components/marketing/FAQAccordion/`
 
-HTML `<details>` + `<summary>` based. First item open by default. Summary row: question text (16px, weight 500) + rotating chevron indicator (0° → 135° when open). No JavaScript required for basic open/close.
+HTML `<details>` + `<summary>` based. First item open by default. Summary row: question text (17px, 19px on tablet+, weight 500) + a 36px round chip holding a +/− that fills with `--tint-dark` when open. Open/close animates via `::details-content` where supported. No JavaScript.
 
 ---
 
@@ -581,10 +585,12 @@ Add to your global CSS after the token block:
   margin: 0;
 }
 
+/* clip, not hidden: hidden makes <body> a scroll container and breaks sticky nav */
 html {
   scroll-behavior: smooth;
   max-width: 100vw;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -597,6 +603,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
