@@ -6,7 +6,7 @@ A portable design system extracted from the EstheticLY brand. Copy the tokens, c
 
 ## Brand Identity
 
-**EstheticLY** is a skincare and esthetics brand. The visual language is earthy, warm, and professional — rooted in a brown-taupe palette (`#937a62`) that conveys natural ingredients and approachable luxury. Typography pairs a clean modern sans (Geist) with occasional serif accents (New York / Georgia) for editorial warmth.
+**EstheticLY** is a skincare and esthetics brand. The visual language is earthy, warm, and professional — rooted in a brown-taupe palette (`#937a62`) that conveys natural ingredients and approachable luxury. Typography pairs the platform's native sans (San Francisco / system UI) with occasional italic serif accents (New York / Georgia) for editorial warmth. No web fonts are loaded.
 
 **Design pillars:**
 - Warm, not clinical
@@ -97,11 +97,9 @@ Paste this entire `:root` block into your project's global CSS file.
   --radius-pill:      999px;
 
   /* ─── Typography ─────────────────────────────────────────── */
-  --font-primary:  'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-system:   -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
                    system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif:    "New York", "Times New Roman", Georgia, serif;
-  --font-mono:     'Geist Mono', 'Courier New', monospace;
 
   --text-h1:    48px;
   --text-h2:    36px;
@@ -230,10 +228,8 @@ Add this block immediately after `:root`. Only the redesign tokens flip — lega
 
 | Variable | Use |
 |----------|-----|
-| `--font-primary` | Headings and UI text (Geist) |
-| `--font-system` | Body text (system sans — fastest to load) |
+| `--font-system` | All body, heading, and UI text (system sans — no download) |
 | `--font-serif` | Accent words via `DisplaySerif` component |
-| `--font-mono` | Code, labels |
 
 ### Type Scale
 
@@ -627,26 +623,9 @@ p  { font-size: var(--text-base); line-height: var(--leading-normal); color: var
 
 ## Setup Guide: New Next.js Project
 
-### 1. Install fonts (Geist)
+### 1. Fonts
 
-```tsx
-// src/app/layout.tsx
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body>{children}</body>
-    </html>
-  )
-}
-```
-
-Then update `--font-primary` in your CSS to use the CSS variable:
-```css
---font-primary: var(--font-geist-sans), -apple-system, sans-serif;
-```
+No font installation is needed. The design uses system font stacks only (`--font-system` for text, `--font-serif` for `DisplaySerif` accents), so there is nothing to import in `layout.tsx`.
 
 ### 2. Copy globals.css tokens
 
