@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import AcuityScheduler from '@/components/ui/AcuityScheduler'
 import DisplaySerif from '@/components/ui/DisplaySerif'
@@ -8,6 +8,19 @@ import styles from './page.module.css'
 
 export default function BookDesktop() {
   const [policiesAccepted, setPoliciesAccepted] = useState(false)
+  const schedulerRef = useRef<HTMLDivElement>(null)
+
+  // Once accepted, bring the scheduler into view: always on phones, and on
+  // wider screens only when it's barely visible. Focus stays on the checkbox.
+  useEffect(() => {
+    if (!policiesAccepted) return
+    const el = schedulerRef.current
+    if (!el) return
+    const isPhone = window.matchMedia('(max-width: 767.98px)').matches
+    if (!isPhone && el.getBoundingClientRect().top < window.innerHeight * 0.75) return
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+  }, [policiesAccepted])
 
   return (
     <section className={styles.section} id="book">
@@ -77,7 +90,7 @@ export default function BookDesktop() {
         </span>
       </label>
 
-      <div className={styles.scheduler}>
+      <div className={styles.scheduler} ref={schedulerRef}>
         {policiesAccepted ? (
           <AcuityScheduler owner="30825696" accepted={policiesAccepted} />
         ) : (

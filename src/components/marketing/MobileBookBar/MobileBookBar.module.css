@@ -1,0 +1,54 @@
+/* Phones only — tablets and desktop already show the Book Now pill in the nav */
+.bar {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: rgba(253, 252, 250, 0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+    border-top: 1px solid var(--border-warm);
+    box-shadow: 0 -8px 24px rgba(80, 60, 40, 0.06);
+    /* Hidden state: slid off-screen and removed from the a11y tree */
+    transform: translateY(110%);
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+  }
+
+  .visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.3s ease, visibility 0s linear 0s;
+  }
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--tint-dark);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(106, 87, 67, 0.22);
+  transition: background 0.2s;
+}
+
+.cta:hover,
+.cta:active {
+  background: var(--tint-deep);
+}

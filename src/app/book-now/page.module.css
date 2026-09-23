@@ -213,6 +213,8 @@
 /* Scheduler area — full bleed, no nested scroll */
 .scheduler {
   margin-top: 32px;
+  /* Auto-scroll target — leave room for the sticky nav */
+  scroll-margin-top: 80px;
   width: 100vw;
   margin-left: calc(50% - 50vw);
 }

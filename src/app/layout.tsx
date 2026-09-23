@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import TopNav from "@/components/marketing/TopNav";
 import Footer from "@/components/marketing/Footer";
+import MobileBookBar from "@/components/marketing/MobileBookBar";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import { contact } from "@/content/contact";
 import "./globals.css";
@@ -99,6 +100,7 @@ export default function RootLayout({
         <TopNav />
         <main id="main-content">{children}</main>
         <Footer />
+        <MobileBookBar />
         <GoogleReviewBadge />
       </body>
     </html>

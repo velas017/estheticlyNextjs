@@ -22,7 +22,7 @@ export default function Hero() {
           <Link href="/book-now" className={styles.btnPrimary}>
             Book your facial →
           </Link>
-          <Link href="/book-now" className={styles.btnGhost}>
+          <Link href="#services" className={styles.btnGhost}>
             View services
           </Link>
         </div>

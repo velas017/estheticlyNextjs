@@ -2,6 +2,8 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 60px 24px;
+  /* Hero "View services" jumps here; keep the heading clear of the sticky nav */
+  scroll-margin-top: 40px;
 }
 
 @media (min-width: 768px) {
