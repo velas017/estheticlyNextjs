@@ -1,11 +1,21 @@
 .list {
-  max-width: 880px;
-  margin: 0 auto;
+  border-top: 1px solid var(--border-warm);
 }
 
 .item {
   border-bottom: 1px solid var(--border-warm);
   padding: 20px 0;
+}
+
+/* Smooth open/close where supported (needs interpolate-size on :root) */
+.item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
+}
+
+.item[open]::details-content {
+  block-size: auto;
 }
 
 @media (min-width: 768px) {
@@ -25,6 +35,11 @@
   color: var(--label);
   padding: 4px 0;
   line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.summary:hover {
+  color: var(--tint-dark);
 }
 
 @media (min-width: 768px) {
@@ -33,41 +48,58 @@
 
 .summary::-webkit-details-marker { display: none; }
 
+/* Round chip holding a +/− that fills with the brand color when open */
 .indicator {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-warm);
   flex-shrink: 0;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.summary:hover .indicator {
+  border-color: var(--tint);
+}
+
+.item[open] .indicator {
+  background: var(--tint-dark);
+  border-color: var(--tint-dark);
 }
 
 .indicator::before,
 .indicator::after {
   content: "";
   position: absolute;
-  background: var(--tint);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  top: 50%;
+  left: 50%;
+  background: var(--tint-dark);
+  border-radius: 1px;
+  transition: transform 0.25s ease, background 0.25s;
+}
+
+.item[open] .indicator::before,
+.item[open] .indicator::after {
+  background: #ffffff;
 }
 
 /* horizontal bar */
 .indicator::before {
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  transform: translateY(-50%);
+  width: 12px;
+  height: 1.5px;
+  transform: translate(-50%, -50%);
 }
 
 /* vertical bar */
 .indicator::after {
-  left: 50%;
-  top: 0;
-  height: 100%;
-  width: 2px;
-  transform: translateX(-50%);
+  width: 1.5px;
+  height: 12px;
+  transform: translate(-50%, -50%);
 }
 
 .item[open] .indicator::after {
-  transform: translateX(-50%) scaleY(0);
+  transform: translate(-50%, -50%) scaleY(0);
 }
 
 .answer {

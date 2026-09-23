@@ -3,6 +3,7 @@
   bottom: 24px;
   right: 24px;
   z-index: 900;
+  transition: bottom 0.3s ease;
   animation: fadeSlideUp 0.5s ease both;
   animation-delay: 0.8s;
 }
@@ -81,6 +82,11 @@
   .wrapper {
     bottom: 16px;
     right: 16px;
+  }
+
+  /* Sit above the MobileBookBar while it's showing (bar ≈ 76px + safe area) */
+  :global(html[data-bookbar="visible"]) .wrapper {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
   }
 
   .label {

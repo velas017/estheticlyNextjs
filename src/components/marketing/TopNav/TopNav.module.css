@@ -59,7 +59,7 @@
 
 .link {
   padding: 8px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 500;
   color: var(--label);
@@ -70,8 +70,10 @@
   background: var(--bg-soft);
 }
 
-.linkActive {
-  background: var(--bg-soft);
+/* Pill shape matches the Book Now button; tint marks the current page */
+.linkActive,
+.linkActive:hover {
+  background: var(--tint-soft);
 }
 
 .extArrow {
@@ -90,11 +92,13 @@
   margin-left: 8px;
   font-size: 14px;
   font-weight: 600;
-  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(106, 87, 67, 0.2);
+  transition: background 0.2s, transform 0.15s;
 }
 
 .cta:hover {
   background: var(--tint-deep);
+  transform: translateY(-1px);
 }
 
 /* Mobile actions */

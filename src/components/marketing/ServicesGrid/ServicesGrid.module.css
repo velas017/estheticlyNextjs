@@ -2,6 +2,8 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 60px 24px;
+  /* Hero "View services" jumps here; keep the heading clear of the sticky nav */
+  scroll-margin-top: 40px;
 }
 
 @media (min-width: 768px) {
@@ -49,7 +51,7 @@
 .card:hover {
   box-shadow: var(--shadow-warm-md);
   transform: translateY(-2px);
-  border-color: transparent;
+  border-color: var(--tint-soft);
 }
 
 .duration {
@@ -79,18 +81,38 @@
 }
 
 .priceRow {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   color: var(--label);
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid var(--border-warm);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Arrow sits in a round chip that fills with the brand color on hover */
 .arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-warm);
   color: var(--tint-dark);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
+  letter-spacing: 0;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
+}
+
+.card:hover .arrow,
+.card:focus-visible .arrow {
+  background: var(--tint-dark);
+  border-color: var(--tint-dark);
+  color: #ffffff;
+  transform: translateX(2px);
 }

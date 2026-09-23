@@ -11,9 +11,14 @@
 }
 
 .banner {
-  background: linear-gradient(135deg, var(--tint-fade), var(--tint-soft));
-  border: 1px solid var(--border-warm);
+  /* Dark brand band so this CTA reads differently from the tinted About card above */
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(160deg, var(--tint-deep), var(--tint-ink));
   border-radius: var(--radius-large);
+  box-shadow: var(--shadow-warm-lg);
   padding: 48px 28px;
   text-align: center;
   display: flex;
@@ -32,7 +37,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint-dark);
+  color: rgba(255, 255, 255, 0.78);
   margin-bottom: 16px;
 }
 
@@ -43,7 +48,12 @@
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0 0 18px;
-  color: var(--label);
+  color: #ffffff;
+}
+
+/* DisplaySerif accent word: light sand instead of --tint, which has no contrast here */
+.heading > span {
+  color: #e9dccb;
 }
 
 @media (min-width: 768px) {
@@ -54,7 +64,7 @@
 
 .lead {
   font-size: 17px;
-  color: var(--label-secondary);
+  color: rgba(255, 255, 255, 0.85);
   max-width: 520px;
   margin: 0 0 28px;
   line-height: 1.55;
@@ -66,21 +76,27 @@
   gap: 8px;
   padding: 14px 28px;
   border-radius: var(--radius-pill);
-  background: var(--tint-dark);
-  color: #ffffff;
+  background: var(--bg-page);
+  color: var(--tint-deep);
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
 .btn:hover {
-  background: var(--tint-deep);
+  background: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.btn:focus-visible {
+  outline-color: #ffffff;
 }
 
 .trust {
   margin: 16px 0 0;
   font-size: 13px;
-  color: var(--label-tertiary);
+  color: rgba(255, 255, 255, 0.78);
 }

@@ -74,9 +74,10 @@ This guide extracts all UI patterns, components, and styles from the Chinchillas
 
 ### Font Stack
 ```css
-/* Using Next.js optimized fonts */
---font-primary: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
---font-mono: 'Geist Mono', 'Courier New', monospace;
+/* System font stacks — no web fonts are loaded */
+--font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+  system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+--font-serif: "New York", "Times New Roman", Georgia, serif;
 ```
 
 ### Type Scale
@@ -636,7 +637,7 @@ html {
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-system);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-text-primary);
@@ -735,20 +736,9 @@ export default function Component({
 
 ```tsx
 // layout.tsx - Root layout with all providers
-import { Geist, Geist_Mono } from 'next/font/google'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
 
 export default function RootLayout({
   children,
@@ -757,7 +747,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
