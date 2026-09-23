@@ -4,79 +4,69 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-Working directory: `/Users/edarvelasquez/Desktop/estheticlyNextJs/estheticly/`
+Working directory: `/Users/edarvelasquez/Projects/estheticly/`
+
+Node 24 (see `.nvmrc` and `engines` in `package.json`).
 
 ```bash
-# Development server
-npm run dev           # Start development server on http://localhost:3000
-
-# Build and deployment
-npm run build         # Create production build
-npm start             # Start production server
-
-# Code quality
-npm run lint          # Run ESLint for code linting
+npm run dev           # Development server on http://localhost:3000
+npm run build         # Production build
+npm start             # Serve the production build
+npm run lint          # ESLint (next lint)
 ```
 
-## Project Architecture
+There is no test suite. Verify changes with `npm run build` plus a visual check in the browser.
 
-This is a Next.js 15.4.4 application using the App Router with TypeScript and React 19.1.0.
+## Project Overview
 
-### Key Structure:
-- **App Router**: Uses `src/app/` directory structure
-- **TypeScript**: Strict mode enabled with path aliases (`@/*` → `./src/*`)
-- **Styling**: CSS modules with dark/light mode support via CSS custom properties
-- **Fonts**: Geist Sans and Geist Mono fonts from Google Fonts
-- **ESLint**: Uses Next.js core web vitals and TypeScript configurations
+Marketing site for **EstheticLY Skincare** — Amy Ly, licensed esthetician in Charlotte, NC. Live at https://estheticlyskincare.com. Visitors browse services, read prep/aftercare guidance and FAQs, book through an embedded Acuity scheduler, buy Square e-gift cards, and shop GlyMed Plus products through an external storefront.
 
-### Core Files:
-- `src/app/layout.tsx`: Root layout with font configuration and metadata
-- `src/app/page.tsx`: Homepage component using CSS modules
-- `src/app/globals.css`: Global styles with dark mode support
-- `next.config.ts`: Next.js configuration (currently minimal)
-- `tsconfig.json`: TypeScript configuration with strict mode
+## Stack
 
-### Project Overview:
-EstheticLY skincare and esthetics website featuring separate pages for each navigation item. Implements clean, professional design following the UI_DESIGN_GUIDE.md specifications and content from SITE_CONTENT.md.
+- Next.js 15.4.10 (App Router), React 19.1.0, TypeScript (strict), path alias `@/*` → `./src/*`
+- CSS Modules + CSS custom properties (tokens in `src/app/globals.css`). No UI library, no Tailwind, no state library.
+- Light mode only (`color-scheme: light`); dark mode was deliberately removed.
 
-### Technical Requirements:
-- **Mobile-first responsive design** with breakpoints at 768px, 1024px, 1280px, 1760px
-- **SEO optimized** with proper meta tags, structured data for business information
-- **Accessibility compliant** (WCAG 2.2 AA) with proper contrast ratios, keyboard navigation
-- **Multi-page architecture** - each navbar link has its own route/page
-- **Acuity Scheduling integration** for booking functionality (iframe embed)
-- **Image optimization** using Next.js Image component
-- **Performance optimized** with lazy loading and font optimization
+## Site Structure
 
-### Design System:
-- **Color Palette**: Earthy brown primary (#937a62), professional grays, clean whites
-- **Typography**: Geist Sans (primary), clean hierarchy with defined font scales
-- **Components**: Weather widget style cards, Airbnb-inspired navigation, shadow system
-- **Layout**: Container system with responsive padding (16px mobile, 40px tablet, 80px desktop)
-- **Animations**: Smooth transitions (0.3s ease), hover effects with translateY(-2px)
-
-### Site Structure:
 ```
-/ (homepage)     - Hero, overview, mid-banner
-/about          - Biography, purpose, profile image  
-/prep           - Before-care preparation cards
-/aftercare      - Post-treatment advice
-/learn-more     - FAQ section with accordions
-/contact        - Business hours, contact info, location
-/book-now       - Acuity scheduling integration
+/             Hero, services, about strip, shop banner, gallery, FAQ, contact
+/about        Full bio (AboutStrip full)
+/prep         Before-visit prep cards (CareGrid)
+/aftercare    Aftercare cards (CareGrid) + shop CTA
+/learn-more   FAQ accordion + "Ask Me" mailto card (nav label: "FAQ")
+/contact      Contact info + hours (ContactGrid)
+/gift-cards   Square e-gift card link
+/book-now     Policies accordion → accept checkbox → Acuity iframe
 ```
 
-### Component Architecture:
-- **Layout Components**: Navbar (fixed), Footer, Container
-- **UI Components**: Button (primary/secondary/category), Card (weather/content/info), Form elements
-- **Interactive**: Accordion, Mobile hamburger menu, Smooth scrolling navigation
-- **SEO**: Metadata wrapper, structured data, Open Graph tags
+Also: `src/app/robots.ts` and `src/app/sitemap.ts` (update the sitemap route list when adding a page).
 
-### Code Standards:
-- **TypeScript interfaces** for all component props and data structures
-- **CSS Modules** for component styling with design system variables
-- **Server components** by default, client components only for interactivity
-- **Semantic HTML** with proper heading hierarchy and ARIA labels
-- **DRY principles** with reusable components and shared utilities
-- **Error boundaries** and loading states for enhanced UX
+## Where Things Live
 
+- **Copy and business data**: `src/content/*.ts` (services, about, contact, faqs, prep, aftercare). Edit content here, not in components. Exceptions that are still hardcoded: booking policies in `src/app/book-now/BookDesktop.tsx`, footer service links in `Footer.tsx`, gallery images in `GalleryRow.tsx`, Square URL in `gift-cards/page.tsx`.
+- **Page sections**: `src/components/marketing/*` (TopNav, Hero, ServicesGrid, AboutStrip, ShopBanner, GalleryRow, FAQAccordion, ContactGrid, CareGrid, SectionHeader, Footer, MidBanner — MidBanner is currently unused).
+- **Primitives**: `src/components/ui/*` (DisplaySerif, AcuityScheduler, GoogleReviewBadge).
+- **Root layout** `src/app/layout.tsx`: site-wide metadata/OG, BeautySalon JSON-LD, skip link, TopNav, `<main id="main-content">`, Footer, GoogleReviewBadge.
+- **Security headers / CSP**: `next.config.ts`. Any new third-party script, iframe, image host, or form target must be added to the CSP or it will be blocked.
+
+## Things to Keep in Sync
+
+- Opening hours: `hours` in `src/content/contact.ts` **and** `openingHoursSpecification` in `layout.tsx`.
+- Storefront URL: `contact.shopUrl` is the single source (used by TopNav, ShopBanner, Footer, aftercare page, FAQ).
+- Routes: `sitemap.ts` and TopNav `navItems`.
+
+## Design System
+
+- Brand: `--tint` #937a62 is for large text (≥24px) and decoration only. Small text and button fills use `--tint-dark` (#7d6750), hover `--tint-deep` — required for WCAG AA contrast.
+- Body text uses `--font-system`; headings get an italic serif accent word via `<DisplaySerif>` (`--font-serif`). No web fonts are loaded.
+- Breakpoints actually used: `min-width: 768px` (tablet+) and `min-width: 1024px` (desktop); max content width 1280px.
+- Full token list and component specs: `ESTHETICLY_DESIGN_SYSTEM.md`. Architecture reference: `ESTHETICLY_SITE_ARCHITECTURE.md`.
+
+## Code Standards
+
+- Server Components by default; `'use client'` only for interactivity (currently TopNav, BookDesktop, AcuityScheduler, GoogleReviewBadge).
+- Each component lives in `ComponentName/{ComponentName.tsx, ComponentName.module.css, index.ts}`; export a TypeScript props interface.
+- Reference tokens in CSS Modules — no hardcoded hex colors.
+- Accessibility (WCAG 2.2 AA): one `<h1>` per page (section components accept `as="h1"`), `aria-label` noting "(opens in new tab)" on external links, `aria-hidden` on decorative glyphs, visible `:focus-visible` styles, reduced-motion support.
+- Use `next/image` for images (`public/Images/`).

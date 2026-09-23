@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EstheticLY Skincare
+
+Website for **EstheticLY Skincare**, the practice of Amy Ly, a licensed esthetician in Charlotte, NC. Live at [estheticlyskincare.com](https://estheticlyskincare.com).
+
+Visitors can browse facial services and pricing, read how to prepare for and care for their skin after a visit, find answers to common questions, book an appointment, buy a gift card, and shop the professional products used in treatment.
+
+## Features
+
+- **Online booking**: `/book-now` asks visitors to review and accept booking policies (deposit, cancellation, late policy), then loads an embedded Acuity Scheduling calendar.
+- **Services and pricing**: facial menu with durations and prices, managed in one content file.
+- **Prep and aftercare guides**: before-visit and after-visit guidance as card layouts.
+- **FAQ**: accessible accordion built on native `<details>`.
+- **Gift cards**: links out to Square e-gift cards.
+- **Shop**: links out to the GlyMed Plus online storefront.
+- **Contact and hours**: contact details, location, and weekly hours.
+- **Google reviews prompt**: dismissible floating badge.
+- **SEO**: per-page metadata, Open Graph and Twitter cards, `BeautySalon` structured data, `robots.txt`, `sitemap.xml`.
+- **Accessibility**: built to WCAG 2.2 AA (skip link, focus styles, contrast-checked colors, reduced-motion support, one `h1` per page).
+- **Security headers**: strict Content Security Policy, HSTS, and related headers in `next.config.ts`.
+
+## Pages
+
+| Route | Content |
+|-------|---------|
+| `/` | Hero, services, about, shop banner, gallery, FAQ, contact |
+| `/about` | Esthetician bio |
+| `/prep` | How to prepare for a facial |
+| `/aftercare` | Post-treatment care |
+| `/learn-more` | FAQ |
+| `/contact` | Contact info and hours |
+| `/gift-cards` | E-gift cards |
+| `/book-now` | Booking policies and scheduler |
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org) 15 (App Router) with React 19 and TypeScript (strict)
+- CSS Modules with design tokens in `src/app/globals.css`, no UI framework
+- `next/image` for optimized images
+- Deployed on [Vercel](https://vercel.com)
 
 ## Getting Started
 
-First, run the development server:
+Requires **Node.js 24** (see `.nvmrc`).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # Production build
+npm start        # Serve the production build
+npm run lint     # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+src/
+├── app/              # Routes (one folder per page), root layout, robots, sitemap
+├── components/
+│   ├── marketing/    # Page sections: TopNav, Hero, ServicesGrid, Footer, ...
+│   └── ui/           # Primitives: AcuityScheduler, DisplaySerif, GoogleReviewBadge
+└── content/          # Site copy and business data (services, hours, FAQs, ...)
+public/Images/        # Photography
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Editing Content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Most copy lives in `src/content/`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| File | What it controls |
+|------|------------------|
+| `services.ts` | Service names, durations, prices, descriptions |
+| `contact.ts` | Email, phone, address, shop URL, social links, hours |
+| `faqs.ts` | FAQ questions and answers |
+| `about.ts` | Bio, stats, certifications |
+| `prep.ts` | Prep guidance |
+| `aftercare.ts` | Aftercare guidance |
 
-## Deploy on Vercel
+When changing hours, also update the `openingHoursSpecification` structured data in `src/app/layout.tsx`. Booking policies live in `src/app/book-now/BookDesktop.tsx`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Documentation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [`ESTHETICLY_SITE_ARCHITECTURE.md`](ESTHETICLY_SITE_ARCHITECTURE.md): architecture, components, integrations, conventions
+- [`ESTHETICLY_DESIGN_SYSTEM.md`](ESTHETICLY_DESIGN_SYSTEM.md): design tokens and visual system
+- [`CLAUDE.md`](CLAUDE.md): guidance for Claude Code

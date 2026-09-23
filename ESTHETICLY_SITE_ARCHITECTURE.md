@@ -1,6 +1,6 @@
 # EstheticLY — Site Architecture
 
-A complete reference for rebuilding this site from scratch in a new environment. Read alongside `ESTHETICLY_DESIGN_SYSTEM.md` for the full picture.
+A complete reference for how this site is built, and for rebuilding it from scratch in a new environment. Read alongside `ESTHETICLY_DESIGN_SYSTEM.md` for the full picture.
 
 ---
 
@@ -12,11 +12,13 @@ A complete reference for rebuilding this site from scratch in a new environment.
 | UI | React | 19.1.0 |
 | Language | TypeScript (strict) | ^5 |
 | Styling | CSS Modules + CSS custom properties | — |
-| Fonts | Geist Sans, Geist Mono (next/font/google) | — |
-| Node | 20 (`.nvmrc`) | — |
+| Fonts | System font stack for body, system serif for italic accents (no web fonts) | — |
+| Node | 24 LTS (`.nvmrc`, `engines.node: "24.x"`) | — |
 | Linting | ESLint + eslint-config-next | 15.4.4 |
 | Booking | Acuity Scheduling iframe embed | — |
 | Gift cards | Square e-gift card link | — |
+| Retail | GlyMed Plus storefront link | — |
+| Hosting | Vercel | — |
 
 No state management library. No UI component library. No CSS preprocessor. Everything is vanilla TypeScript, CSS Modules, and Next.js primitives.
 
@@ -28,10 +30,10 @@ No state management library. No UI component library. No CSS preprocessor. Every
 npx create-next-app@15.4.10 my-project \
   --typescript --eslint --app --src-dir --import-alias "@/*"
 cd my-project
-node --version  # confirm 20.x
+node --version  # confirm 24.x
 ```
 
-Copy the `:root` token block from `ESTHETICLY_DESIGN_SYSTEM.md` into `src/app/globals.css` as your first commit. Everything else layers on top of those tokens.
+Copy the `:root` token block from `ESTHETICLY_DESIGN_SYSTEM.md` (or this repo's `src/app/globals.css`) into `src/app/globals.css` as your first commit. Everything else layers on top of those tokens.
 
 ---
 
@@ -39,90 +41,60 @@ Copy the `:root` token block from `ESTHETICLY_DESIGN_SYSTEM.md` into `src/app/gl
 
 ```
 src/
-├── app/                        # Next.js App Router pages
-│   ├── layout.tsx              # Root layout — fonts, metadata, chrome
-│   ├── globals.css             # CSS tokens + resets (single source of truth)
+├── app/                        # Next.js App Router
+│   ├── layout.tsx              # Root layout — metadata, JSON-LD, skip link, chrome
+│   ├── globals.css             # Tokens, resets, focus + reduced-motion rules
 │   ├── page.tsx                # / (homepage)
 │   ├── page.module.css
-│   ├── HomeMobile.tsx          # Dead code — useIsMobile() always false
-│   ├── HomeMobile.module.css
-│   ├── about/
-│   │   ├── page.tsx            # /about
-│   │   ├── page.module.css
-│   │   ├── AboutMobile.tsx     # Dead code
-│   │   └── AboutMobile.module.css
+│   ├── robots.ts               # /robots.txt
+│   ├── sitemap.ts              # /sitemap.xml — hardcoded route list
+│   ├── about/                  # /about
+│   ├── aftercare/              # /aftercare
 │   ├── book-now/
-│   │   ├── page.tsx            # /book-now (thin shell)
-│   │   ├── BookDesktop.tsx     # Real booking UI — policies + Acuity iframe
-│   │   ├── page.module.css
-│   │   ├── BookMobile.tsx      # Dead code
-│   │   └── BookMobile.module.css
-│   ├── contact/
-│   │   ├── page.tsx            # /contact
-│   │   └── ...
-│   ├── learn-more/
-│   │   ├── page.tsx            # /learn-more (FAQ page)
-│   │   └── ...
-│   ├── prep/
-│   │   ├── page.tsx            # /prep
-│   │   └── ...
-│   ├── aftercare/
-│   │   ├── page.tsx            # /aftercare
-│   │   └── ...
-│   └── gift-cards/
-│       ├── page.tsx            # /gift-cards
-│       └── ...
+│   │   ├── page.tsx            # /book-now (server shell with metadata)
+│   │   ├── BookDesktop.tsx     # Client component — policies, checkbox gate, Acuity
+│   │   └── page.module.css
+│   ├── contact/                # /contact
+│   ├── gift-cards/             # /gift-cards
+│   ├── learn-more/             # /learn-more (FAQ page)
+│   └── prep/                   # /prep
 │
 ├── components/
-│   ├── ios/                    # Responsive shell (currently disabled)
-│   │   ├── useIsMobile.ts      # Always returns false — mobile shell off
-│   │   ├── ResponsiveChrome.tsx # Wraps entire app — TopNav+Footer vs AppShell
-│   │   ├── ResponsiveSwitch.tsx # Per-page desktop/mobile content switch
-│   │   ├── AppShell/           # iOS-style layout shell (unused)
-│   │   ├── NavBar/             # iOS NavBar (unused)
-│   │   ├── TabBar/             # iOS TabBar (unused)
-│   │   └── [10 more iOS primitives — see MOBILE_SHELL_GUIDE.md]
-│   │
-│   ├── layout/
-│   │   ├── Navbar/             # Desktop sticky navigation
-│   │   └── Footer/             # Desktop footer
-│   │
 │   ├── marketing/              # Page-section components
-│   │   ├── Hero/               # Homepage hero — copy + portrait image
-│   │   ├── ServicesGrid/       # Service cards grid
-│   │   ├── AboutStrip/         # Esthetician bio card with portrait
+│   │   ├── TopNav/             # Sticky header, desktop links + mobile drawer (client)
+│   │   ├── Hero/               # Homepage hero — copy, CTAs, stats, portrait
+│   │   ├── ServicesGrid/       # Service cards linking to /book-now
+│   │   ├── AboutStrip/         # Bio card with portrait
+│   │   ├── ShopBanner/         # GlyMed Plus storefront CTA banner
 │   │   ├── GalleryRow/         # 5-image mosaic (desktop) + swipe carousel (mobile)
 │   │   ├── FAQAccordion/       # <details>/<summary> accordion
 │   │   ├── ContactGrid/        # Contact info + hours card
-│   │   ├── CareGrid/           # Numbered card grid (Prep / Aftercare pages)
-│   │   ├── SectionHeader/      # Eyebrow + heading + lead text
-│   │   ├── TopNav/             # Desktop sticky top nav (used by ResponsiveChrome)
-│   │   ├── Footer/             # Marketing footer
-│   │   └── MidBanner/          # Tinted accent banner (currently unused on any page)
+│   │   ├── CareGrid/           # Numbered card grid (Prep / Aftercare)
+│   │   ├── SectionHeader/      # Eyebrow + heading + lead
+│   │   ├── Footer/             # Site footer
+│   │   └── MidBanner/          # Tinted accent banner (currently unused)
 │   │
 │   └── ui/                     # Reusable primitives
-│       ├── Button/             # primary / secondary / category variants
-│       ├── Card/               # Generic card shell
-│       ├── ServiceCard/        # Single service card
 │       ├── DisplaySerif/       # Italic serif accent <span> for headings
-│       ├── AcuityScheduler/    # Acuity iframe + postMessage resize
-│       ├── Carousel/           # Fade-based carousel (unused in current pages)
-│       └── GoogleReviewBadge/  # Floating review badge
+│       ├── AcuityScheduler/    # Acuity iframe + postMessage resize (client)
+│       └── GoogleReviewBadge/  # Floating, dismissible review badge (client)
 │
-└── content/                    # All site copy — no JSX
+└── content/                    # Site copy and business data — no JSX
     ├── services.ts             # Service list (id, name, duration, price, description)
-    ├── about.ts                # Bio, stats, certifications, signature quote
-    ├── faqs.ts                 # FAQ array (id, question, answer)
-    ├── contact.ts              # Email, phone, address, social links, hours
-    ├── prep.ts                 # Pre-appointment prep groups + items
-    └── aftercare.ts            # Post-treatment advice groups
+    ├── about.ts                # Bio, purpose, quote, certifications, stats
+    ├── faqs.ts                 # FAQ array (id, question, answer, optional link)
+    ├── contact.ts              # Email, phone, address, shop URL, socials, hours
+    ├── prep.ts                 # Pre-appointment prep groups
+    └── aftercare.ts            # Post-treatment advice
 ```
+
+Each page directory contains `page.tsx` and `page.module.css`.
 
 ---
 
 ## Content Layer (`src/content/`)
 
-All site copy lives in TypeScript modules, never hardcoded in components. This is the first thing to update when launching the site for a different business.
+Site copy lives in TypeScript modules rather than in components. This is the first thing to update when launching the site for a different business.
 
 ### `services.ts`
 
@@ -136,18 +108,15 @@ export interface Service {
 }
 
 export const services: Service[] = [
-  { id: 'signature', name: 'Signature Facial', duration: '60 min', price: 100,
-    description: 'Customized double cleanse, exfoliation, mask, neck and shoulder massage, serums, moisturizer.' },
-  { id: 'back-facial', name: 'Back Facial', duration: '60 min', price: 109,
-    description: "Perfect for a deep cleanse since it's a hard to reach area. Customized to your concerns." },
-  { id: '90-min-custom', name: '90 Minute Custom Facial', duration: '95 min', price: 150,
-    description: 'Want a longer facial to address concerns and more relaxation time? Perfect to wind down and create a moment for you.' },
+  { id: 'signature', name: 'Signature Facial', duration: '60 min', price: 130, description: '...' },
+  { id: 'back-facial', name: 'Back Facial', duration: '60 min', price: 109, description: '...' },
+  { id: '90-min-custom', name: '90 Minute Custom Facial', duration: '95 min', price: 180, description: '...' },
 ]
 ```
 
 ### `about.ts`
 
-Key exports: `aboutHeadline`, `bioParagraphs` (array of 3 strings), `purpose`, `signatureQuote`, `certifications`, `aboutStats`.
+Exports: `aboutHeadline`, `bioParagraphs` (3 strings), `purpose`, `signatureQuote`, `certifications`, `aboutStats` (rendered in the Hero).
 
 ### `contact.ts`
 
@@ -160,300 +129,218 @@ export const contact = {
   addressLine1: '7211 E Independence Blvd',
   addressLine2: 'Charlotte, NC 28227',
   appointmentNote: 'Appointment-based — no walk-ins.',
+  shopUrl: 'https://glymedplus.com/launch/0507169',
   socials: {
     instagram: { handle: '@estheticlyskincare', url: '...' },
     facebook: { handle: '@EstheticLY', url: '...' },
   },
-}
+} as const
 
 export const hours: HoursRow[] = [
   { day: 'Monday', open: null, close: null },       // null = Closed
   { day: 'Tuesday', open: '10:30am', close: '7:00pm' },
   // ...
 ]
+
+export const hoursNote = 'Hours may vary. After-hour appointments available upon request.'
 ```
+
+`contact.shopUrl` is the single source for the storefront link (TopNav, ShopBanner, Footer, aftercare CTA, FAQ).
+
+**Keep in sync:** `hours` here must match `openingHoursSpecification` in the JSON-LD in `layout.tsx`.
 
 ### `faqs.ts`
 
-Array of `{ id, question, answer }` objects consumed by `FAQAccordion`.
+Array of `{ id, question, answer, link? }` consumed by `FAQAccordion`. `link` is `{ label, href, external? }` and renders a CTA under the answer.
 
-### `prep.ts` / `aftercare.ts`
+### `prep.ts`
 
-Arrays of groups `{ title, items: string[] }` consumed by `CareGrid`.
+`prepGroups: { id, segmentLabel, title, items: string[] }[]` — mapped to numbered `CareGrid` cards on `/prep`.
+
+### `aftercare.ts`
+
+Exports `first72Hours` (items with `id`, `tone`, `label`), `cadence`, `makeupNotice`, `aftercareIntro`. The `/aftercare` page assembles these into two `CareGrid` cards.
+
+### Copy that is still hardcoded
+
+- Booking policies — `src/app/book-now/BookDesktop.tsx`
+- Footer "Services" links — `Footer.tsx`
+- Gallery images and alt text — `GalleryRow.tsx`
+- Square gift card URL — `src/app/gift-cards/page.tsx`
+- Google review URL — `GoogleReviewBadge.tsx`
+- Section headings and leads — in each page/component
 
 ---
 
 ## Root Layout (`src/app/layout.tsx`)
 
 ```tsx
-import { Geist, Geist_Mono } from "next/font/google"
-import ResponsiveChrome from "@/components/ios/ResponsiveChrome"
-import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge"
-import "./globals.css"
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ResponsiveChrome>{children}</ResponsiveChrome>
-        <GoogleReviewBadge />
-      </body>
-    </html>
-  )
-}
+<html lang="en">
+  <body>
+    <script type="application/ld+json" ... />   {/* BeautySalon structured data */}
+    <a href="#main-content" className="skipLink">Skip to main content</a>
+    <TopNav />
+    <main id="main-content">{children}</main>
+    <Footer />
+    <GoogleReviewBadge />
+  </body>
+</html>
 ```
 
-`ResponsiveChrome` is the single top-level layout switch. It wraps every page with either the desktop chrome (TopNav + `<main>` + Footer) or the iOS AppShell — controlled by `useIsMobile()`.
+Also defines:
+- `metadata` — `metadataBase` (`https://estheticlyskincare.com`), default title/description, keywords, canonical, Open Graph and Twitter cards (image `/Images/IMG_6201.jpeg`), robots.
+- `localBusinessJsonLd` — `BeautySalon` schema with address, phone, email, opening hours, and social `sameAs` links, built from `src/content/contact.ts`.
 
-**Current state:** `useIsMobile()` is hardcoded to `return false`, so every viewport always renders the desktop chrome.
-
----
-
-## Responsive Architecture
-
-Three files form the responsive system. Understand these before touching any layout.
-
-### `useIsMobile.ts`
-
-```typescript
-// CURRENTLY DISABLED:
-export function useIsMobile(): boolean {
-  return false  // always desktop
-  // Real implementation uses useSyncExternalStore + window.matchMedia('(max-width: 1023.98px)')
-}
-```
-
-**To re-enable mobile shell:** Replace `return false` with the commented `useSyncExternalStore` call.
-
-### `ResponsiveChrome.tsx`
-
-Wraps the entire app. Reads `useIsMobile()` and renders either:
-- **Desktop:** `<TopNav /> <main>{children}</main> <Footer />`
-- **Mobile:** `<AppShell>{children}</AppShell>` (iOS-style shell with NavBar + TabBar)
-
-### `ResponsiveSwitch.tsx`
-
-Used inside each page to select content. Accepts `desktop` and `mobile` props — both are pre-rendered Server Component subtrees. Only the switcher itself is a Client Component.
-
-```tsx
-// Pattern used by every page:
-export default function MyPage() {
-  return <ResponsiveSwitch desktop={<MyDesktop />} mobile={<MyMobile />} />
-}
-```
+There is a single responsive layout for all viewports. The earlier iOS-style mobile shell (`components/ios/`, `ResponsiveChrome`, `*Mobile.tsx` pages) was removed; see `MOBILE_SHELL_GUIDE.md` for the archive.
 
 ---
 
 ## Page Inventory
 
+Every page except `/` exports its own `metadata` and renders exactly one `<h1>`. Section components that can serve as the page heading accept `as="h1"` (default `h2`).
+
 ### `/` — Homepage
 
 **File:** `src/app/page.tsx`
 
-**Section order:**
-1. `<Hero />` — headline, lead, CTA buttons, portrait photo, stats
-2. `<ServicesGrid />` — 3 service cards, each links to `/book-now`
-3. `<AboutStrip />` — bio card (first 2 paragraphs + signature quote)
-4. `<GalleryRow />` — 5 photos: mosaic on desktop, scroll-snap carousel on mobile
-5. FAQ section — `<SectionHeader />` + `<FAQAccordion />`
-6. `<ContactGrid />` — contact info + hours card
-
----
+1. `<Hero />` — h1, lead, CTAs, `aboutStats`, portrait
+2. `<ServicesGrid />` — 3 service cards → `/book-now`
+3. `<AboutStrip />` — first 2 bio paragraphs + signature quote
+4. `<ShopBanner />` — GlyMed Plus storefront CTA
+5. `<GalleryRow />` — 5 photos
+6. FAQ section — `<SectionHeader />` + `<FAQAccordion />`
+7. `<ContactGrid />` — contact info + hours
 
 ### `/about`
 
-**File:** `src/app/about/page.tsx`
-
-Single component: `<AboutStrip full />` — renders all 3 bio paragraphs + photo.
-
----
-
-### `/book-now`
-
-**File:** `src/app/book-now/page.tsx` → `BookDesktop.tsx`
-
-**Flow:**
-1. Heading + lead copy
-2. `<details>` accordion — booking policies (payment, cancellation, late policy)
-3. Checkbox — user must accept policies before scheduler appears
-4. Once checked: `<AcuityScheduler owner="30825696" accepted={true} />`
-5. Pre-booking state (lock icon, arrow animation) while unchecked
-6. Footer note linking to `/contact`
-
-**Acuity owner ID:** `30825696` — replace this when deploying for a different business.
-
----
-
-### `/contact`
-
-**File:** `src/app/contact/page.tsx`
-
-`<ContactGrid />` — two-column layout:
-- Left: email, phone, address, Instagram links
-- Right: hours card with day-by-day table + book CTA
-
----
-
-### `/learn-more`
-
-**File:** `src/app/learn-more/page.tsx`
-
-FAQ section (`<SectionHeader />` + `<FAQAccordion />`) + "Have a specific question?" card with mailto link.
-
----
+`<AboutStrip full as="h1" />` — all 3 bio paragraphs.
 
 ### `/prep`
 
-**File:** `src/app/prep/page.tsx`
-
-`<SectionHeader />` + `<CareGrid />` — numbered cards (`01`, `02`, ...) sourced from `prepGroups` in `src/content/prep.ts`.
-
----
+`<SectionHeader as="h1" />` + `<CareGrid />` — cards numbered `01`–`05` from `prepGroups`.
 
 ### `/aftercare`
 
-**File:** `src/app/aftercare/page.tsx`
+`<SectionHeader as="h1" />` + `<CareGrid />` with 2 cards ("First 72 hours" marked `3d`, "Cadence & maintenance" marked `4–8`), followed by a "Keep your results going at home" shop CTA linking to `contact.shopUrl`.
 
-`<SectionHeader />` + `<CareGrid />` — 2 cards: "First 72 hours" and "Cadence & maintenance", sourced from `src/content/aftercare.ts`.
+### `/learn-more` (nav label "FAQ")
 
----
+`<SectionHeader as="h1" />` + `<FAQAccordion />` + "Have a specific question?" card with a mailto "Ask Me" button.
+
+### `/contact`
+
+`<ContactGrid as="h1" />` — two columns:
+- Left: email, phone, address, Instagram
+- Right: hours card, hours note, "Book your visit" CTA
 
 ### `/gift-cards`
 
-**File:** `src/app/gift-cards/page.tsx`
+Two-column layout: gift card image (`estheticlyEgiftcard.png`) + copy block with a Square purchase link (opens in new tab).
 
-Two-column layout: gift card image + copy block with Square purchase link.
+### `/book-now`
 
-**Square link:** `https://app.squareup.com/gift/ML1PB9TVCHMXK/order` — replace when deploying for a different business.
+**Files:** `page.tsx` (server, metadata) → `BookDesktop.tsx` (client)
+
+1. Eyebrow + h1 + lead
+2. `<details>` accordion — Payment Information, Cancellation Policy, Late Policy
+3. Checkbox — visitor must accept policies
+4. Unchecked: pre-booking placeholder (`role="status"`, lock icon, arrow)
+5. Checked: `<AcuityScheduler owner="30825696" accepted />` in a full-bleed `.scheduler` wrapper
+6. Note linking to `/contact`
 
 ---
 
 ## Component Reference
 
+### `TopNav` (client)
+
+Sticky header. Brand lockup, primary nav, "Book Now" CTA, and a hamburger-toggled mobile drawer (`aria-expanded`, `aria-controls="mobile-drawer"`). Active link via `usePathname()`.
+
+Nav items: Home, About, Prep, Aftercare, FAQ (`/learn-more`), Contact, Gift Cards, Shop (external → `contact.shopUrl`).
+
 ### `DisplaySerif`
 
-The typographic signature of the design — an italic serif `<span>` used once per major heading to create a mixed-font effect.
+The typographic signature of the design — an italic serif `<span>` used once per major heading.
 
 ```tsx
 <h1>Start your <DisplaySerif>skincare</DisplaySerif> journey.</h1>
 ```
 
-CSS: `font-family: var(--font-serif); font-style: italic; color: var(--tint);`
-
----
+Props: `children`, `className?`.
 
 ### `SectionHeader`
 
-Standard section opener used on every page except the homepage hero.
+Standard section opener.
 
 ```tsx
 <SectionHeader
-  eyebrow="Services"                                // small caps label
-  heading={<>Treatments tailored to <DisplaySerif>your skin.</DisplaySerif></>}
-  lead="All facials begin with a thorough skin analysis..."
+  as="h1"
+  eyebrow="Before your visit"
+  heading={<>How to <DisplaySerif>prepare.</DisplaySerif></>}
+  lead="I strongly encourage these tips before your appointment..."
 />
 ```
 
-Props: `eyebrow?`, `heading: ReactNode`, `lead?`, `stacked?` (stacks lead below heading instead of beside it), `className?`, `id?`.
+Props: `eyebrow?`, `heading: ReactNode`, `lead?`, `stacked?` (lead below heading instead of beside it), `className?`, `id?`, `as?: 'h1' | 'h2'`.
 
----
+### `Hero`
 
-### `Button`
-
-```tsx
-<Button href="/book-now" variant="primary">Book Now</Button>
-<Button variant="secondary">Learn more</Button>
-```
-
-When `href` is provided, renders an `<a>` tag. Otherwise renders `<button>`. Variants: `primary` (filled tint), `secondary` (outlined), `category` (pill).
-
----
+No props. h1, lead, two CTAs (both → `/book-now`), stats from `aboutStats`, `IMG_6201.jpeg` with `priority`.
 
 ### `ServicesGrid`
 
-Reads from `src/content/services.ts`. Each card is a `<Link href="/book-now">`. Displays: duration, name, description, price. No props — content is data-driven.
-
----
+No props. Reads `services`. Each card is a `<Link href="/book-now">` showing duration, name (h3), description, price.
 
 ### `AboutStrip`
 
 ```tsx
-<AboutStrip />        // homepage — first 2 bio paragraphs
-<AboutStrip full />   // about page — all 3 paragraphs
+<AboutStrip />               // homepage — first 2 paragraphs, h2
+<AboutStrip full as="h1" />  // /about — all 3 paragraphs
 ```
 
-Portrait image: `/Images/amyPortait2.jpg`. Reads bio from `src/content/about.ts`.
+Portrait: `/Images/amyPortait2.jpg`.
 
----
+### `ShopBanner`
+
+No props. Tinted banner with heading, lead, "Shop skincare" button → `contact.shopUrl` (new tab), and trust line.
 
 ### `GalleryRow`
 
-**Desktop:** CSS Grid mosaic — 1 featured image (50% width) + 2 stacks of 2 images each.
+**Desktop (≥768px):** CSS Grid mosaic — 1 featured image + 2 stacks of 2.
+**Mobile (<768px):** grid hidden; `.mobileStrip` scroll-snap carousel with `85vw` slides.
 
-**Mobile (≤767px):** The desktop grid hides. A `mobileStrip` div appears with CSS scroll-snap carousel:
-```css
-.mobileStrip {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.mobileSlide {
-  flex: 0 0 calc(85vw - 24px);
-  scroll-snap-align: start;
-  aspect-ratio: 4 / 5;
-}
-```
-
-Image list (hardcoded in component):
-- `/Images/facial.jpg`
-- `/Images/handsOn2.jpg`
-- `/Images/brows2.jpg`
-- `/Images/IMG_1500.jpg`
-- `/Images/IMG_1593.jpeg`
-
----
+Images (hardcoded): `facial.jpg`, `handsOn2.jpg`, `brows2.jpg`, `IMG_1500.jpg`, `IMG_1593.jpeg`.
 
 ### `FAQAccordion`
 
-Pure HTML `<details>`/`<summary>` — no JavaScript. First item open by default (`defaultOpenFirst` prop). Reads from `src/content/faqs.ts`.
-
----
+Native `<details>`/`<summary>` — no JavaScript. First item open by default (`defaultOpenFirst`, default `true`). Renders an optional per-FAQ link.
 
 ### `CareGrid`
 
-Accepts `cards: { num: string, title: string, items: string[] }[]`. Renders numbered cards in a responsive grid. Used by both `/prep` and `/aftercare`.
-
----
+Props: `cards: { num: string; title: string; items: string[] }[]`. Each card is an `<article>` with an h2 title. Used by `/prep` and `/aftercare`.
 
 ### `ContactGrid`
 
-Reads from `src/content/contact.ts`. Inline SVG icons (no icon library). `formatHours()` helper returns `"Closed"` when `open` is null.
+Props: `as?: 'h1' | 'h2'`. Reads `contact`, `hours`, `hoursNote`. Inline SVG icons (no icon library). `formatHours()` returns `"Closed"` when `open` is null.
 
----
+### `Footer`
 
-### `AcuityScheduler`
+Brand column plus three link columns: Services (→ `/book-now`, plus external Shop Products), Visit (internal pages), Connect (Instagram, Facebook, email, phone). Copyright year is computed at render.
 
-**File:** `src/components/ui/AcuityScheduler/AcuityScheduler.tsx`
+### `MidBanner`
 
-Client component. Props: `owner: string`, `accepted: boolean`, `className?: string`.
+Props: `before`, `accent`, `body?`. Currently not used on any page.
 
-Key behaviors:
-- Returns `null` if `accepted` is false — the parent controls visibility via checkbox
-- `scrolling="no"` on the iframe prevents internal iframe scrollbar at the browser level
-- `useEffect` listens for `window.postMessage` from `app.acuityscheduling.com` and sets `iframeRef.current.style.height` dynamically — the page grows with the iframe, no nested scroll
-- Skeleton shimmer shown until iframe `onLoad` fires
-- `min-height: 800px` on `.frame` gives Acuity's mobile layout headroom before the first postMessage arrives
+### `AcuityScheduler` (client)
 
-```tsx
-<AcuityScheduler owner="30825696" accepted={policiesAccepted} />
-```
+Props: `owner: string`, `accepted: boolean`, `className?`.
 
-**Full-bleed layout** — the parent `.scheduler` div in `book-now/page.module.css` breaks out of the container:
+- Returns `null` if `accepted` is false
+- iframe `scrolling="no"`; height set from `postMessage` events whose origin is `https://app.acuityscheduling.com` (`height` or `frameHeight`), so the page grows with the iframe and there is no nested scroll
+- Skeleton shimmer until the iframe's `onLoad`
+- Loads `embed.acuityscheduling.com/js/embed.js` via `next/script` (`afterInteractive`)
+
+Full-bleed wrapper in `book-now/page.module.css`:
 ```css
 .scheduler {
   width: 100vw;
@@ -461,19 +348,9 @@ Key behaviors:
 }
 ```
 
----
+### `GoogleReviewBadge` (client)
 
-### `Navbar` (layout/Navbar)
-
-Client component. Uses `usePathname()` for active link highlighting. Hamburger menu for viewports where the desktop nav collapses. CTA "Book Now" button in both desktop and mobile menu.
-
-Nav items: Home, About, Prep, Aftercare, Gift Cards, Learn More, Contact.
-
----
-
-### `TopNav` (marketing/TopNav)
-
-Used by `ResponsiveChrome` for the desktop chrome. Wraps `Navbar`. Fixed-position sticky header.
+Floating "Review us on Google" pill linking to the business's Google review URL. Dismissible; dismissal is stored in `sessionStorage`, so the badge returns on the next session. Renders nothing until mounted, which avoids a hydration mismatch.
 
 ---
 
@@ -481,18 +358,17 @@ Used by `ResponsiveChrome` for the desktop chrome. Wraps `Navbar`. Fixed-positio
 
 | File | Used in |
 |------|---------|
-| `IMG_6201.jpeg` | Hero section (primary portrait) |
-| `amyPortait2.jpg` | AboutStrip (bio card portrait) |
-| `facial.jpg` | GalleryRow cell 1 |
-| `handsOn2.jpg` | GalleryRow cell 2 |
-| `brows2.jpg` | GalleryRow cell 3 |
-| `IMG_1500.jpg` | GalleryRow cell 4 |
-| `IMG_1593.jpeg` | GalleryRow cell 5 |
+| `IMG_6201.jpeg` | Hero; Open Graph / Twitter / JSON-LD image |
+| `amyPortait2.jpg` | AboutStrip |
+| `facial.jpg` | GalleryRow (featured) |
+| `handsOn2.jpg` | GalleryRow |
+| `brows2.jpg` | GalleryRow |
+| `IMG_1500.jpg` | GalleryRow |
+| `IMG_1593.jpeg` | GalleryRow |
 | `estheticlyEgiftcard.png` | Gift Cards page |
-| `DSC08632.jpeg` | Available (unused in current build) |
-| `amy@work.png` | Available (unused in current build) |
-| `amyPortait.jpg` | Available (unused in current build) |
-| `brows3.jpg` | Available (unused in current build) |
+| `DSC08632.jpeg`, `amy@work.png`, `amyPortait.jpg`, `brows3.jpg` | Unused |
+
+All images render through `next/image`.
 
 ---
 
@@ -501,40 +377,68 @@ Used by `ResponsiveChrome` for the desktop chrome. Wraps `Navbar`. Fixed-positio
 ### Acuity Scheduling
 
 - Embed URL: `https://app.acuityscheduling.com/schedule.php?owner={owner}&ref=embedded_csp`
-- Script: `https://embed.acuityscheduling.com/js/embed.js` (loaded via `next/script` with `strategy="afterInteractive"`)
-- Height auto-resize via `window.postMessage` — Acuity sends `{ height: number }` from `app.acuityscheduling.com`
-- Owner ID for Amy Ly: `30825696`
+- Script: `https://embed.acuityscheduling.com/js/embed.js`
+- Height auto-resize via `window.postMessage`
+- Owner ID: `30825696`
 
 ### Square Gift Cards
 
-- Purchase URL: `https://app.squareup.com/gift/ML1PB9TVCHMXK/order`
-- External link, opens in new tab (`target="_blank" rel="noopener noreferrer"`)
+- Purchase URL: `https://app.squareup.com/gift/ML1PB9TVCHMXK/order` (new tab)
+
+### GlyMed Plus Storefront
+
+- `contact.shopUrl` = `https://glymedplus.com/launch/0507169` (new tab)
+
+### Google Reviews
+
+- `REVIEW_URL` in `GoogleReviewBadge.tsx`
+
+---
+
+## Security Headers (`next.config.ts`)
+
+Applied to every route via `headers()`:
+
+- **Content-Security-Policy** — `default-src 'self'`, with allowances only for Acuity (`script-src`, `frame-src`, `img-src`, `connect-src`, `form-action`). `'unsafe-inline'` is required for Next.js inline scripts/styles; dev builds also allow `'unsafe-eval'` and HMR websockets. Production adds `upgrade-insecure-requests`.
+- `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (camera, mic, geolocation, topics disabled), `Strict-Transport-Security` (2 years, preload).
+
+**Adding a new embed, script, image host, or form target requires updating the CSP**, or the browser will block it. Plain outbound links (Square, GlyMed, Google, socials) don't need CSP changes.
+
+---
+
+## SEO
+
+- Per-page `metadata` (title + description) on every route except `/`, which uses the root metadata.
+- `robots.ts` allows all crawlers and points to the sitemap.
+- `sitemap.ts` lists routes by hand — add new pages there.
+- `BeautySalon` JSON-LD in the root layout.
 
 ---
 
 ## CSS Architecture
 
-All tokens live in `:root` in `src/app/globals.css`. Components reference tokens only — no hardcoded hex values in component CSS files.
+All tokens live in `:root` in `src/app/globals.css`. Component CSS modules reference tokens rather than hardcoded hex values.
 
-**Token namespaces:**
+**Token groups:**
 
-| Prefix | Purpose |
+| Tokens | Purpose |
 |--------|---------|
-| `--color-*` | Original brand palette (primary, text, bg, border) |
-| `--tint`, `--tint-*` | Redesign alias for `--color-primary` (#937a62) |
-| `--bg-*` | Warm page backgrounds (`--bg-page`, `--bg-soft`, `--bg-warm`) |
-| `--border-warm` | Warm-tinted border color |
-| `--shadow-warm-*` | Warm-tinted elevation shadows |
-| `--label`, `--label-*` | iOS-style text hierarchy |
-| `--bg-grouped`, `--bg-elevated` | iOS-style surface colors |
-| `--separator`, `--separator-strong` | iOS-style divider colors |
-| `--fill-*` | iOS-style fill colors |
-| `--font-*` | Font stacks (system, serif, primary, mono) |
-| `--radius-*` | Border radii (card, large, button, pill) |
-| `--text-h1` through `--text-h4` | Type scale |
-| `--status-bar`, `--nav-bar`, `--tab-bar` | iOS shell dimensions |
+| `--tint`, `--tint-dark`, `--tint-deep`, `--tint-soft`, `--tint-fade` | Brand brown. `--tint` (4.04:1) is large text / decoration only; small text and fills use `--tint-dark` (5.35:1), hover `--tint-deep` |
+| `--label`, `--label-secondary`, `--label-tertiary`, `--color-text-secondary`, `--color-text-light` | Text colors |
+| `--bg-page`, `--bg-warm`, `--bg-soft`, `--color-bg-white` | Surfaces |
+| `--border-warm`, `--color-border` | Borders |
+| `--shadow-sm/md/lg`, `--shadow-warm-sm/md/lg` | Elevation |
+| `--radius-card`, `--radius-large`, `--radius-button`, `--radius-pill` | Radii |
+| `--font-system`, `--font-serif` | Font stacks (body uses `--font-system`; accents use `--font-serif`) |
+| `--text-xs` … `--text-lg`, `--text-h1` … `--text-h5` | Type scale |
+| `--weight-*`, `--leading-*` | Weights, line heights |
+| `--space-xs` … `--space-5xl` | Spacing |
+| `--container-*`, `--screen-*` | Container widths/padding; breakpoint reference values (documentation only — custom properties can't be used in media queries) |
+| `--transition-fast/base/slow` | Transitions |
 
-**Section layout pattern** (used across all pages):
+**Global rules:** `color-scheme: light` (no dark mode), `*:focus-visible` outline, `.skipLink`, and a `prefers-reduced-motion: reduce` block that disables animations and smooth scrolling.
+
+**Section layout pattern:**
 ```css
 .section {
   max-width: 1280px;
@@ -546,76 +450,57 @@ All tokens live in `:root` in `src/app/globals.css`. Components reference tokens
 }
 ```
 
-**Breakpoints:**
+**Breakpoints in use:**
 
-| Name | Value | Use |
-|------|-------|-----|
-| Tablet+ | `768px` | Desktop padding, typography scale |
-| Desktop | `1024px` | `useIsMobile()` cutoff when re-enabled |
-| Wide | `1280px` | Max content width |
-| Ultra | `1760px` | Wide layout expansion |
-
----
-
-## Metadata Pattern
-
-Each page exports its own `Metadata` object:
-
-```typescript
-// src/app/about/page.tsx
-export const metadata: Metadata = {
-  title: 'About | EstheticLY Skincare',
-  description: 'Meet Amy Ly, licensed esthetician...',
-}
-```
-
-Root metadata (with Open Graph, Twitter card, robots) lives in `src/app/layout.tsx`.
+| Query | Use |
+|-------|-----|
+| `min-width: 640px` | ServicesGrid 2-column step |
+| `min-width: 768px` | Tablet+ layout, padding, type scale (most common) |
+| `max-width: 767.98px` | Mobile-only rules (e.g. GalleryRow carousel) |
+| `min-width: 1024px` | Desktop layout (TopNav full links, wider grids) |
+| `1280px` | Max content width |
 
 ---
 
 ## Key Conventions
 
 **Server vs Client Components**
-- Default: Server Component (no directive needed)
-- Client Component when: using hooks (`useState`, `useEffect`, `usePathname`), browser APIs, or event handlers
-- Mark with `'use client'` at the top of the file
+- Server Components by default.
+- Client Components (`'use client'`): `TopNav`, `BookDesktop`, `AcuityScheduler`, `GoogleReviewBadge`.
 
 **Component file convention**
-Each component lives in its own directory with three files:
 ```
 ComponentName/
-├── ComponentName.tsx     # Component implementation
+├── ComponentName.tsx          # Implementation + exported props interface
 ├── ComponentName.module.css   # Scoped styles
-└── index.ts              # Re-export: export { default } from './ComponentName'
+└── index.ts                   # export { default } from './ComponentName'
 ```
 
-**Content separation**
-All copy (text, prices, hours, FAQs) lives in `src/content/`. Components read from content files — they contain no hardcoded business copy.
+**Accessibility (WCAG 2.2 AA)**
+- One `<h1>` per page; logical heading order below it.
+- External links: `target="_blank" rel="noopener noreferrer"` plus an `aria-label` ending in "(opens in new tab)".
+- Decorative glyphs/icons get `aria-hidden="true"`.
+- Brand-color contrast rules above.
 
 **Path alias**
-`@/*` maps to `./src/*`. Use `@/components/...` and `@/content/...` everywhere — no relative `../../` paths.
+`@/*` maps to `./src/*`. Use `@/components/...` and `@/content/...` rather than relative `../../` paths.
 
 ---
 
 ## Rebuild Checklist
 
-To rebuild this site for a new project:
-
-- [ ] `npx create-next-app` with TypeScript, ESLint, App Router, src dir, `@/*` alias
-- [ ] Copy `:root` token block from `ESTHETICLY_DESIGN_SYSTEM.md` into `globals.css`
-- [ ] Create `src/content/` and populate all 6 content files with the new business's data
-- [ ] Build components in order: `DisplaySerif` → `Button` → `SectionHeader` → marketing components → page components
-- [ ] Create `src/components/ios/useIsMobile.ts` (hardcoded `false` to start; real implementation is in this repo)
-- [ ] Create `ResponsiveChrome` + `ResponsiveSwitch` wrappers
-- [ ] Create `src/components/layout/Navbar` and wire active link via `usePathname()`
-- [ ] Create `AcuityScheduler` with `scrolling="no"` and postMessage resize listener
-- [ ] Wire `BookDesktop` with policies accordion + checkbox gate + full-bleed `.scheduler` div
-- [ ] Replace Acuity owner ID (`30825696`) with the new business's ID
-- [ ] Replace Square gift card URL with the new business's link
-- [ ] Replace all images in `public/Images/` with new business photos
-- [ ] Update all content in `src/content/` (services, bio, contact info, hours, FAQs)
-- [ ] Update `metadata` in `layout.tsx` and each page file
-- [ ] Run `npm run build` — should compile clean with zero errors
+- [ ] `npx create-next-app` with TypeScript, ESLint, App Router, src dir, `@/*` alias; Node 24
+- [ ] Copy the `:root` token block into `globals.css` (plus focus, skip link, reduced-motion rules)
+- [ ] Create `src/content/` and populate the 6 content files with the new business's data
+- [ ] Build components: `DisplaySerif` → `SectionHeader` → marketing components → pages
+- [ ] Build `TopNav` with `usePathname()` active state and mobile drawer
+- [ ] Build `AcuityScheduler` with `scrolling="no"` and origin-checked postMessage resize
+- [ ] Wire `BookDesktop`: policies accordion + checkbox gate + full-bleed `.scheduler`
+- [ ] Replace Acuity owner ID (`30825696`), Square URL, `shopUrl`, and Google review URL
+- [ ] Replace images in `public/Images/`
+- [ ] Update `metadata`, `SITE_URL`, and JSON-LD in `layout.tsx`; per-page metadata; `robots.ts` / `sitemap.ts`
+- [ ] Update CSP in `next.config.ts` for any new embeds
+- [ ] `npm run build` and `npm run lint` — clean
 
 ---
 
@@ -623,7 +508,8 @@ To rebuild this site for a new project:
 
 | File | Purpose |
 |------|---------|
-| `ESTHETICLY_DESIGN_SYSTEM.md` | CSS tokens, typography, color palette, component TypeScript interfaces |
-| `MOBILE_SHELL_GUIDE.md` | Archive of the retired iOS mobile shell — use to re-enable or replicate in new projects |
 | `CLAUDE.md` | Dev commands and project conventions for Claude Code |
-| `public/design_handoff_estheticly_redesign/` | Original design handoff: HTML previews, JSX sketches, screenshots |
+| `ESTHETICLY_DESIGN_SYSTEM.md` | CSS tokens, typography, color palette, component interfaces |
+| `SITE_CONTENT.md` | Original site copy |
+| `UI_DESIGN_GUIDE.md`, `UI_DESIGN_GUIDE_EARTHY_BROWN.md` | Earlier design guides |
+| `MOBILE_SHELL_GUIDE.md` | Archive of the retired iOS mobile shell |

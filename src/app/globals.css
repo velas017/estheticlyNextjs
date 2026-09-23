@@ -52,8 +52,6 @@
   --radius-pill: 999px;
 
   /* Font stacks */
-  --font-primary: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Geist Mono', 'Courier New', monospace;
   --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
     system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "New York", "Times New Roman", Georgia, serif;
