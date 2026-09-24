@@ -10,9 +10,9 @@ interface GalleryCell {
 }
 
 const cells: GalleryCell[] = [
-  { src: '/Images/led-light-therapy.jpg', alt: 'LED light therapy under a Celluma panel during a treatment' },
   { src: '/Images/before-after-acne-cheek.jpg', alt: 'Before and after: acne on the cheek, visibly clearer after treatment' },
   { src: '/Images/before-after-forehead.jpg', alt: 'Before and after: forehead texture and breakouts, smoother after treatment' },
+  { src: '/Images/led-light-therapy.jpg', alt: 'LED light therapy under a Celluma panel during a treatment' },
   { src: '/Images/handsOn2.jpg', alt: 'Hands-on skincare work' },
   { src: '/Images/brows2.jpg', alt: 'Brow detail' },
   { src: '/Images/IMG_1500.jpg', alt: 'Treatment room' },
