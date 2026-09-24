@@ -109,7 +109,7 @@ export interface Service {
 }
 
 export const services: Service[] = [
-  { id: 'signature', name: 'Signature Facial', duration: '60 min', price: 130, description: '...' },
+  { id: 'signature', name: 'Signature Facial', duration: '60 min', price: 135, description: '...' },
   { id: 'back-facial', name: 'Back Facial', duration: '60 min', price: 109, description: '...' },
   { id: '90-min-custom', name: '90 Minute Custom Facial', duration: '95 min', price: 180, description: '...' },
 ]

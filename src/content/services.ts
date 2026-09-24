@@ -11,7 +11,7 @@ export const services: Service[] = [
     id: 'signature',
     name: 'Signature Facial',
     duration: '60 min',
-    price: 130,
+    price: 135,
     description:
       'Customized double cleanse, exfoliation, mask, neck and shoulder massage, serums, moisturizer.',
   },
