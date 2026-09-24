@@ -32,7 +32,7 @@
 .mobileSlide {
   flex: 0 0 calc(85vw - 24px);
   scroll-snap-align: start;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
@@ -49,11 +49,17 @@
   .grid { display: none; }
 }
 
+/* Featured column + three stacks of two: every tile lands close to 3:4,
+   so portrait phone photos and before/after collages show without heavy cropping. */
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: 2fr 1fr 1fr;
-    height: 480px;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    height: 440px;
   }
+}
+
+@media (min-width: 1024px) {
+  .grid { height: 640px; }
 }
 
 .featured,
@@ -62,7 +68,7 @@
   border-radius: 14px;
   overflow: hidden;
   background: var(--bg-soft);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
 }
 
 @media (min-width: 768px) {
