@@ -13,14 +13,14 @@ const cells: GalleryCell[] = [
   { src: '/Images/before-after-acne-cheek.jpg', alt: 'Before and after: acne on the cheek, visibly clearer after treatment' },
   { src: '/Images/before-after-forehead.jpg', alt: 'Before and after: forehead texture and breakouts, smoother after treatment' },
   { src: '/Images/led-light-therapy.jpg', alt: 'LED light therapy under a Celluma panel during a treatment' },
-  { src: '/Images/handsOn2.jpg', alt: 'Hands-on skincare work' },
   { src: '/Images/brows2.jpg', alt: 'Brow detail' },
   { src: '/Images/IMG_1500.jpg', alt: 'Treatment room' },
   { src: '/Images/IMG_1593.jpeg', alt: 'Studio detail' },
 ]
 
+// Desktop: the first cell is the featured tile; the remaining five form a mosaic
+// (three portrait tiles on top, two wider tiles below). See GalleryRow.module.css.
 const [featured, ...rest] = cells
-const stacks: GalleryCell[][] = [rest.slice(0, 2), rest.slice(2, 4), rest.slice(4, 6)]
 
 export default function GalleryRow() {
   return (
@@ -48,15 +48,13 @@ export default function GalleryRow() {
             className={styles.img}
           />
         </div>
-        {stacks.map((stack, i) => (
-          <div key={i} className={styles.stack}>
-            {stack.map(({ src, alt }) => (
-              <div key={src} className={styles.cell}>
-                <Image src={src} alt={alt} fill sizes="(min-width: 1280px) 240px, 20vw" className={styles.img} />
-              </div>
-            ))}
-          </div>
-        ))}
+        <div className={styles.mosaic}>
+          {rest.map(({ src, alt }) => (
+            <div key={src} className={styles.cell}>
+              <Image src={src} alt={alt} fill sizes="(min-width: 1280px) 360px, 30vw" className={styles.img} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
