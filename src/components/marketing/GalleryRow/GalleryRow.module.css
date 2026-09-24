@@ -49,11 +49,12 @@
   .grid { display: none; }
 }
 
-/* Featured column + three stacks of two: every tile lands close to 3:4,
-   so portrait phone photos and before/after collages show without heavy cropping. */
+/* Featured tile (left) + five-image mosaic (right). The featured tile and the
+   mosaic's top row land close to 3:4, so portrait phone photos and before/after
+   collages show without heavy cropping; the bottom row is two wider tiles. */
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
     height: 440px;
   }
 }
@@ -78,10 +79,21 @@
   }
 }
 
-.stack {
+.mosaic {
   display: grid;
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr 1fr;
   gap: 16px;
+  min-height: 0;
+}
+
+/* Top row: three portrait tiles (2 of 6 tracks each). Bottom row: two wider tiles (3 of 6). */
+.mosaic .cell:nth-child(-n + 3) {
+  grid-column: span 2;
+}
+
+.mosaic .cell:nth-child(n + 4) {
+  grid-column: span 3;
 }
 
 .img {
