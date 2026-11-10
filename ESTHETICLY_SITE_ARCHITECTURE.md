@@ -8,13 +8,13 @@ A complete reference for how this site is built, and for rebuilding it from scra
 
 | Layer | Choice | Version |
 |-------|--------|---------|
-| Framework | Next.js (App Router) | 15.4.10 |
+| Framework | Next.js (App Router) | 15.5.29 |
 | UI | React | 19.1.0 |
 | Language | TypeScript (strict) | ^5 |
 | Styling | CSS Modules + CSS custom properties | — |
 | Fonts | System font stack for body, system serif for italic accents (no web fonts) | — |
 | Node | 24 LTS (`.nvmrc`, `engines.node: "24.x"`) | — |
-| Linting | ESLint + eslint-config-next | 15.4.4 |
+| Linting | ESLint + eslint-config-next | 15.5.29 |
 | Booking | Acuity Scheduling iframe embed | — |
 | Gift cards | Square e-gift card link | — |
 | Retail | GlyMed Plus storefront link | — |
@@ -27,7 +27,7 @@ No state management library. No UI component library. No CSS preprocessor. Every
 ## Bootstrap a New Project
 
 ```bash
-npx create-next-app@15.4.10 my-project \
+npx create-next-app@15.5.29 my-project \
   --typescript --eslint --app --src-dir --import-alias "@/*"
 cd my-project
 node --version  # confirm 24.x

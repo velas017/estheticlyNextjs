@@ -12,7 +12,7 @@ Node 24 (see `.nvmrc` and `engines` in `package.json`).
 npm run dev           # Development server on http://localhost:3000
 npm run build         # Production build
 npm start             # Serve the production build
-npm run lint          # ESLint (next lint)
+npm run lint          # ESLint (next lint — deprecated in 15.5, removed in Next 16; migrate to the ESLint CLI before upgrading)
 ```
 
 There is no test suite. Verify changes with `npm run build` plus a visual check in the browser.
@@ -23,7 +23,7 @@ Marketing site for **EstheticLY Skincare** — Amy Ly, licensed esthetician in C
 
 ## Stack
 
-- Next.js 15.4.10 (App Router), React 19.1.0, TypeScript (strict), path alias `@/*` → `./src/*`
+- Next.js 15.5.29 (App Router), React 19.1.0, TypeScript (strict), path alias `@/*` → `./src/*`
 - CSS Modules + CSS custom properties (tokens in `src/app/globals.css`). No UI library, no Tailwind, no state library.
 - Light mode only (`color-scheme: light`); dark mode was deliberately removed.
 
