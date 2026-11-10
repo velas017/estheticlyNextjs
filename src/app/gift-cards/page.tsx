@@ -37,9 +37,9 @@ const GiftCardsDesktop = () => (
           target="_blank"
           rel="noopener noreferrer"
           className={styles.btn}
-          aria-label="Buy a gift card (opens in new tab)"
+          aria-label="Buy now on Square (opens in new tab)"
         >
-          Buy now →
+          Buy now <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>

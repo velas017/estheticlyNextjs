@@ -88,7 +88,7 @@ export default function ContactGrid({ as: Heading = 'h2' }: ContactGridProps) {
             >
               <span className={styles.infoIcon}><IGIcon /></span>
               <span>
-                <span className={styles.infoLabel}>Instagram</span>
+                <span className={styles.infoLabel}>Instagram</span>{' '}
                 <span className={styles.infoValue}>{contact.socials.instagram.handle}</span>
               </span>
             </a>
