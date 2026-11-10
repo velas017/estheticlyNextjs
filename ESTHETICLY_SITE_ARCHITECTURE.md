@@ -42,7 +42,10 @@ Copy the `:root` token block from `ESTHETICLY_DESIGN_SYSTEM.md` (or this repo's 
 ```
 src/
 ├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Root layout — metadata, JSON-LD, skip link, chrome
+│   ├── layout.tsx              # Root layout — site-wide metadata, JSON-LD, skip link, chrome
+│   ├── icon.svg                # LY monogram (source artwork for all site icons)
+│   ├── favicon.ico             # 16/32/48 rasters of icon.svg
+│   ├── apple-icon.png          # 180px square for iOS home screens
 │   ├── globals.css             # Tokens, resets, focus + reduced-motion rules
 │   ├── page.tsx                # / (homepage)
 │   ├── page.module.css
@@ -79,6 +82,9 @@ src/
 │       ├── DisplaySerif/       # Italic serif accent <span> for headings
 │       ├── AcuityScheduler/    # Acuity iframe + postMessage resize (client)
 │       └── GoogleReviewBadge/  # Floating, dismissible review badge (client)
+│
+├── lib/
+│   └── pageMetadata.ts         # Per-route title, description, canonical, OG/Twitter
 │
 └── content/                    # Site copy and business data — no JSX
     ├── services.ts             # Service list (id, name, duration, price, description)
@@ -190,7 +196,8 @@ Exports `first72Hours` (items with `id`, `tone`, `label`), `cadence`, `makeupNot
 ```
 
 Also defines:
-- `metadata` — `metadataBase` (`https://estheticlyskincare.com`), default title/description, keywords, canonical, Open Graph and Twitter cards (image `/Images/IMG_6201.jpeg`), robots.
+- `metadata` — site-wide defaults only: `metadataBase` (`https://estheticlyskincare.com`), fallback title/description, keywords, authors, robots. Canonical URLs and Open Graph/Twitter cards are **not** set here: Next.js inherits them on every route, so each page sets its own through `pageMetadata()`.
+- Site icons come from Next's file conventions: `icon.svg`, `favicon.ico`, and `apple-icon.png` in `src/app/` (LY monogram outlined from Times New Roman Bold, cream on `--tint-dark`). `icon.svg` is the source; regenerate the other two if it changes.
 - `localBusinessJsonLd` — `BeautySalon` schema with address, phone, email, opening hours, and social `sameAs` links, built from `src/content/contact.ts`.
 
 There is a single responsive layout for all viewports. The earlier iOS-style mobile shell (`components/ios/`, `ResponsiveChrome`, `*Mobile.tsx` pages) was removed; see `MOBILE_SHELL_GUIDE.md` for the archive.
@@ -199,7 +206,7 @@ There is a single responsive layout for all viewports. The earlier iOS-style mob
 
 ## Page Inventory
 
-Every page except `/` exports its own `metadata` and renders exactly one `<h1>`. Section components that can serve as the page heading accept `as="h1"` (default `h2`).
+Every page exports its own `metadata` via `pageMetadata({ title, description, path })` from `src/lib/pageMetadata.ts` and renders exactly one `<h1>`. Section components that can serve as the page heading accept `as="h1"` (default `h2`).
 
 ### `/` — Homepage
 
@@ -256,7 +263,7 @@ Two-column layout: gift card image (`estheticlyEgiftcard.png`) + copy block with
 
 ### `TopNav` (client)
 
-Sticky header. Brand lockup, primary nav, "Book Now" CTA, and a hamburger-toggled mobile drawer (`aria-expanded`, `aria-controls="mobile-drawer"`). Active link via `usePathname()`.
+Sticky header. Brand lockup, primary nav, "Book Now" CTA, and a hamburger-toggled mobile drawer (`aria-expanded`, `aria-controls="mobile-drawer"`). Active link via `usePathname()`. The header is a column flex container capped at `100dvh`, so on short screens the open drawer shrinks and scrolls rather than extending past the bottom of the viewport. Link padding tightens between 1024px and 1199px so the full row fits on one line.
 
 Nav items: Home, About, Prep, Aftercare, FAQ (`/learn-more`), Contact, Gift Cards, Shop (external → `contact.shopUrl`).
 
@@ -419,7 +426,7 @@ Applied to every route via `headers()`:
 
 ## SEO
 
-- Per-page `metadata` (title + description) on every route except `/`, which uses the root metadata.
+- Per-page `metadata` on every route via `pageMetadata()`: title, description, canonical URL, and Open Graph/Twitter tags with that route's own URL and title. The share image (`/Images/IMG_6201.jpeg`) is defined once in `src/lib/pageMetadata.ts`.
 - `robots.ts` allows all crawlers and points to the sitemap.
 - `sitemap.ts` lists routes by hand — add new pages there.
 - `BeautySalon` JSON-LD in the root layout.
@@ -434,7 +441,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 
 | Tokens | Purpose |
 |--------|---------|
-| `--tint`, `--tint-dark`, `--tint-deep`, `--tint-ink`, `--tint-soft`, `--tint-fade` | Brand brown. `--tint` (4.04:1) is large text / decoration only; small text and fills use `--tint-dark` (5.35:1), hover `--tint-deep`; `--tint-ink` (#5a4a39) is the darkest brown for dark CTA surfaces |
+| `--tint`, `--tint-dark`, `--tint-deep`, `--tint-ink`, `--tint-soft`, `--tint-fade` | Brand brown. `--tint` (4.04:1) is large text / decoration only; small text and fills use `--tint-dark` (5.35:1), hover `--tint-deep`; on `--bg-warm` (AboutStrip) small brand text uses `--tint-deep` because `--tint-dark` is only 4.39:1 there; `--tint-ink` (#5a4a39) is the darkest brown for dark CTA surfaces |
 | `--label`, `--label-secondary`, `--label-tertiary`, `--color-text-secondary`, `--color-text-light` | Text colors |
 | `--bg-page`, `--bg-warm`, `--bg-soft`, `--color-bg-white` | Surfaces |
 | `--border-warm`, `--color-border` | Borders |
@@ -469,6 +476,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 | `min-width: 768px` | Tablet+ layout, padding, type scale (most common) |
 | `max-width: 767.98px` | Mobile-only rules (e.g. GalleryRow carousel) |
 | `min-width: 1024px` | Desktop layout (TopNav full links, wider grids) |
+| `min-width: 1024px` and `max-width: 1199.98px` | TopNav only: tighter link padding so the link row fits on one line |
 | `1280px` | Max content width |
 
 ---
@@ -509,7 +517,8 @@ ComponentName/
 - [ ] Wire `BookDesktop`: policies accordion + checkbox gate + full-bleed `.scheduler`
 - [ ] Replace Acuity owner ID (`30825696`), Square URL, `shopUrl`, and Google review URL
 - [ ] Replace images in `public/Images/`
-- [ ] Update `metadata`, `SITE_URL`, and JSON-LD in `layout.tsx`; per-page metadata; `robots.ts` / `sitemap.ts`
+- [ ] Update `metadata`, `SITE_URL`, and JSON-LD in `layout.tsx`; `pageMetadata()` on each page and the share image in `src/lib/pageMetadata.ts`; `robots.ts` / `sitemap.ts`
+- [ ] Replace the site icons in `src/app/` (`icon.svg`, `favicon.ico`, `apple-icon.png`)
 - [ ] Update CSP in `next.config.ts` for any new embeds
 - [ ] `npm run build` and `npm run lint` — clean
 

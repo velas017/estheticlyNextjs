@@ -193,7 +193,7 @@ Add this block immediately after `:root`. Only the redesign tokens flip — lega
 |-------|-------|-----|
 | `--tint` | `#937a62` | Primary CTAs, active states, accents |
 | `--tint-dark` | `#7d6750` | Small text and button fills (5.35:1 on white) |
-| `--tint-deep` | `#6a5743` | Hover state for `--tint-dark` fills |
+| `--tint-deep` | `#6a5743` | Hover state for `--tint-dark` fills; small brand text on `--bg-warm`, where `--tint-dark` is only 4.39:1 |
 | `--tint-ink` | `#5a4a39` | Darkest brown — dark CTA surfaces (ShopBanner band, with white/sand text) |
 | `--tint-soft` | `rgba(147,122,98,0.12)` | Subtle tinted backgrounds |
 | `--tint-fade` | `rgba(147,122,98,0.06)` | Very subtle tint (callouts, hover fills) |

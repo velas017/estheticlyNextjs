@@ -15,7 +15,7 @@ Visitors can browse facial services and pricing, read how to prepare for and car
 - **Shop**: links out to the GlyMed Plus online storefront.
 - **Contact and hours**: contact details, location, and weekly hours.
 - **Google reviews prompt**: dismissible floating badge.
-- **SEO**: per-page metadata, Open Graph and Twitter cards, `BeautySalon` structured data, `robots.txt`, `sitemap.xml`.
+- **SEO**: per-page metadata with each page's own canonical URL, Open Graph and Twitter cards, `BeautySalon` structured data, `robots.txt`, `sitemap.xml`.
 - **Accessibility**: built to WCAG 2.2 AA (skip link, focus styles, contrast-checked colors, reduced-motion support, one `h1` per page).
 - **Security headers**: strict Content Security Policy, HSTS, and related headers in `next.config.ts`.
 
@@ -60,11 +60,12 @@ npm run lint     # ESLint
 
 ```
 src/
-├── app/              # Routes (one folder per page), root layout, robots, sitemap
+├── app/              # Routes (one folder per page), root layout, site icons, robots, sitemap
 ├── components/
 │   ├── marketing/    # Page sections: TopNav, Hero, ServicesGrid, MobileBookBar, Footer, ...
 │   └── ui/           # Primitives: AcuityScheduler, DisplaySerif, GoogleReviewBadge
-└── content/          # Site copy and business data (services, hours, FAQs, ...)
+├── content/          # Site copy and business data (services, hours, FAQs, ...)
+└── lib/              # pageMetadata(): per-page title, canonical, and share tags
 public/Images/        # Photography
 ```
 
