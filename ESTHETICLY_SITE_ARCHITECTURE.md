@@ -200,7 +200,7 @@ Also defines:
 - Site icons come from Next's file conventions: `icon.svg`, `favicon.ico`, and `apple-icon.png` in `src/app/` (LY monogram outlined from Times New Roman Bold, cream on `--tint-dark`). `icon.svg` is the source; regenerate the other two if it changes.
 - `localBusinessJsonLd` — `BeautySalon` schema with address, phone, email, opening hours, and social `sameAs` links, built from `src/content/contact.ts`.
 
-There is a single responsive layout for all viewports. The earlier iOS-style mobile shell (`components/ios/`, `ResponsiveChrome`, `*Mobile.tsx` pages) was removed; see `MOBILE_SHELL_GUIDE.md` for the archive.
+There is a single responsive layout for all viewports. The earlier iOS-style mobile shell (`components/ios/`, `ResponsiveChrome`, `*Mobile.tsx` pages) was removed in commit `b94e401`; the code is in git history before that commit (`git show b94e401^:src/components/ios/`).
 
 ---
 
@@ -530,6 +530,4 @@ ComponentName/
 |------|---------|
 | `CLAUDE.md` | Dev commands and project conventions for Claude Code |
 | `ESTHETICLY_DESIGN_SYSTEM.md` | CSS tokens, typography, color palette, component interfaces |
-| `SITE_CONTENT.md` | Original site copy |
-| `UI_DESIGN_GUIDE.md`, `UI_DESIGN_GUIDE_EARTHY_BROWN.md` | Earlier design guides |
-| `MOBILE_SHELL_GUIDE.md` | Archive of the retired iOS mobile shell |
+| `README.md` | Project overview and getting started |
