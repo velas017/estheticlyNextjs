@@ -52,7 +52,9 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tint-dark);
+  /* --tint-deep, not --tint-dark: on the --bg-warm card --tint-dark is only
+   * 4.39:1, under the 4.5:1 AA minimum for small text. */
+  color: var(--tint-deep);
   margin-bottom: 16px;
 }
 
@@ -82,5 +84,6 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 22px;
-  color: var(--tint-dark);
+  /* 22px regular is not "large text" for WCAG, so it needs 4.5:1 too */
+  color: var(--tint-deep);
 }

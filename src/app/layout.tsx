@@ -4,41 +4,22 @@ import Footer from "@/components/marketing/Footer";
 import MobileBookBar from "@/components/marketing/MobileBookBar";
 import GoogleReviewBadge from "@/components/ui/GoogleReviewBadge";
 import { contact } from "@/content/contact";
+import { SITE_NAME } from "@/lib/pageMetadata";
 import "./globals.css";
 
 const SITE_URL = "https://estheticlyskincare.com";
 
+// Site-wide defaults. Anything route-specific (title, description, canonical,
+// Open Graph, Twitter) is set per page with pageMetadata() — see
+// src/lib/pageMetadata.ts for why it must not live here.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "EstheticLY | Skincare & Facials in Charlotte, NC",
   description: "Personalized facials, science-based skincare, and unhurried care in Charlotte, NC. Licensed esthetician offering customized treatments for every skin type.",
   keywords: "esthetician, facial, skincare, Charlotte NC, dermaplaning, microdermabrasion, chemical peel, beauty treatments",
   authors: [{ name: "Amy Ly", url: SITE_URL }],
-  creator: "EstheticLY Skincare",
-  publisher: "EstheticLY Skincare",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: SITE_URL,
-    siteName: "EstheticLY Skincare",
-    title: "EstheticLY | Skincare & Facials in Charlotte, NC",
-    description: "Personalized, science-based skincare in Charlotte, NC.",
-    images: [
-      {
-        url: "/Images/IMG_6201.jpeg",
-        alt: "EstheticLY Skincare — facials in Charlotte, NC",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "EstheticLY | Skincare & Facials in Charlotte, NC",
-    description: "Personalized, science-based skincare in Charlotte, NC.",
-    images: ["/Images/IMG_6201.jpeg"],
-  },
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   robots: {
     index: true,
     follow: true,

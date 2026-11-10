@@ -19,7 +19,6 @@ export default function ServicesGrid() {
             href="/book-now"
             key={service.id}
             className={styles.card}
-            aria-label={`Book ${service.name}`}
           >
             <div className={styles.duration}>{service.duration}</div>
             <h3 className={styles.name}>{service.name}</h3>
@@ -28,6 +27,9 @@ export default function ServicesGrid() {
               <span>${service.price}</span>
               <span className={styles.arrow} aria-hidden="true">→</span>
             </div>
+            {/* The card's own text is the link name, so screen readers hear the
+                duration, description, and price; this adds the action. */}
+            <span className="visuallyHidden">Book now</span>
           </Link>
         ))}
       </div>

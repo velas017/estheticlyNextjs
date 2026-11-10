@@ -40,21 +40,23 @@ Marketing site for **EstheticLY Skincare** — Amy Ly, licensed esthetician in C
 /book-now     Policies accordion → accept checkbox → Acuity iframe
 ```
 
-Also: `src/app/robots.ts` and `src/app/sitemap.ts` (update the sitemap route list when adding a page).
+Also: `src/app/robots.ts` and `src/app/sitemap.ts`. When adding a page, add it to the sitemap route list and export `metadata = pageMetadata({ title, description, path })` from its `page.tsx`.
 
 ## Where Things Live
 
 - **Copy and business data**: `src/content/*.ts` (services, about, contact, faqs, prep, aftercare). Edit content here, not in components. Exceptions that are still hardcoded: booking policies in `src/app/book-now/BookDesktop.tsx`, footer service links in `Footer.tsx`, gallery images in `GalleryRow.tsx`, Square URL in `gift-cards/page.tsx`.
 - **Page sections**: `src/components/marketing/*` (TopNav, Hero, ServicesGrid, AboutStrip, ShopBanner, GalleryRow, FAQAccordion, ContactGrid, CareGrid, SectionHeader, Footer, MobileBookBar, MidBanner — MidBanner is currently unused).
 - **Primitives**: `src/components/ui/*` (DisplaySerif, AcuityScheduler, GoogleReviewBadge).
-- **Root layout** `src/app/layout.tsx`: site-wide metadata/OG, BeautySalon JSON-LD, skip link, TopNav, `<main id="main-content">`, Footer, MobileBookBar, GoogleReviewBadge.
+- **Root layout** `src/app/layout.tsx`: site-wide metadata defaults, BeautySalon JSON-LD, skip link, TopNav, `<main id="main-content">`, Footer, MobileBookBar, GoogleReviewBadge.
+- **Site icons** (LY monogram, Times New Roman Bold outlines — the face `--font-serif` resolves to — cream on `--tint-dark`): `src/app/icon.svg` is the source; `src/app/favicon.ico` (16/32/48) and `src/app/apple-icon.png` (180px, square, no rounded corners) are rasterised from it. Next's file conventions emit the `<link>` tags; if the SVG changes, regenerate the other two.
+- **Page metadata**: `src/lib/pageMetadata.ts`. Every `page.tsx` exports `pageMetadata({ title, description, path })`, which sets that route's canonical URL and Open Graph/Twitter tags. Do not put `alternates` or `openGraph` in the root layout — Next.js inherits them on every route, which made every page declare the homepage as its canonical URL.
 - **Security headers / CSP**: `next.config.ts`. Any new third-party script, iframe, image host, or form target must be added to the CSP or it will be blocked.
 
 ## Things to Keep in Sync
 
 - Opening hours: `hours` in `src/content/contact.ts` **and** `openingHoursSpecification` in `layout.tsx`.
 - Storefront URL: `contact.shopUrl` is the single source (used by TopNav, ShopBanner, Footer, aftercare page, FAQ).
-- Routes: `sitemap.ts` and TopNav `navItems`.
+- Routes: `sitemap.ts`, TopNav `navItems`, and the `path` passed to `pageMetadata()` in each `page.tsx`.
 - Fixed bottom UI on phones: `MobileBookBar` sets `data-bookbar="visible"` on `<html>`; `GoogleReviewBadge` lifts above it via that attribute. Keep the badge offset in step with the bar's height.
 
 ## Booking Emphasis (mobile-first — most clients book on phones)
@@ -66,9 +68,10 @@ Also: `src/app/robots.ts` and `src/app/sitemap.ts` (update the sitemap route lis
 
 ## Design System
 
-- Brand: `--tint` #937a62 is for large text (≥24px) and decoration only. Small text and button fills use `--tint-dark` (#7d6750), hover `--tint-deep` — required for WCAG AA contrast. `--tint-ink` (#5a4a39) is the darkest brown, used with `--tint-deep` for the dark ShopBanner band (white/sand text on it).
+- Brand: `--tint` #937a62 is for large text (≥24px) and decoration only. Small text and button fills use `--tint-dark` (#7d6750), hover `--tint-deep` — required for WCAG AA contrast. On the `--bg-warm` About card `--tint-dark` is only 4.39:1, so small brand text there uses `--tint-deep`. `--tint-ink` (#5a4a39) is the darkest brown, used with `--tint-deep` for the dark ShopBanner band (white/sand text on it).
 - Body text uses `--font-system`; headings get an italic serif accent word via `<DisplaySerif>` (`--font-serif`). No web fonts are loaded.
-- Breakpoints actually used: `min-width: 768px` (tablet+) and `min-width: 1024px` (desktop); max content width 1280px.
+- Breakpoints actually used: `min-width: 768px` (tablet+) and `min-width: 1024px` (desktop); max content width 1280px. TopNav also tightens link padding from 1024px to 1199px — the full link row needs about 1032px, so check that range when adding or renaming a nav item.
+- TopNav is a column flex container capped at `100dvh` so the open mobile drawer scrolls on short screens instead of running off the bottom of the sticky header.
 - Full token list and component specs: `ESTHETICLY_DESIGN_SYSTEM.md`. Architecture reference: `ESTHETICLY_SITE_ARCHITECTURE.md`.
 
 ## Code Standards
@@ -76,5 +79,5 @@ Also: `src/app/robots.ts` and `src/app/sitemap.ts` (update the sitemap route lis
 - Server Components by default; `'use client'` only for interactivity (currently TopNav, BookDesktop, AcuityScheduler, GoogleReviewBadge, MobileBookBar).
 - Each component lives in `ComponentName/{ComponentName.tsx, ComponentName.module.css, index.ts}`; export a TypeScript props interface.
 - Reference tokens in CSS Modules — no hardcoded hex colors.
-- Accessibility (WCAG 2.2 AA): one `<h1>` per page (section components accept `as="h1"`), `aria-label` noting "(opens in new tab)" on external links, `aria-hidden` on decorative glyphs, visible `:focus-visible` styles, reduced-motion support.
+- Accessibility (WCAG 2.2 AA): one `<h1>` per page (section components accept `as="h1"`), `aria-label` noting "(opens in new tab)" on external links (the label must contain the link's visible text), no `aria-label` on card-sized links whose content should be read — add the action with the global `.visuallyHidden` class instead (see ServicesGrid), `aria-hidden` on decorative glyphs, visible `:focus-visible` styles, reduced-motion support.
 - Use `next/image` for images (`public/Images/`).

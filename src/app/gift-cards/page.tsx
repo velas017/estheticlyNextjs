@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import DisplaySerif from '@/components/ui/DisplaySerif'
+import { pageMetadata } from '@/lib/pageMetadata'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Gift Cards | EstheticLY Skincare',
   description:
     'Give the gift of professional skincare with EstheticLY e-gift cards.',
-}
+  path: '/gift-cards',
+})
 
 const GiftCardsDesktop = () => (
   <section className={styles.section}>
@@ -36,9 +37,9 @@ const GiftCardsDesktop = () => (
           target="_blank"
           rel="noopener noreferrer"
           className={styles.btn}
-          aria-label="Buy a gift card (opens in new tab)"
+          aria-label="Buy now on Square (opens in new tab)"
         >
-          Buy now →
+          Buy now <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>

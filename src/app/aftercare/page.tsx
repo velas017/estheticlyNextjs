@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
@@ -9,13 +8,15 @@ import {
   aftercareIntro,
 } from '@/content/aftercare'
 import { contact } from '@/content/contact'
+import { pageMetadata } from '@/lib/pageMetadata'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Aftercare | EstheticLY Skincare',
   description:
     'Post-treatment aftercare advice for your facial at EstheticLY. Learn how to maintain and protect your skin after your treatment.',
-}
+  path: '/aftercare',
+})
 
 const AftercareDesktop = () => {
   const cards = [

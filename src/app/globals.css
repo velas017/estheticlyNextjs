@@ -198,6 +198,17 @@ a {
   outline-offset: 2px;
 }
 
+/* Text for screen readers only (e.g. the action on a card-sized link) */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Skip-to-content link (WCAG 2.4.1 bypass blocks) — visually hidden
  * until keyboard-focused, then shown above the sticky nav. */
 .skipLink {
