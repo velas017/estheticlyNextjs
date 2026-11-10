@@ -69,7 +69,7 @@ src/
 │   │   ├── ServicesGrid/       # Service cards linking to /book-now
 │   │   ├── AboutStrip/         # Bio card with portrait
 │   │   ├── ShopBanner/         # GlyMed Plus storefront CTA banner
-│   │   ├── GalleryRow/         # 5-image mosaic (desktop) + swipe carousel (mobile)
+│   │   ├── GalleryRow/         # Featured tile + 5-image mosaic (desktop), swipe carousel (mobile)
 │   │   ├── FAQAccordion/       # <details>/<summary> accordion
 │   │   ├── ContactGrid/        # Contact info + hours card
 │   │   ├── CareGrid/           # Numbered card grid (Prep / Aftercare)
@@ -123,7 +123,7 @@ export const services: Service[] = [
 
 ### `about.ts`
 
-Exports: `aboutHeadline`, `bioParagraphs` (3 strings), `purpose`, `signatureQuote`, `certifications`, `aboutStats` (rendered in the Hero).
+Exports: `bioParagraphs` (3 strings) and `signatureQuote` (AboutStrip), `aboutStats` (Hero). `aboutHeadline`, `purpose`, and `certifications` are exported but not rendered anywhere.
 
 ### `contact.ts`
 
@@ -162,11 +162,11 @@ Array of `{ id, question, answer, link? }` consumed by `FAQAccordion`. `link` is
 
 ### `prep.ts`
 
-`prepGroups: { id, segmentLabel, title, items: string[] }[]` — mapped to numbered `CareGrid` cards on `/prep`.
+`prepGroups: { id, segmentLabel, title, items: string[] }[]` — mapped to numbered `CareGrid` cards on `/prep` (`segmentLabel` is not rendered).
 
 ### `aftercare.ts`
 
-Exports `first72Hours` (items with `id`, `tone`, `label`), `cadence`, `makeupNotice`, `aftercareIntro`. The `/aftercare` page assembles these into two `CareGrid` cards.
+Exports `first72Hours` (items with `id`, `tone`, `label`), `cadence`, `makeupNotice`, `aftercareIntro`. The `/aftercare` page assembles these into two `CareGrid` cards; it uses the `label`, `cadence.body`, and `makeupNotice.body` fields, and two of the second card's lines are written in the page itself.
 
 ### Copy that is still hardcoded
 
@@ -216,7 +216,7 @@ Every page exports its own `metadata` via `pageMetadata({ title, description, pa
 2. `<ServicesGrid />` — 3 service cards → `/book-now`
 3. `<AboutStrip />` — first 2 bio paragraphs + signature quote
 4. `<ShopBanner />` — GlyMed Plus storefront CTA
-5. `<GalleryRow />` — 5 photos
+5. `<GalleryRow />` — 6 photos
 6. FAQ section — `<SectionHeader />` + `<FAQAccordion />`
 7. `<ContactGrid />` — contact info + hours
 
@@ -298,7 +298,7 @@ No props. h1, lead, two CTAs ("Book your facial" → `/book-now`, "View services
 
 ### `ServicesGrid`
 
-No props. Reads `services`. Each card is a `<Link href="/book-now">` showing duration, name (h3), description, price, and an arrow in a round chip that fills on hover. The section has `id="services"` and a `scroll-margin-top` so the hero link lands clear of the sticky nav.
+No props. Reads `services`. Each card is a `<Link href="/book-now">` showing duration, name (h3), description, price, and an arrow in a round chip that fills on hover. The link has no `aria-label`, so its accessible name is the card text (screen readers hear the duration, description, and price) followed by a visually hidden "Book now". The section has `id="services"` and a `scroll-margin-top` so the hero link lands clear of the sticky nav.
 
 ### `AboutStrip`
 
@@ -315,10 +315,12 @@ No props. Dark brand band (`--tint-deep` → `--tint-ink` gradient) with white h
 
 ### `GalleryRow`
 
-**Desktop (≥768px):** CSS Grid mosaic — 1 featured image + 2 stacks of 2.
-**Mobile (<768px):** grid hidden; `.mobileStrip` scroll-snap carousel with `85vw` slides.
+No props. Six images, hardcoded in a `cells` array with their alt text; the first is the featured image.
 
-Images (hardcoded): `facial.jpg`, `handsOn2.jpg`, `brows2.jpg`, `IMG_1500.jpg`, `IMG_1593.jpeg`.
+**Desktop (≥768px):** two-column grid (`2fr 3fr`, 440px tall, 640px at ≥1024px). The featured tile fills the left column; the other five form a mosaic on the right — three portrait tiles on top, two wider tiles below. Images zoom slightly on hover (pointer devices only).
+**Mobile (<768px):** grid hidden; `.mobileStrip` scroll-snap carousel of all six at 3:4, each slide `85vw − 24px` wide.
+
+Images, in order: `before-after-acne-cheek.jpg` (featured), `before-after-forehead.jpg`, `led-light-therapy.jpg`, `brows2.jpg`, `IMG_1500.jpg`, `IMG_1593.jpeg`.
 
 ### `FAQAccordion`
 
@@ -334,7 +336,7 @@ Props: `as?: 'h1' | 'h2'`. Reads `contact`, `hours`, `hoursNote`. Inline SVG ico
 
 ### `Footer`
 
-Brand column plus three link columns: Services (→ `/book-now`, plus external Shop Products), Visit (internal pages), Connect (Instagram, Facebook, email, phone). Copyright year is computed at render.
+Brand column plus three link columns: Services (→ `/book-now`, plus external Shop Products), Visit (internal pages), Connect (Instagram, Facebook, email, phone). The copyright year comes from `new Date()` in a statically rendered component, so it is fixed at build time and updates on the next deploy.
 
 ### `MidBanner`
 
@@ -345,9 +347,10 @@ Props: `before`, `accent`, `body?`. Currently not used on any page.
 Props: `owner: string`, `accepted: boolean`, `className?`.
 
 - Returns `null` if `accepted` is false
-- iframe `scrolling="no"`; height set from `postMessage` events whose origin is `https://app.acuityscheduling.com` (`height` or `frameHeight`), so the page grows with the iframe and there is no nested scroll
+- iframe `scrolling="no"` with a `min-height` of 800px; the page grows with the iframe, so there is no nested scroll
+- Loads `embed.acuityscheduling.com/js/embed.js` via `next/script` (`afterInteractive`). **This script does the resizing:** Acuity posts `sizing:<px>` string messages and `embed.js` sets the iframe height from them.
+- The component also registers its own origin-checked `message` listener that reads `height` / `frameHeight` from JSON or object messages. Acuity's `sizing:` strings are not JSON, so this listener currently never changes the height — do not remove `embed.js` on the assumption that the component resizes itself.
 - Skeleton shimmer until the iframe's `onLoad`
-- Loads `embed.acuityscheduling.com/js/embed.js` via `next/script` (`afterInteractive`)
 
 Full-bleed wrapper in `book-now/page.module.css`:
 ```css
@@ -378,15 +381,16 @@ Floating "Review us on Google" pill linking to the business's Google review URL.
 |------|---------|
 | `IMG_6201.jpeg` | Hero; Open Graph / Twitter / JSON-LD image |
 | `amyPortait2.jpg` | AboutStrip |
-| `facial.jpg` | GalleryRow (featured) |
-| `handsOn2.jpg` | GalleryRow |
+| `before-after-acne-cheek.jpg` | GalleryRow (featured) |
+| `before-after-forehead.jpg` | GalleryRow |
+| `led-light-therapy.jpg` | GalleryRow |
 | `brows2.jpg` | GalleryRow |
 | `IMG_1500.jpg` | GalleryRow |
 | `IMG_1593.jpeg` | GalleryRow |
 | `estheticlyEgiftcard.png` | Gift Cards page |
 | `DSC08632.jpeg`, `amy@work.png`, `amyPortait.jpg`, `brows3.jpg` | Unused |
 
-All images render through `next/image`.
+All images render through `next/image`. The share image path is set in `src/lib/pageMetadata.ts`; the JSON-LD image in `layout.tsx`.
 
 ---
 
@@ -396,7 +400,7 @@ All images render through `next/image`.
 
 - Embed URL: `https://app.acuityscheduling.com/schedule.php?owner={owner}&ref=embedded_csp`
 - Script: `https://embed.acuityscheduling.com/js/embed.js`
-- Height auto-resize via `window.postMessage`
+- Height auto-resize: `embed.js` handles Acuity's `sizing:<px>` postMessage events
 - Owner ID: `30825696`
 
 ### Square Gift Cards
@@ -454,7 +458,7 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 | `--container-*`, `--screen-*` | Container widths/padding; breakpoint reference values (documentation only — custom properties can't be used in media queries) |
 | `--transition-fast/base/slow` | Transitions |
 
-**Global rules:** `overflow-x: clip` on `html`/`body` (with `hidden` fallback — `hidden` alone makes `<body>` a scroll container and breaks the sticky TopNav), `text-wrap: pretty` on headings and paragraphs, `interpolate-size: allow-keywords` for animated `<details>`, `color-scheme: light` (no dark mode), `*:focus-visible` outline, `.skipLink`, and a `prefers-reduced-motion: reduce` block that disables animations and smooth scrolling.
+**Global rules:** `overflow-x: clip` on `html`/`body` (with `hidden` fallback — `hidden` alone makes `<body>` a scroll container and breaks the sticky TopNav), `text-wrap: pretty` on headings and paragraphs, `interpolate-size: allow-keywords` for animated `<details>`, `color-scheme: light` (no dark mode), `*:focus-visible` outline, `.skipLink`, `.visuallyHidden` (screen-reader-only text), and a `prefers-reduced-motion: reduce` block that disables animations and smooth scrolling.
 
 **Section layout pattern:**
 ```css
@@ -472,9 +476,11 @@ All tokens live in `:root` in `src/app/globals.css`. Component CSS modules refer
 
 | Query | Use |
 |-------|-----|
+| `max-width: 479.98px` | Hero: CTAs stack full-width |
 | `min-width: 640px` | ServicesGrid 2-column step |
 | `min-width: 768px` | Tablet+ layout, padding, type scale (most common) |
-| `max-width: 767.98px` | Mobile-only rules (e.g. GalleryRow carousel) |
+| `max-width: 767.98px` | Mobile-only rules (GalleryRow carousel, MobileBookBar) |
+| `max-width: 768px` | GoogleReviewBadge compact (icon-only) layout and lift above the book bar |
 | `min-width: 1024px` | Desktop layout (TopNav full links, wider grids) |
 | `min-width: 1024px` and `max-width: 1199.98px` | TopNav only: tighter link padding so the link row fits on one line |
 | `1280px` | Max content width |
@@ -497,7 +503,8 @@ ComponentName/
 
 **Accessibility (WCAG 2.2 AA)**
 - One `<h1>` per page; logical heading order below it.
-- External links: `target="_blank" rel="noopener noreferrer"` plus an `aria-label` ending in "(opens in new tab)".
+- External links: `target="_blank" rel="noopener noreferrer"` plus an `aria-label` ending in "(opens in new tab)". The label must contain the link's visible text so voice-control users can target it.
+- Card-sized links (ServicesGrid) take no `aria-label`; their content is the accessible name, with the action added through `.visuallyHidden` text.
 - Decorative glyphs/icons get `aria-hidden="true"`.
 - Brand-color contrast rules above.
 
@@ -513,7 +520,7 @@ ComponentName/
 - [ ] Create `src/content/` and populate the 6 content files with the new business's data
 - [ ] Build components: `DisplaySerif` → `SectionHeader` → marketing components → pages
 - [ ] Build `TopNav` with `usePathname()` active state and mobile drawer
-- [ ] Build `AcuityScheduler` with `scrolling="no"` and origin-checked postMessage resize
+- [ ] Build `AcuityScheduler` with `scrolling="no"` and Acuity's `embed.js` for height resizing
 - [ ] Wire `BookDesktop`: policies accordion + checkbox gate + full-bleed `.scheduler`
 - [ ] Replace Acuity owner ID (`30825696`), Square URL, `shopUrl`, and Google review URL
 - [ ] Replace images in `public/Images/`
