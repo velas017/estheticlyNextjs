@@ -6,9 +6,19 @@
   -webkit-backdrop-filter: saturate(180%) blur(18px);
   backdrop-filter: saturate(180%) blur(18px);
   border-bottom: 1px solid var(--border-warm);
+  /* Column flex capped at the viewport height: when the open mobile drawer
+   * is taller than the screen (landscape phones, small phones with browser
+   * bars showing) the drawer shrinks and scrolls instead of running off the
+   * bottom, where a sticky header can never be scrolled into view. */
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  max-height: 100dvh;
 }
 
 .inner {
+  flex: none;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
@@ -174,6 +184,8 @@
  * order; it flips only after the collapse transition ends. */
 .drawer {
   display: block;
+  flex: 0 1 auto;
+  min-height: 0;
   max-height: 0;
   overflow: hidden;
   visibility: hidden;
@@ -185,6 +197,8 @@
 .drawerOpen {
   max-height: 640px;
   visibility: visible;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drawerNav {
