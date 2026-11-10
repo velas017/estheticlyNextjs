@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import DisplaySerif from '@/components/ui/DisplaySerif'
+import { pageMetadata } from '@/lib/pageMetadata'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Gift Cards | EstheticLY Skincare',
   description:
     'Give the gift of professional skincare with EstheticLY e-gift cards.',
-}
+  path: '/gift-cards',
+})
 
 const GiftCardsDesktop = () => (
   <section className={styles.section}>

@@ -1,15 +1,16 @@
-import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import FAQAccordion from '@/components/marketing/FAQAccordion'
 import DisplaySerif from '@/components/ui/DisplaySerif'
 import { contact } from '@/content/contact'
+import { pageMetadata } from '@/lib/pageMetadata'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'FAQ | EstheticLY Skincare',
   description:
     'Frequently asked questions about facial treatments, skincare products, and services at EstheticLY in Charlotte, NC.',
-}
+  path: '/learn-more',
+})
 
 const FAQDesktop = () => (
   <section className={styles.section} id="faq">

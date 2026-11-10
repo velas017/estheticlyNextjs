@@ -1,15 +1,16 @@
-import type { Metadata } from 'next'
 import SectionHeader from '@/components/marketing/SectionHeader'
 import CareGrid from '@/components/marketing/CareGrid'
 import DisplaySerif from '@/components/ui/DisplaySerif'
 import { prepGroups } from '@/content/prep'
+import { pageMetadata } from '@/lib/pageMetadata'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Prep | EstheticLY Skincare',
   description:
     'Essential preparation tips for your facial appointment at EstheticLY. Learn what to expect and how to prepare for your treatment.',
-}
+  path: '/prep',
+})
 
 const numerals = ['01', '02', '03', '04', '05']
 
