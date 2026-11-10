@@ -228,3 +228,10 @@
   .mobileActions { display: none; }
   .drawer { display: none; }
 }
+
+/* The full link row needs about 1032px. On narrower desktops (iPad landscape
+ * is exactly 1024px) tighten the link padding so "Gift Cards" and "Book Now"
+ * stay on one line instead of wrapping and growing the header. */
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .link { padding: 8px 10px; }
+}
